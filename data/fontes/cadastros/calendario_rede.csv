@@ -1,0 +1,366 @@
+data,situacao,fator_salas
+2025-11-01,Fim de semana,0.0
+2025-11-02,Fim de semana,0.0
+2025-11-03,Aberto,1.0
+2025-11-04,Aberto,1.0
+2025-11-05,Aberto,1.0
+2025-11-06,Aberto,1.0
+2025-11-07,Aberto,1.0
+2025-11-08,Fim de semana,0.0
+2025-11-09,Fim de semana,0.0
+2025-11-10,Aberto,1.0
+2025-11-11,Aberto,1.0
+2025-11-12,Aberto,1.0
+2025-11-13,Aberto,1.0
+2025-11-14,Aberto,1.0
+2025-11-15,Fim de semana,0.0
+2025-11-16,Fim de semana,0.0
+2025-11-17,Aberto,1.0
+2025-11-18,Aberto,1.0
+2025-11-19,Aberto,1.0
+2025-11-20,Feriado: Dia da Consciência Negra,0.0
+2025-11-21,Aberto,1.0
+2025-11-22,Fim de semana,0.0
+2025-11-23,Fim de semana,0.0
+2025-11-24,Aberto,1.0
+2025-11-25,Aberto,1.0
+2025-11-26,Aberto,1.0
+2025-11-27,Aberto,1.0
+2025-11-28,Aberto,1.0
+2025-11-29,Fim de semana,0.0
+2025-11-30,Fim de semana,0.0
+2025-12-01,Aberto,1.0
+2025-12-02,Aberto,1.0
+2025-12-03,Aberto,1.0
+2025-12-04,Aberto,1.0
+2025-12-05,Aberto,1.0
+2025-12-06,Fim de semana,0.0
+2025-12-07,Fim de semana,0.0
+2025-12-08,Aberto,1.0
+2025-12-09,Aberto,1.0
+2025-12-10,Aberto,1.0
+2025-12-11,Aberto,1.0
+2025-12-12,Aberto,1.0
+2025-12-13,Fim de semana,0.0
+2025-12-14,Fim de semana,0.0
+2025-12-15,Aberto,1.0
+2025-12-16,Aberto,1.0
+2025-12-17,Aberto,1.0
+2025-12-18,Aberto,1.0
+2025-12-19,Aberto,1.0
+2025-12-20,Fim de semana,0.0
+2025-12-21,Fim de semana,0.0
+2025-12-22,Recesso acadêmico,0.0
+2025-12-23,Recesso acadêmico,0.0
+2025-12-24,Recesso acadêmico,0.0
+2025-12-25,Feriado: Natal,0.0
+2025-12-26,Recesso acadêmico,0.0
+2025-12-27,Fim de semana,0.0
+2025-12-28,Fim de semana,0.0
+2025-12-29,Recesso acadêmico,0.0
+2025-12-30,Recesso acadêmico,0.0
+2025-12-31,Recesso acadêmico,0.0
+2026-01-01,Feriado: Confraternização Universal,0.0
+2026-01-02,Recesso acadêmico,0.0
+2026-01-03,Fim de semana,0.0
+2026-01-04,Fim de semana,0.0
+2026-01-05,Recesso acadêmico,0.0
+2026-01-06,Recesso acadêmico,0.0
+2026-01-07,Recesso acadêmico,0.0
+2026-01-08,Recesso acadêmico,0.0
+2026-01-09,Recesso acadêmico,0.0
+2026-01-10,Fim de semana,0.0
+2026-01-11,Fim de semana,0.0
+2026-01-12,Recesso acadêmico,0.0
+2026-01-13,Recesso acadêmico,0.0
+2026-01-14,Recesso acadêmico,0.0
+2026-01-15,Recesso acadêmico,0.0
+2026-01-16,Recesso acadêmico,0.0
+2026-01-17,Fim de semana,0.0
+2026-01-18,Fim de semana,0.0
+2026-01-19,Recesso acadêmico,0.0
+2026-01-20,Recesso acadêmico,0.0
+2026-01-21,Recesso acadêmico,0.0
+2026-01-22,Recesso acadêmico,0.0
+2026-01-23,Recesso acadêmico,0.0
+2026-01-24,Fim de semana,0.0
+2026-01-25,Fim de semana,0.0
+2026-01-26,Recesso acadêmico,0.0
+2026-01-27,Recesso acadêmico,0.0
+2026-01-28,Recesso acadêmico,0.0
+2026-01-29,Recesso acadêmico,0.0
+2026-01-30,Recesso acadêmico,0.0
+2026-01-31,Fim de semana,0.0
+2026-02-01,Fim de semana,0.0
+2026-02-02,Aberto,1.0
+2026-02-03,Aberto,1.0
+2026-02-04,Aberto,1.0
+2026-02-05,Aberto,1.0
+2026-02-06,Aberto,1.0
+2026-02-07,Fim de semana,0.0
+2026-02-08,Fim de semana,0.0
+2026-02-09,Aberto,1.0
+2026-02-10,Aberto,1.0
+2026-02-11,Aberto,1.0
+2026-02-12,Aberto,1.0
+2026-02-13,Aberto,1.0
+2026-02-14,Fim de semana,0.0
+2026-02-15,Fim de semana,0.0
+2026-02-16,Feriado: Carnaval,0.0
+2026-02-17,Feriado: Carnaval,0.0
+2026-02-18,Aberto,1.0
+2026-02-19,Aberto,1.0
+2026-02-20,Aberto,1.0
+2026-02-21,Fim de semana,0.0
+2026-02-22,Fim de semana,0.0
+2026-02-23,Aberto,1.0
+2026-02-24,Aberto,1.0
+2026-02-25,Aberto,1.0
+2026-02-26,Aberto,1.0
+2026-02-27,Aberto,1.0
+2026-02-28,Fim de semana,0.0
+2026-03-01,Fim de semana,0.0
+2026-03-02,Aberto,1.0
+2026-03-03,Aberto,1.0
+2026-03-04,Aberto,1.0
+2026-03-05,Aberto,1.0
+2026-03-06,Aberto,1.0
+2026-03-07,Fim de semana,0.0
+2026-03-08,Fim de semana,0.0
+2026-03-09,Aberto,1.0
+2026-03-10,Aberto,1.0
+2026-03-11,Aberto,1.0
+2026-03-12,Aberto,1.0
+2026-03-13,Aberto,1.0
+2026-03-14,Fim de semana,0.0
+2026-03-15,Fim de semana,0.0
+2026-03-16,Aberto,1.0
+2026-03-17,Aberto,1.0
+2026-03-18,Aberto,1.0
+2026-03-19,Aberto,1.0
+2026-03-20,Aberto,1.0
+2026-03-21,Fim de semana,0.0
+2026-03-22,Fim de semana,0.0
+2026-03-23,Aberto,1.0
+2026-03-24,Aberto,1.0
+2026-03-25,Aberto,1.0
+2026-03-26,Aberto,1.0
+2026-03-27,Aberto,1.0
+2026-03-28,Fim de semana,0.0
+2026-03-29,Fim de semana,0.0
+2026-03-30,Aberto,1.0
+2026-03-31,Aberto,1.0
+2026-04-01,Aberto,1.0
+2026-04-02,Aberto,1.0
+2026-04-03,Feriado: Sexta-feira Santa,0.0
+2026-04-04,Fim de semana,0.0
+2026-04-05,Fim de semana,0.0
+2026-04-06,Aberto,1.0
+2026-04-07,Aberto,1.0
+2026-04-08,Aberto,1.0
+2026-04-09,Aberto,1.0
+2026-04-10,Aberto,1.0
+2026-04-11,Fim de semana,0.0
+2026-04-12,Fim de semana,0.0
+2026-04-13,Aberto,1.0
+2026-04-14,Aberto,1.0
+2026-04-15,Aberto,1.0
+2026-04-16,Aberto,1.0
+2026-04-17,Aberto,1.0
+2026-04-18,Fim de semana,0.0
+2026-04-19,Fim de semana,0.0
+2026-04-20,Aberto,1.0
+2026-04-21,Feriado: Tiradentes,0.0
+2026-04-22,Aberto,1.0
+2026-04-23,Aberto,1.0
+2026-04-24,Aberto,1.0
+2026-04-25,Fim de semana,0.0
+2026-04-26,Fim de semana,0.0
+2026-04-27,Aberto,1.0
+2026-04-28,Aberto,1.0
+2026-04-29,Aberto,1.0
+2026-04-30,Aberto,1.0
+2026-05-01,Feriado: Dia do Trabalho,0.0
+2026-05-02,Fim de semana,0.0
+2026-05-03,Fim de semana,0.0
+2026-05-04,Aberto,1.0
+2026-05-05,Aberto,1.0
+2026-05-06,Aberto,1.0
+2026-05-07,Aberto,1.0
+2026-05-08,Aberto,1.0
+2026-05-09,Fim de semana,0.0
+2026-05-10,Fim de semana,0.0
+2026-05-11,Aberto,1.0
+2026-05-12,Aberto,1.0
+2026-05-13,Aberto,1.0
+2026-05-14,Aberto,1.0
+2026-05-15,Aberto,1.0
+2026-05-16,Fim de semana,0.0
+2026-05-17,Fim de semana,0.0
+2026-05-18,Aberto,1.0
+2026-05-19,Aberto,1.0
+2026-05-20,Aberto,1.0
+2026-05-21,Aberto,1.0
+2026-05-22,Aberto,1.0
+2026-05-23,Fim de semana,0.0
+2026-05-24,Fim de semana,0.0
+2026-05-25,Aberto,1.0
+2026-05-26,Aberto,1.0
+2026-05-27,Aberto,1.0
+2026-05-28,Aberto,1.0
+2026-05-29,Aberto,1.0
+2026-05-30,Fim de semana,0.0
+2026-05-31,Fim de semana,0.0
+2026-06-01,Aberto,1.0
+2026-06-02,Aberto,1.0
+2026-06-03,Aberto,1.0
+2026-06-04,Feriado: Corpus Christi,0.0
+2026-06-05,Aberto,1.0
+2026-06-06,Fim de semana,0.0
+2026-06-07,Fim de semana,0.0
+2026-06-08,Aberto,1.0
+2026-06-09,Aberto,1.0
+2026-06-10,Aberto,1.0
+2026-06-11,Aberto,1.0
+2026-06-12,Aberto,1.0
+2026-06-13,Fim de semana,0.0
+2026-06-14,Fim de semana,0.0
+2026-06-15,Aberto,1.0
+2026-06-16,Aberto,1.0
+2026-06-17,Aberto,1.0
+2026-06-18,Aberto,1.0
+2026-06-19,Aberto,1.0
+2026-06-20,Fim de semana,0.0
+2026-06-21,Fim de semana,0.0
+2026-06-22,Aberto,1.0
+2026-06-23,Aberto,1.0
+2026-06-24,Feriado: São João,0.0
+2026-06-25,Aberto,1.0
+2026-06-26,Aberto,1.0
+2026-06-27,Fim de semana,0.0
+2026-06-28,Fim de semana,0.0
+2026-06-29,Aberto,1.0
+2026-06-30,Aberto,1.0
+2026-07-01,Aberto,1.0
+2026-07-02,Aberto,1.0
+2026-07-03,Aberto,1.0
+2026-07-04,Fim de semana,0.0
+2026-07-05,Fim de semana,0.0
+2026-07-06,Plantão de férias,0.5
+2026-07-07,Plantão de férias,0.5
+2026-07-08,Plantão de férias,0.5
+2026-07-09,Plantão de férias,0.5
+2026-07-10,Plantão de férias,0.5
+2026-07-11,Fim de semana,0.0
+2026-07-12,Fim de semana,0.0
+2026-07-13,Plantão de férias,0.5
+2026-07-14,Plantão de férias,0.5
+2026-07-15,Plantão de férias,0.5
+2026-07-16,Plantão de férias,0.5
+2026-07-17,Plantão de férias,0.5
+2026-07-18,Fim de semana,0.0
+2026-07-19,Fim de semana,0.0
+2026-07-20,Plantão de férias,0.5
+2026-07-21,Plantão de férias,0.5
+2026-07-22,Plantão de férias,0.5
+2026-07-23,Plantão de férias,0.5
+2026-07-24,Plantão de férias,0.5
+2026-07-25,Fim de semana,0.0
+2026-07-26,Fim de semana,0.0
+2026-07-27,Plantão de férias,0.5
+2026-07-28,Plantão de férias,0.5
+2026-07-29,Plantão de férias,0.5
+2026-07-30,Plantão de férias,0.5
+2026-07-31,Plantão de férias,0.5
+2026-08-01,Fim de semana,0.0
+2026-08-02,Fim de semana,0.0
+2026-08-03,Aberto,1.0
+2026-08-04,Aberto,1.0
+2026-08-05,Aberto,1.0
+2026-08-06,Aberto,1.0
+2026-08-07,Aberto,1.0
+2026-08-08,Fim de semana,0.0
+2026-08-09,Fim de semana,0.0
+2026-08-10,Aberto,1.0
+2026-08-11,Aberto,1.0
+2026-08-12,Aberto,1.0
+2026-08-13,Aberto,1.0
+2026-08-14,Aberto,1.0
+2026-08-15,Fim de semana,0.0
+2026-08-16,Fim de semana,0.0
+2026-08-17,Aberto,1.0
+2026-08-18,Aberto,1.0
+2026-08-19,Aberto,1.0
+2026-08-20,Aberto,1.0
+2026-08-21,Aberto,1.0
+2026-08-22,Fim de semana,0.0
+2026-08-23,Fim de semana,0.0
+2026-08-24,Aberto,1.0
+2026-08-25,Aberto,1.0
+2026-08-26,Aberto,1.0
+2026-08-27,Aberto,1.0
+2026-08-28,Aberto,1.0
+2026-08-29,Fim de semana,0.0
+2026-08-30,Fim de semana,0.0
+2026-08-31,Aberto,1.0
+2026-09-01,Aberto,1.0
+2026-09-02,Aberto,1.0
+2026-09-03,Aberto,1.0
+2026-09-04,Aberto,1.0
+2026-09-05,Fim de semana,0.0
+2026-09-06,Fim de semana,0.0
+2026-09-07,Feriado: Independência,0.0
+2026-09-08,Aberto,1.0
+2026-09-09,Aberto,1.0
+2026-09-10,Aberto,1.0
+2026-09-11,Aberto,1.0
+2026-09-12,Fim de semana,0.0
+2026-09-13,Fim de semana,0.0
+2026-09-14,Aberto,1.0
+2026-09-15,Aberto,1.0
+2026-09-16,Aberto,1.0
+2026-09-17,Aberto,1.0
+2026-09-18,Aberto,1.0
+2026-09-19,Fim de semana,0.0
+2026-09-20,Fim de semana,0.0
+2026-09-21,Aberto,1.0
+2026-09-22,Aberto,1.0
+2026-09-23,Aberto,1.0
+2026-09-24,Aberto,1.0
+2026-09-25,Aberto,1.0
+2026-09-26,Fim de semana,0.0
+2026-09-27,Fim de semana,0.0
+2026-09-28,Aberto,1.0
+2026-09-29,Aberto,1.0
+2026-09-30,Aberto,1.0
+2026-10-01,Aberto,1.0
+2026-10-02,Aberto,1.0
+2026-10-03,Fim de semana,0.0
+2026-10-04,Fim de semana,0.0
+2026-10-05,Aberto,1.0
+2026-10-06,Aberto,1.0
+2026-10-07,Aberto,1.0
+2026-10-08,Aberto,1.0
+2026-10-09,Aberto,1.0
+2026-10-10,Fim de semana,0.0
+2026-10-11,Fim de semana,0.0
+2026-10-12,Feriado: Nossa Senhora Aparecida,0.0
+2026-10-13,Aberto,1.0
+2026-10-14,Aberto,1.0
+2026-10-15,Aberto,1.0
+2026-10-16,Aberto,1.0
+2026-10-17,Fim de semana,0.0
+2026-10-18,Fim de semana,0.0
+2026-10-19,Aberto,1.0
+2026-10-20,Aberto,1.0
+2026-10-21,Aberto,1.0
+2026-10-22,Aberto,1.0
+2026-10-23,Aberto,1.0
+2026-10-24,Fim de semana,0.0
+2026-10-25,Fim de semana,0.0
+2026-10-26,Aberto,1.0
+2026-10-27,Aberto,1.0
+2026-10-28,Aberto,1.0
+2026-10-29,Aberto,1.0
+2026-10-30,Aberto,1.0
+2026-10-31,Fim de semana,0.0

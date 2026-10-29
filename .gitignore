@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+CLAUDE.md
+docs/APRENDIZADO.md
+*.pbix
+powerbi/*.Report/.pbi/localSettings.json
+powerbi/*.SemanticModel/.pbi/localSettings.json
+powerbi/*.SemanticModel/.pbi/cache.abf
+data/verdade/

@@ -1,0 +1,67 @@
+{
+  "rede": "Rede Acolher de Clínicas-Escola",
+  "aviso": "Dados 100% fictícios, gerados por simulação. Não representam nenhuma instituição real.",
+  "semente": 20261103,
+  "periodo": [
+    "2025-11-01",
+    "2026-10-31"
+  ],
+  "semestres": [
+    "2025.2",
+    "2026.1",
+    "2026.2"
+  ],
+  "agendamentos_reais": 70679,
+  "pacientes": 15153,
+  "problemas_plantados": {
+    "P03_situacao_escrita_diferente": 29943,
+    "P04_data_como_texto": 5274,
+    "P05_horario_como_texto": 9393,
+    "P06_nome_paciente_variante": 3511,
+    "P07_prontuario_vazio": 2200,
+    "P08_linhas_duplicadas": 566,
+    "P09_linhas_de_total": 55,
+    "P10_linhas_em_branco": 158,
+    "P11_nome_aluno_variante": 3804,
+    "P12_ano_digitado_errado": 107,
+    "P13_conflito_horario_aluno": 69,
+    "P13b_tipo_em_branco": 2992,
+    "P14_unidade_ou_servico_escrito_diferente": 12592,
+    "P15_primeira_consulta_antes_da_inscricao": 50,
+    "P01_linhas_repetidas_entre_meses": 830,
+    "P02_arquivos_com_coluna_CANAL": 6
+  },
+  "padroes_plantados": {
+    "I1": "Faltas maiores na segunda de manhã e na sexta à tarde; Psicologia é o serviço com mais faltas.",
+    "I2": "Olinda/Fisioterapia marca primeira consulta só às segundas e quartas e não consegue contato com 40% da fila: agenda ociosa e espera longa ao mesmo tempo.",
+    "I3": "Recesso (dez-jan) e plantão de julho: atendimentos caem e a espera de quem entra na fila sobe.",
+    "I4": "Cada falta é uma hora de prática a menos para o aluno.",
+    "I5": "12% dos pacientes têm propensão 3,2 vezes maior a faltar e concentram boa parte das faltas.",
+    "I6": "Quanto mais o paciente esperou na fila, maior a chance de faltar à primeira consulta.",
+    "I7": "Recife (Odontologia e Psicologia) com procura acima da capacidade: a fila não zera."
+  },
+  "arquivos": {
+    "cadastros/alunos.csv": "64043cb56cef4f5f9cf2f91bc8f226691e979e8846b55bbc373f968550e66467",
+    "cadastros/calendario_rede.csv": "417a875e7114090fc85659b4e2133d8fe8787a3c7c471c7ae414dd755223b11e",
+    "cadastros/grade_horarios.csv": "ea2721c95ec09a1b64395c87848d848b6a3171be3f4c5620e05a36dcf2db7abc",
+    "cadastros/pacientes.csv": "fd10b73dc6658252f9654326259fd0cb23eb35503252fc99191d40a9a1906a33",
+    "cadastros/supervisores.csv": "c42a2e21e475a09a22fdda542bf19a300f7452a6c746c6f6b30788b3e23f53b3",
+    "Fila de espera - Recepção.xlsx": "4b71228d5ae73bf1b648d56fe24c01203aad55fe63aace2c550ea5037df4421a",
+    "planilhas/Nutrição - Jaboatão.xlsx": "be33f529b46880364694f67c7eb55b1d9486c343d1b5eed7eac7e8e113b04974",
+    "planilhas/Nutrição - Recife.xlsx": "5f17a827db9eafbfdc8b62ade95c56433a5b9a2428c6eb5af805855607a35380",
+    "planilhas/Psicologia - Jaboatão.xlsx": "21efc6b0998d57e6561277f14266c8e38e5435de275cead322e10af119f8c231",
+    "planilhas/Psicologia - Olinda.xlsx": "99c81eac35ff728be209e5e6ce21b9bd32f86c5c1a3536da27ee4208180eca19",
+    "planilhas/Psicologia - Recife.xlsx": "beb647d2a56110c684ffcdcfe5a5b9b7cf6d92f59cc4f2d89f124af32e5cb646",
+    "sistema/agendamentos_2025-11.csv": "f1be844a85addd8ecd1624d481cafa437aceea7e52146a6a30fb546c8db5930a",
+    "sistema/agendamentos_2025-12.csv": "be5327d81b6d2d91f8d51ec7e5d3779b5db82b3b441788315ac10fd173595470",
+    "sistema/agendamentos_2026-02.csv": "ba2b8fc213269c1ede33ea97d7c40f6ee6fe770d8391ce576544f6c6564cc021",
+    "sistema/agendamentos_2026-03.csv": "23e48d528ffafa9528d5164d4d81e5bbbe829ae113cf44e341c77007df82b085",
+    "sistema/agendamentos_2026-04.csv": "f22db0ee68e97fe63f022e6bbfa663021c04f09f34b802a5ec29bd31841d004c",
+    "sistema/agendamentos_2026-05.csv": "1f0a99e56d9668a9dfa20b7ac58d4d5d47e40f26f608546baea90128c19f2a0e",
+    "sistema/agendamentos_2026-06.csv": "86efafe2163ddcaecdaf5c483bbfd8d16ae59c11eae850735e882bd686f2d114",
+    "sistema/agendamentos_2026-07.csv": "48ec093efe433459698e9df55a9795971a56e375c27505f0475e3950883249d8",
+    "sistema/agendamentos_2026-08.csv": "25d44a46bb69736f439aceff68da310f3e89e8d717d4db34ba8ffc4f985ff6fd",
+    "sistema/agendamentos_2026-09.csv": "0de67decd6a773e2ab22d69dd9eea608fe65a699259c69cd17ec711d8b56b4aa",
+    "sistema/agendamentos_2026-10.csv": "3b8641d04ed5f6a0971a002bb45849c8181f55b478cb9da829db57bae7984dad"
+  }
+}

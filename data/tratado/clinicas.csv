@@ -1,0 +1,11 @@
+unidade,servico,salas,duracao_min,unidade_nome,servico_nome,clinica,origem_dados
+JAB,NUT,3,60,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão,Planilha
+JAB,ODO,6,120,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão,Sistema
+JAB,PSI,5,60,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão,Planilha
+OLI,FIS,6,60,Olinda,Fisioterapia,Fisioterapia · Olinda,Sistema
+OLI,ODO,6,120,Olinda,Odontologia,Odontologia · Olinda,Sistema
+OLI,PSI,5,60,Olinda,Psicologia,Psicologia · Olinda,Planilha
+REC,FIS,8,60,Recife,Fisioterapia,Fisioterapia · Recife,Sistema
+REC,NUT,4,60,Recife,Nutrição,Nutrição · Recife,Planilha
+REC,ODO,10,120,Recife,Odontologia,Odontologia · Recife,Sistema
+REC,PSI,8,60,Recife,Psicologia,Psicologia · Recife,Planilha

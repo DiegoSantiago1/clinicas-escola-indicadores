@@ -1,0 +1,607 @@
+{
+ "aviso": "Dados 100% fictícios, gerados por simulação para demonstrar o método.",
+ "periodo": [
+  "2025-11-01",
+  "2026-10-31"
+ ],
+ "geral": {
+  "agendamentos": 70679,
+  "realizados": 53582,
+  "faltas": 13683,
+  "cancelados_paciente": 2865,
+  "cancelados_clinica": 549,
+  "taxa_faltas": 0.2034,
+  "ofertados": 83760,
+  "ocupacao": 0.8438,
+  "aproveitamento": 0.6397,
+  "horas_pratica": 66505.0,
+  "horas_perdidas_faltas": 16515.0,
+  "pacientes": 14468,
+  "fila_aguardando_fim": 469,
+  "espera_mediana_dias": 7.0,
+  "unidades": 3,
+  "clinicas": 10
+ },
+ "por_clinica": [
+  {
+   "unidade": "JAB",
+   "servico": "NUT",
+   "clinica": "Nutrição · Jaboatão",
+   "agendamentos": 4060,
+   "realizados": 3152,
+   "faltas": 675,
+   "cancelados_paciente": 164,
+   "cancelados_clinica": 69,
+   "taxa_faltas": 0.1764,
+   "ocupacao": 0.8185,
+   "aproveitamento": 0.6355,
+   "espera_mediana_dias": 1.0,
+   "fila_aguardando_fim": 0,
+   "espera_atual_mediana_dias": 0.0
+  },
+  {
+   "unidade": "JAB",
+   "servico": "ODO",
+   "clinica": "Odontologia · Jaboatão",
+   "agendamentos": 4190,
+   "realizados": 3247,
+   "faltas": 721,
+   "cancelados_paciente": 173,
+   "cancelados_clinica": 49,
+   "taxa_faltas": 0.1817,
+   "ocupacao": 0.8313,
+   "aproveitamento": 0.6442,
+   "espera_mediana_dias": 1.0,
+   "fila_aguardando_fim": 0,
+   "espera_atual_mediana_dias": 0.0
+  },
+  {
+   "unidade": "JAB",
+   "servico": "PSI",
+   "clinica": "Psicologia · Jaboatão",
+   "agendamentos": 7391,
+   "realizados": 5401,
+   "faltas": 1616,
+   "cancelados_paciente": 295,
+   "cancelados_clinica": 79,
+   "taxa_faltas": 0.2303,
+   "ocupacao": 0.8883,
+   "aproveitamento": 0.6492,
+   "espera_mediana_dias": 1.0,
+   "fila_aguardando_fim": 2,
+   "espera_atual_mediana_dias": 1.0
+  },
+  {
+   "unidade": "OLI",
+   "servico": "FIS",
+   "clinica": "Fisioterapia · Olinda",
+   "agendamentos": 4184,
+   "realizados": 3073,
+   "faltas": 898,
+   "cancelados_paciente": 145,
+   "cancelados_clinica": 68,
+   "taxa_faltas": 0.2261,
+   "ocupacao": 0.4151,
+   "aproveitamento": 0.3049,
+   "espera_mediana_dias": 114.0,
+   "fila_aguardando_fim": 387,
+   "espera_atual_mediana_dias": 67.0
+  },
+  {
+   "unidade": "OLI",
+   "servico": "ODO",
+   "clinica": "Odontologia · Olinda",
+   "agendamentos": 4479,
+   "realizados": 3551,
+   "faltas": 730,
+   "cancelados_paciente": 186,
+   "cancelados_clinica": 12,
+   "taxa_faltas": 0.1705,
+   "ocupacao": 0.8887,
+   "aproveitamento": 0.7046,
+   "espera_mediana_dias": 6.0,
+   "fila_aguardando_fim": 0,
+   "espera_atual_mediana_dias": 0.0
+  },
+  {
+   "unidade": "OLI",
+   "servico": "PSI",
+   "clinica": "Psicologia · Olinda",
+   "agendamentos": 7307,
+   "realizados": 5435,
+   "faltas": 1587,
+   "cancelados_paciente": 285,
+   "cancelados_clinica": 0,
+   "taxa_faltas": 0.226,
+   "ocupacao": 0.8782,
+   "aproveitamento": 0.6532,
+   "espera_mediana_dias": 1.0,
+   "fila_aguardando_fim": 0,
+   "espera_atual_mediana_dias": 0.0
+  },
+  {
+   "unidade": "REC",
+   "servico": "FIS",
+   "clinica": "Fisioterapia · Recife",
+   "agendamentos": 12151,
+   "realizados": 9597,
+   "faltas": 2054,
+   "cancelados_paciente": 500,
+   "cancelados_clinica": 0,
+   "taxa_faltas": 0.1763,
+   "ocupacao": 0.9041,
+   "aproveitamento": 0.7141,
+   "espera_mediana_dias": 2.0,
+   "fila_aguardando_fim": 0,
+   "espera_atual_mediana_dias": 0.0
+  },
+  {
+   "unidade": "REC",
+   "servico": "NUT",
+   "clinica": "Nutrição · Recife",
+   "agendamentos": 5947,
+   "realizados": 4540,
+   "faltas": 1100,
+   "cancelados_paciente": 245,
+   "cancelados_clinica": 62,
+   "taxa_faltas": 0.195,
+   "ocupacao": 0.885,
+   "aproveitamento": 0.6756,
+   "espera_mediana_dias": 3.0,
+   "fila_aguardando_fim": 0,
+   "espera_atual_mediana_dias": 0.0
+  },
+  {
+   "unidade": "REC",
+   "servico": "ODO",
+   "clinica": "Odontologia · Recife",
+   "agendamentos": 7964,
+   "realizados": 6125,
+   "faltas": 1381,
+   "cancelados_paciente": 360,
+   "cancelados_clinica": 98,
+   "taxa_faltas": 0.184,
+   "ocupacao": 0.9481,
+   "aproveitamento": 0.7292,
+   "espera_mediana_dias": 20.0,
+   "fila_aguardando_fim": 70,
+   "espera_atual_mediana_dias": 5.0
+  },
+  {
+   "unidade": "REC",
+   "servico": "PSI",
+   "clinica": "Psicologia · Recife",
+   "agendamentos": 13006,
+   "realizados": 9461,
+   "faltas": 2921,
+   "cancelados_paciente": 512,
+   "cancelados_clinica": 112,
+   "taxa_faltas": 0.2359,
+   "ocupacao": 0.9677,
+   "aproveitamento": 0.7039,
+   "espera_mediana_dias": 10.0,
+   "fila_aguardando_fim": 10,
+   "espera_atual_mediana_dias": 1.0
+  }
+ ],
+ "por_servico": [
+  {
+   "servico": "ODO",
+   "nome": "Odontologia",
+   "agendamentos": 16633,
+   "realizados": 12923,
+   "faltas": 2832,
+   "cancelados_paciente": 719,
+   "cancelados_clinica": 159,
+   "taxa_faltas": 0.1798
+  },
+  {
+   "servico": "FIS",
+   "nome": "Fisioterapia",
+   "agendamentos": 16335,
+   "realizados": 12670,
+   "faltas": 2952,
+   "cancelados_paciente": 645,
+   "cancelados_clinica": 68,
+   "taxa_faltas": 0.189
+  },
+  {
+   "servico": "PSI",
+   "nome": "Psicologia",
+   "agendamentos": 27704,
+   "realizados": 20297,
+   "faltas": 6124,
+   "cancelados_paciente": 1092,
+   "cancelados_clinica": 191,
+   "taxa_faltas": 0.2318
+  },
+  {
+   "servico": "NUT",
+   "nome": "Nutrição",
+   "agendamentos": 10007,
+   "realizados": 7692,
+   "faltas": 1775,
+   "cancelados_paciente": 409,
+   "cancelados_clinica": 131,
+   "taxa_faltas": 0.1875
+  }
+ ],
+ "meses": [
+  {
+   "mes": "2025-11",
+   "agendamentos": 5982,
+   "realizados": 4598,
+   "faltas": 1112,
+   "cancelados_paciente": 240,
+   "cancelados_clinica": 32,
+   "taxa_faltas": 0.1947,
+   "ofertados": 7600,
+   "entradas_fila": 1084,
+   "espera_mediana_chamados": 0.0
+  },
+  {
+   "mes": "2025-12",
+   "agendamentos": 4330,
+   "realizados": 3103,
+   "faltas": 1011,
+   "cancelados_paciente": 160,
+   "cancelados_clinica": 56,
+   "taxa_faltas": 0.2457,
+   "ofertados": 6000,
+   "entradas_fila": 1161,
+   "espera_mediana_chamados": 0.0
+  },
+  {
+   "mes": "2026-02",
+   "agendamentos": 6608,
+   "realizados": 4887,
+   "faltas": 1423,
+   "cancelados_paciente": 270,
+   "cancelados_clinica": 28,
+   "taxa_faltas": 0.2255,
+   "ofertados": 7200,
+   "entradas_fila": 982,
+   "espera_mediana_chamados": 31.0
+  },
+  {
+   "mes": "2026-03",
+   "agendamentos": 8106,
+   "realizados": 6212,
+   "faltas": 1556,
+   "cancelados_paciente": 307,
+   "cancelados_clinica": 31,
+   "taxa_faltas": 0.2003,
+   "ofertados": 8800,
+   "entradas_fila": 1328,
+   "espera_mediana_chamados": 17.0
+  },
+  {
+   "mes": "2026-04",
+   "agendamentos": 7292,
+   "realizados": 5506,
+   "faltas": 1380,
+   "cancelados_paciente": 311,
+   "cancelados_clinica": 95,
+   "taxa_faltas": 0.2004,
+   "ofertados": 8000,
+   "entradas_fila": 1025,
+   "espera_mediana_chamados": 14.0
+  },
+  {
+   "mes": "2026-05",
+   "agendamentos": 6632,
+   "realizados": 5023,
+   "faltas": 1301,
+   "cancelados_paciente": 256,
+   "cancelados_clinica": 52,
+   "taxa_faltas": 0.2057,
+   "ofertados": 8000,
+   "entradas_fila": 1034,
+   "espera_mediana_chamados": 2.0
+  },
+  {
+   "mes": "2026-06",
+   "agendamentos": 6536,
+   "realizados": 5037,
+   "faltas": 1214,
+   "cancelados_paciente": 259,
+   "cancelados_clinica": 26,
+   "taxa_faltas": 0.1942,
+   "ofertados": 8000,
+   "entradas_fila": 1109,
+   "espera_mediana_chamados": 0.0
+  },
+  {
+   "mes": "2026-07",
+   "agendamentos": 4365,
+   "realizados": 3332,
+   "faltas": 791,
+   "cancelados_paciente": 173,
+   "cancelados_clinica": 69,
+   "taxa_faltas": 0.1919,
+   "ofertados": 4960,
+   "entradas_fila": 1221,
+   "espera_mediana_chamados": 12.0
+  },
+  {
+   "mes": "2026-08",
+   "agendamentos": 7149,
+   "realizados": 5391,
+   "faltas": 1422,
+   "cancelados_paciente": 309,
+   "cancelados_clinica": 27,
+   "taxa_faltas": 0.2087,
+   "ofertados": 8400,
+   "entradas_fila": 1324,
+   "espera_mediana_chamados": 8.0
+  },
+  {
+   "mes": "2026-09",
+   "agendamentos": 6885,
+   "realizados": 5284,
+   "faltas": 1218,
+   "cancelados_paciente": 326,
+   "cancelados_clinica": 57,
+   "taxa_faltas": 0.1873,
+   "ofertados": 8400,
+   "entradas_fila": 1092,
+   "espera_mediana_chamados": 2.0
+  },
+  {
+   "mes": "2026-10",
+   "agendamentos": 6794,
+   "realizados": 5209,
+   "faltas": 1255,
+   "cancelados_paciente": 254,
+   "cancelados_clinica": 76,
+   "taxa_faltas": 0.1942,
+   "ofertados": 8400,
+   "entradas_fila": 1193,
+   "espera_mediana_chamados": 0.0
+  }
+ ],
+ "calor_faltas": [
+  {
+   "dia": "Segunda",
+   "turno": "Manhã",
+   "taxa_faltas": 0.2763,
+   "faltas": 2064
+  },
+  {
+   "dia": "Segunda",
+   "turno": "Tarde",
+   "taxa_faltas": 0.1863,
+   "faltas": 1320
+  },
+  {
+   "dia": "Terça",
+   "turno": "Manhã",
+   "taxa_faltas": 0.1912,
+   "faltas": 1309
+  },
+  {
+   "dia": "Terça",
+   "turno": "Tarde",
+   "taxa_faltas": 0.1834,
+   "faltas": 1156
+  },
+  {
+   "dia": "Quarta",
+   "turno": "Manhã",
+   "taxa_faltas": 0.1993,
+   "faltas": 1372
+  },
+  {
+   "dia": "Quarta",
+   "turno": "Tarde",
+   "taxa_faltas": 0.1946,
+   "faltas": 1153
+  },
+  {
+   "dia": "Quinta",
+   "turno": "Manhã",
+   "taxa_faltas": 0.1911,
+   "faltas": 1397
+  },
+  {
+   "dia": "Quinta",
+   "turno": "Tarde",
+   "taxa_faltas": 0.1747,
+   "faltas": 1150
+  },
+  {
+   "dia": "Sexta",
+   "turno": "Manhã",
+   "taxa_faltas": 0.1949,
+   "faltas": 1331
+  },
+  {
+   "dia": "Sexta",
+   "turno": "Tarde",
+   "taxa_faltas": 0.2372,
+   "faltas": 1431
+  }
+ ],
+ "concentracao_faltas": {
+  "pacientes_com_falta": 8973,
+  "pacientes_com_agenda": 14468,
+  "pacientes_metade_das_faltas": 2769,
+  "pct_pacientes_metade_das_faltas": 0.1914,
+  "pacientes_3_ou_mais_faltas": 922,
+  "faltas_desses": 3131,
+  "pct_faltas_desses": 0.2294
+ },
+ "espera_x_falta": [
+  {
+   "faixa": "até 7 dias",
+   "taxa_faltas": 0.1917,
+   "consultas": 6347
+  },
+  {
+   "faixa": "8 a 30",
+   "taxa_faltas": 0.2571,
+   "consultas": 4725
+  },
+  {
+   "faixa": "31 a 60",
+   "taxa_faltas": 0.3389,
+   "consultas": 891
+  },
+  {
+   "faixa": "mais de 60",
+   "taxa_faltas": 0.4085,
+   "consultas": 448
+  }
+ ],
+ "continuidade": {
+  "FIS": 0.9104,
+  "NUT": 0.9284,
+  "ODO": 0.9435,
+  "PSI": 0.8651
+ },
+ "alunos_2026_1": [
+  {
+   "servico": "FIS",
+   "alunos": 42,
+   "bateram_meta": 24,
+   "horas_medias": 170.0,
+   "meta": 165,
+   "horas_perdidas_medias": 39.8,
+   "bateriam_sem_faltas": 0
+  },
+  {
+   "servico": "NUT",
+   "alunos": 21,
+   "bateram_meta": 18,
+   "horas_medias": 211.2,
+   "meta": 200,
+   "horas_perdidas_medias": 48.7,
+   "bateriam_sem_faltas": 3
+  },
+  {
+   "servico": "ODO",
+   "alunos": 66,
+   "bateram_meta": 42,
+   "horas_medias": 218.9,
+   "meta": 210,
+   "horas_perdidas_medias": 48.8,
+   "bateriam_sem_faltas": 24
+  },
+  {
+   "servico": "PSI",
+   "alunos": 54,
+   "bateram_meta": 37,
+   "horas_medias": 207.4,
+   "meta": 200,
+   "horas_perdidas_medias": 62.3,
+   "bateriam_sem_faltas": 16
+  }
+ ],
+ "qualidade": {
+  "regras": [
+   {
+    "regra": "R01",
+    "descricao": "Agendamento repetido entre exportações mensais do sistema",
+    "acao": "removido",
+    "ocorrencias": 830
+   },
+   {
+    "regra": "R02",
+    "descricao": "Coluna nova no sistema a partir de mai/2026 (CANAL)",
+    "acao": "ignorada",
+    "ocorrencias": 6
+   },
+   {
+    "regra": "R03",
+    "descricao": "Situação escrita de outro jeito",
+    "acao": "padronizada",
+    "ocorrencias": 29943
+   },
+   {
+    "regra": "R04",
+    "descricao": "Data digitada como texto",
+    "acao": "convertida",
+    "ocorrencias": 5274
+   },
+   {
+    "regra": "R05",
+    "descricao": "Horário digitado como texto",
+    "acao": "convertido",
+    "ocorrencias": 9393
+   },
+   {
+    "regra": "R06",
+    "descricao": "Nome do paciente diferente do cadastro",
+    "acao": "cadastro prevalece",
+    "ocorrencias": 3511
+   },
+   {
+    "regra": "R07",
+    "descricao": "Prontuário em branco",
+    "acao": "recuperado pelo nome",
+    "ocorrencias": 2041
+   },
+   {
+    "regra": "R07x",
+    "descricao": "Prontuário em branco sem como recuperar",
+    "acao": "sinalizado",
+    "ocorrencias": 159
+   },
+   {
+    "regra": "R08",
+    "descricao": "Linha copiada duas vezes",
+    "acao": "removida",
+    "ocorrencias": 566
+   },
+   {
+    "regra": "R09",
+    "descricao": "Linha de total no fim da aba",
+    "acao": "removida",
+    "ocorrencias": 55
+   },
+   {
+    "regra": "R10",
+    "descricao": "Linha em branco",
+    "acao": "removida",
+    "ocorrencias": 158
+   },
+   {
+    "regra": "R11",
+    "descricao": "Nome do aluno diferente do cadastro",
+    "acao": "ligado à matrícula",
+    "ocorrencias": 3804
+   },
+   {
+    "regra": "R12",
+    "descricao": "Ano digitado errado (fora do mês da aba)",
+    "acao": "corrigido pelo mês da aba",
+    "ocorrencias": 107
+   },
+   {
+    "regra": "R13",
+    "descricao": "Aluno com dois pacientes no mesmo horário",
+    "acao": "sinalizado",
+    "ocorrencias": 138
+   },
+   {
+    "regra": "R13b",
+    "descricao": "Tipo de atendimento em branco",
+    "acao": "deduzido pela fila",
+    "ocorrencias": 2992
+   },
+   {
+    "regra": "R14",
+    "descricao": "Unidade ou serviço escrito de outro jeito na fila",
+    "acao": "padronizado",
+    "ocorrencias": 12592
+   },
+   {
+    "regra": "R15",
+    "descricao": "1ª consulta antes da inscrição na fila",
+    "acao": "corrigida pelos atendimentos",
+    "ocorrencias": 50
+   }
+  ],
+  "linhas_para_conferir": 4104
+ }
+}

@@ -1,0 +1,18 @@
+regra,descricao,acao,ocorrencias
+R01,Agendamento repetido entre exportações mensais do sistema,removido,830
+R02,Coluna nova no sistema a partir de mai/2026 (CANAL),ignorada,6
+R03,Situação escrita de outro jeito,padronizada,29943
+R04,Data digitada como texto,convertida,5274
+R05,Horário digitado como texto,convertido,9393
+R06,Nome do paciente diferente do cadastro,cadastro prevalece,3511
+R07,Prontuário em branco,recuperado pelo nome,2041
+R07x,Prontuário em branco sem como recuperar,sinalizado,159
+R08,Linha copiada duas vezes,removida,566
+R09,Linha de total no fim da aba,removida,55
+R10,Linha em branco,removida,158
+R11,Nome do aluno diferente do cadastro,ligado à matrícula,3804
+R12,Ano digitado errado (fora do mês da aba),corrigido pelo mês da aba,107
+R13,Aluno com dois pacientes no mesmo horário,sinalizado,138
+R13b,Tipo de atendimento em branco,deduzido pela fila,2992
+R14,Unidade ou serviço escrito de outro jeito na fila,padronizado,12592
+R15,1ª consulta antes da inscrição na fila,corrigida pelos atendimentos,50
