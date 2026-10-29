@@ -258,10 +258,13 @@ def base_looker(t: dict[str, pd.DataFrame], men: pd.DataFrame, destino: Path) ->
     fila = fila[["clinica", "unidade_nome", "servico_nome", "data_inscricao", "data_primeira", "situacao",
                  "dias_espera"]]
     destino.mkdir(parents=True, exist_ok=True)
+    abas = {"indicadores_mensais": men, "faltas_dia_turno": dia_turno, "fila": fila}
     with pd.ExcelWriter(destino / "base_looker_studio.xlsx", engine="openpyxl") as xl:
-        men.to_excel(xl, sheet_name="indicadores_mensais", index=False)
-        dia_turno.to_excel(xl, sheet_name="faltas_dia_turno", index=False)
-        fila.to_excel(xl, sheet_name="fila", index=False)
+        for nome, tabela in abas.items():
+            tabela.to_excel(xl, sheet_name=nome, index=False)
+    # Os mesmos dados em CSV: a planilha do Google lê direto do GitHub com IMPORTDATA.
+    for nome, tabela in abas.items():
+        tabela.to_csv(destino / f"{nome}.csv", index=False, encoding="utf-8", lineterminator="\n")
 
 
 def salvar(t: dict[str, pd.DataFrame], painel: dict, tratado: Path = PASTA_TRATADO, site: Path = PASTA_SITE) -> None:

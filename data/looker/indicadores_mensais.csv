@@ -1,0 +1,111 @@
+mes,unidade,servico,agendamentos,realizados,faltas,cancelados_paciente,cancelados_clinica,primeiras_consultas,horas_pratica,pacientes_atendidos,horarios_ofertados,entradas_fila,unidade_nome,servico_nome,clinica
+2025-11-01,JAB,NUT,349,272,51,14,12,104,272.0,232,456,104,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2025-11-01,JAB,ODO,361,291,55,15,0,82,582.0,137,456,82,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2025-11-01,JAB,PSI,712,520,148,24,20,98,520.0,216,760,98,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2025-11-01,OLI,FIS,394,292,86,16,0,49,292.0,83,912,77,Olinda,Fisioterapia,Fisioterapia · Olinda
+2025-11-01,OLI,ODO,359,288,59,12,0,86,576.0,142,456,86,Olinda,Odontologia,Odontologia · Olinda
+2025-11-01,OLI,PSI,609,456,137,16,0,85,456.0,187,760,85,Olinda,Psicologia,Psicologia · Olinda
+2025-11-01,REC,FIS,1072,855,170,47,0,125,855.0,234,1216,126,Recife,Fisioterapia,Fisioterapia · Recife
+2025-11-01,REC,NUT,446,344,78,24,0,139,344.0,291,608,139,Recife,Nutrição,Nutrição · Recife
+2025-11-01,REC,ODO,616,489,95,32,0,134,978.0,229,760,134,Recife,Odontologia,Odontologia · Recife
+2025-11-01,REC,PSI,1064,791,233,40,0,153,791.0,314,1216,153,Recife,Psicologia,Psicologia · Recife
+2025-12-01,JAB,NUT,264,184,59,9,12,78,184.0,184,360,124,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2025-12-01,JAB,ODO,273,184,49,16,24,51,368.0,102,360,81,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2025-12-01,JAB,PSI,457,307,138,12,0,59,307.0,152,600,101,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2025-12-01,OLI,FIS,280,163,87,10,20,46,163.0,64,720,77,Olinda,Fisioterapia,Fisioterapia · Olinda
+2025-12-01,OLI,ODO,254,197,45,12,0,53,394.0,107,360,83,Olinda,Odontologia,Odontologia · Olinda
+2025-12-01,OLI,PSI,461,325,119,17,0,72,325.0,162,600,101,Olinda,Psicologia,Psicologia · Olinda
+2025-12-01,REC,FIS,765,573,168,24,0,95,573.0,182,960,136,Recife,Fisioterapia,Fisioterapia · Recife
+2025-12-01,REC,NUT,321,246,64,11,0,101,246.0,244,480,155,Recife,Nutrição,Nutrição · Recife
+2025-12-01,REC,ODO,468,361,91,16,0,101,722.0,188,600,145,Recife,Odontologia,Odontologia · Recife
+2025-12-01,REC,PSI,787,563,191,33,0,106,563.0,267,960,158,Recife,Psicologia,Psicologia · Recife
+2026-02-01,JAB,NUT,426,310,88,16,12,171,310.0,273,432,92,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2026-02-01,JAB,ODO,426,322,86,18,0,109,644.0,146,432,56,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2026-02-01,JAB,PSI,720,516,176,28,0,173,516.0,221,720,68,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2026-02-01,OLI,FIS,353,262,80,11,0,48,262.0,75,864,74,Olinda,Fisioterapia,Fisioterapia · Olinda
+2026-02-01,OLI,ODO,426,319,91,16,0,115,638.0,149,432,75,Olinda,Odontologia,Odontologia · Olinda
+2026-02-01,OLI,PSI,712,494,190,28,0,151,494.0,208,720,80,Olinda,Psicologia,Psicologia · Olinda
+2026-02-01,REC,FIS,1147,909,194,44,0,189,909.0,253,1152,103,Recife,Fisioterapia,Fisioterapia · Recife
+2026-02-01,REC,NUT,558,400,115,27,16,256,400.0,346,576,141,Recife,Nutrição,Nutrição · Recife
+2026-02-01,REC,ODO,699,545,122,32,0,177,1090.0,251,720,148,Recife,Odontologia,Odontologia · Recife
+2026-02-01,REC,PSI,1141,810,281,50,0,234,810.0,343,1152,145,Recife,Psicologia,Psicologia · Recife
+2026-03-01,JAB,NUT,527,430,76,21,0,178,430.0,343,528,132,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2026-03-01,JAB,ODO,526,409,96,21,0,126,818.0,182,528,71,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2026-03-01,JAB,PSI,875,656,181,38,0,117,656.0,240,880,108,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2026-03-01,OLI,FIS,432,310,105,17,0,60,310.0,82,1056,105,Olinda,Fisioterapia,Fisioterapia · Olinda
+2026-03-01,OLI,ODO,518,405,95,18,0,116,810.0,176,528,100,Olinda,Odontologia,Odontologia · Olinda
+2026-03-01,OLI,PSI,870,663,164,43,0,106,663.0,228,880,107,Olinda,Psicologia,Psicologia · Olinda
+2026-03-01,REC,FIS,1394,1113,237,44,0,147,1113.0,281,1408,141,Recife,Fisioterapia,Fisioterapia · Recife
+2026-03-01,REC,NUT,686,504,127,24,31,200,504.0,402,704,201,Recife,Nutrição,Nutrição · Recife
+2026-03-01,REC,ODO,877,684,154,39,0,190,1368.0,291,880,160,Recife,Odontologia,Odontologia · Recife
+2026-03-01,REC,PSI,1401,1038,321,42,0,190,1038.0,366,1408,203,Recife,Psicologia,Psicologia · Recife
+2026-04-01,JAB,NUT,455,358,56,18,23,115,358.0,283,480,100,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2026-04-01,JAB,ODO,435,348,69,18,0,76,696.0,154,480,66,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2026-04-01,JAB,PSI,779,572,146,41,20,86,572.0,215,800,68,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2026-04-01,OLI,FIS,419,311,96,12,0,66,311.0,83,960,69,Olinda,Fisioterapia,Fisioterapia · Olinda
+2026-04-01,OLI,ODO,459,366,75,18,0,121,732.0,176,480,74,Olinda,Odontologia,Odontologia · Olinda
+2026-04-01,OLI,PSI,795,579,178,38,0,116,579.0,222,800,82,Olinda,Psicologia,Psicologia · Olinda
+2026-04-01,REC,FIS,1270,996,211,63,0,189,996.0,276,1280,115,Recife,Fisioterapia,Fisioterapia · Recife
+2026-04-01,REC,NUT,631,480,127,24,0,211,480.0,409,640,139,Recife,Nutrição,Nutrição · Recife
+2026-04-01,REC,ODO,783,584,139,40,20,165,1168.0,276,800,155,Recife,Odontologia,Odontologia · Recife
+2026-04-01,REC,PSI,1266,912,283,39,32,174,912.0,351,1280,157,Recife,Psicologia,Psicologia · Recife
+2026-05-01,JAB,NUT,370,285,74,11,0,106,285.0,248,480,106,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2026-05-01,JAB,ODO,341,271,57,13,0,76,542.0,127,480,76,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2026-05-01,JAB,PSI,635,479,136,20,0,78,479.0,195,800,78,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2026-05-01,OLI,FIS,377,270,93,14,0,58,270.0,75,960,85,Olinda,Fisioterapia,Fisioterapia · Olinda
+2026-05-01,OLI,ODO,397,309,72,16,0,68,618.0,139,480,68,Olinda,Odontologia,Odontologia · Olinda
+2026-05-01,OLI,PSI,677,521,131,25,0,81,521.0,201,800,75,Olinda,Psicologia,Psicologia · Olinda
+2026-05-01,REC,FIS,1187,926,218,43,0,129,926.0,257,1280,122,Recife,Fisioterapia,Fisioterapia · Recife
+2026-05-01,REC,NUT,609,476,111,22,0,197,476.0,411,640,162,Recife,Nutrição,Nutrição · Recife
+2026-05-01,REC,ODO,777,577,141,39,20,166,1154.0,262,800,149,Recife,Odontologia,Odontologia · Recife
+2026-05-01,REC,PSI,1262,909,268,53,32,177,909.0,361,1280,113,Recife,Psicologia,Psicologia · Recife
+2026-06-01,JAB,NUT,312,237,52,17,6,87,237.0,199,480,87,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2026-06-01,JAB,ODO,369,288,61,20,0,79,576.0,126,480,79,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2026-06-01,JAB,PSI,617,419,145,33,20,83,419.0,177,800,83,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2026-06-01,OLI,FIS,435,351,72,12,0,35,351.0,74,960,92,Olinda,Fisioterapia,Fisioterapia · Olinda
+2026-06-01,OLI,ODO,384,310,63,11,0,88,620.0,136,480,89,Olinda,Odontologia,Odontologia · Olinda
+2026-06-01,OLI,PSI,681,524,131,26,0,93,524.0,194,800,93,Olinda,Psicologia,Psicologia · Olinda
+2026-06-01,REC,FIS,1093,863,186,44,0,123,863.0,216,1280,123,Recife,Fisioterapia,Fisioterapia · Recife
+2026-06-01,REC,NUT,588,463,109,16,0,164,463.0,382,640,167,Recife,Nutrição,Nutrição · Recife
+2026-06-01,REC,ODO,788,640,117,31,0,145,1280.0,271,800,136,Recife,Odontologia,Odontologia · Recife
+2026-06-01,REC,PSI,1269,942,278,49,0,163,942.0,348,1280,160,Recife,Psicologia,Psicologia · Recife
+2026-07-01,JAB,NUT,209,172,25,8,4,19,172.0,136,232,100,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2026-07-01,JAB,ODO,278,222,45,5,6,49,444.0,99,312,84,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2026-07-01,JAB,PSI,382,277,73,13,19,17,277.0,101,440,99,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2026-07-01,OLI,FIS,326,225,67,10,24,43,225.0,57,624,97,Olinda,Fisioterapia,Fisioterapia · Olinda
+2026-07-01,OLI,ODO,290,231,41,18,0,54,462.0,113,312,107,Olinda,Odontologia,Odontologia · Olinda
+2026-07-01,OLI,PSI,399,305,86,8,0,9,305.0,114,440,81,Olinda,Psicologia,Psicologia · Olinda
+2026-07-01,REC,FIS,752,603,111,38,0,91,603.0,167,832,138,Recife,Fisioterapia,Fisioterapia · Recife
+2026-07-01,REC,NUT,401,321,62,18,0,53,321.0,257,416,190,Recife,Nutrição,Nutrição · Recife
+2026-07-01,REC,ODO,496,393,86,17,0,95,786.0,188,520,154,Recife,Odontologia,Odontologia · Recife
+2026-07-01,REC,PSI,832,583,195,38,16,63,583.0,258,832,171,Recife,Psicologia,Psicologia · Recife
+2026-08-01,JAB,NUT,392,317,62,13,0,205,317.0,244,504,137,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2026-08-01,JAB,ODO,471,351,102,18,0,126,702.0,139,504,101,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2026-08-01,JAB,PSI,753,547,175,31,0,192,547.0,214,840,110,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2026-08-01,OLI,FIS,411,308,85,18,0,61,308.0,71,1008,79,Olinda,Fisioterapia,Fisioterapia · Olinda
+2026-08-01,OLI,ODO,492,396,56,28,12,123,792.0,152,504,92,Olinda,Odontologia,Odontologia · Olinda
+2026-08-01,OLI,PSI,720,519,178,23,0,192,519.0,211,840,120,Olinda,Psicologia,Psicologia · Olinda
+2026-08-01,REC,FIS,1184,918,209,57,0,170,918.0,225,1344,133,Recife,Fisioterapia,Fisioterapia · Recife
+2026-08-01,REC,NUT,581,437,102,27,15,312,437.0,358,672,172,Recife,Nutrição,Nutrição · Recife
+2026-08-01,REC,ODO,809,618,156,35,0,220,1236.0,249,840,192,Recife,Odontologia,Odontologia · Recife
+2026-08-01,REC,PSI,1336,980,297,59,0,287,980.0,367,1344,188,Recife,Psicologia,Psicologia · Recife
+2026-09-01,JAB,NUT,394,305,63,26,0,113,305.0,250,504,100,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2026-09-01,JAB,ODO,373,282,56,16,19,65,564.0,129,504,55,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2026-09-01,JAB,PSI,728,561,142,25,0,100,561.0,208,840,100,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2026-09-01,OLI,FIS,353,283,59,11,0,51,283.0,74,1008,90,Olinda,Fisioterapia,Fisioterapia · Olinda
+2026-09-01,OLI,ODO,481,375,85,21,0,108,750.0,173,504,85,Olinda,Odontologia,Odontologia · Olinda
+2026-09-01,OLI,PSI,674,514,128,32,0,83,514.0,186,840,83,Olinda,Psicologia,Psicologia · Olinda
+2026-09-01,REC,FIS,1157,930,169,58,0,136,930.0,245,1344,126,Recife,Fisioterapia,Fisioterapia · Recife
+2026-09-01,REC,NUT,569,444,89,36,0,156,444.0,367,672,156,Recife,Nutrição,Nutrição · Recife
+2026-09-01,REC,ODO,828,612,145,33,38,188,1224.0,294,840,147,Recife,Odontologia,Odontologia · Recife
+2026-09-01,REC,PSI,1328,978,282,68,0,196,978.0,376,1344,150,Recife,Psicologia,Psicologia · Recife
+2026-10-01,JAB,NUT,362,282,69,11,0,102,282.0,236,504,102,Jaboatão dos Guararapes,Nutrição,Nutrição · Jaboatão
+2026-10-01,JAB,ODO,337,279,45,13,0,86,558.0,127,504,86,Jaboatão dos Guararapes,Odontologia,Odontologia · Jaboatão
+2026-10-01,JAB,PSI,733,547,156,30,0,97,547.0,196,840,99,Jaboatão dos Guararapes,Psicologia,Psicologia · Jaboatão
+2026-10-01,OLI,FIS,404,298,68,14,24,46,298.0,77,1008,90,Olinda,Fisioterapia,Fisioterapia · Olinda
+2026-10-01,OLI,ODO,419,355,48,16,0,73,710.0,145,504,73,Olinda,Odontologia,Odontologia · Olinda
+2026-10-01,OLI,PSI,709,535,145,29,0,99,535.0,193,840,99,Olinda,Psicologia,Psicologia · Olinda
+2026-10-01,REC,FIS,1130,911,181,38,0,139,911.0,233,1344,139,Recife,Fisioterapia,Fisioterapia · Recife
+2026-10-01,REC,NUT,557,425,116,16,0,153,425.0,353,672,154,Recife,Nutrição,Nutrição · Recife
+2026-10-01,REC,ODO,823,622,135,46,20,164,1244.0,278,840,157,Recife,Odontologia,Odontologia · Recife
+2026-10-01,REC,PSI,1320,955,292,41,32,189,955.0,381,1344,194,Recife,Psicologia,Psicologia · Recife
