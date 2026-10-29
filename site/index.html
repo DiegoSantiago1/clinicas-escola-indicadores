@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clínicas-escola em dados · Diego Santiago</title>
+<title>Onde as clínicas-escola perdem consultas · Diego Santiago</title>
 <meta name="description" content="Projeto de análise de dados: um ano de atendimentos de uma rede fictícia de clínicas-escola, com planilhas e sistema padronizados em Python e indicadores no Power BI. Painel interativo com faltas, agenda, fila e horas de prática dos alunos.">
 <meta property="og:title" content="Clínicas-escola em dados">
 <meta property="og:description" content="Uma em cada cinco consultas fica vazia. Padronização em Python, indicadores no Power BI, cada número conferido.">
@@ -24,12 +24,13 @@
   <a class="marca" href="#topo">Clínicas-escola</a>
   <nav class="links" aria-label="Seções">
     <a href="#painel">Painel</a>
+    <a href="#dados">Os dados</a>
     <a href="#padronizacao">Padronização</a>
     <a href="#achados">Achados</a>
     <a href="#carta">Sobre</a>
   </nav>
   <div class="barra-fim">
-    <button class="tema" type="button" aria-label="Alternar tema claro ou escuro"><span data-claro>Claro</span><span data-escuro>Escuro</span></button>
+    <button class="tema" type="button" aria-label="Alternar tema claro ou escuro"><span data-escuro>Escuro</span><span data-claro>Claro</span></button>
     <a class="botao botao-pequeno" href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">Código</a>
   </div>
 </header>
@@ -37,8 +38,8 @@
 <main id="conteudo">
   <section class="hero" id="painel">
     <div class="hero-texto">
-      <h1 class="revela">Clínicas-escola em dados</h1>
-      <p class="hero-frase revela">Uma em cada cinco consultas fica vazia. Padronizei as planilhas e o sistema de dez clínicas e montei este painel: mude a unidade e o serviço.</p>
+      <h1 class="revela">Onde as clínicas-escola perdem consultas</h1>
+      <p class="hero-frase revela">Um ano de atendimentos de 10 clínicas-escola de saúde em Recife, Olinda e Jaboatão: uma em cada cinco consultas fica vazia. Mude a unidade e o serviço no painel.</p>
     </div>
 
     <div class="painel revela" data-ui aria-label="Painel de indicadores interativo">
@@ -84,6 +85,21 @@
       </div>
       <p class="painel-nota" id="painel-nota">Dados fictícios, gerados por simulação. Os mesmos números do relatório no Power BI.</p>
     </div>
+  </section>
+
+  <section class="dados" id="dados">
+    <div>
+      <h2 class="revela">Os dados analisados</h2>
+      <p class="dados-lead revela">Uma clínica-escola é onde estudantes de saúde atendem a comunidade, de graça ou a preço baixo, supervisionados por professores. Este projeto analisa um ano dessa operação numa rede fictícia.</p>
+    </div>
+    <dl class="dados-ficha">
+      <div class="revela"><dt><span class="numero">12 meses</span>de atendimentos</dt><dd>De 1º de novembro de 2025 a 31 de outubro de 2026. Recesso em dezembro e janeiro, plantão com metade das salas em julho.</dd></div>
+      <div class="revela"><dt><span class="numero">10 clínicas</span>em 3 unidades</dt><dd>Recife (Odontologia, Fisioterapia, Psicologia e Nutrição), Olinda (Odontologia, Fisioterapia e Psicologia) e Jaboatão (Odontologia, Psicologia e Nutrição).</dd></div>
+      <div class="revela"><dt><span class="numero">70.679</span>agendamentos</dt><dd>Cada um com data, horário, clínica, prontuário do paciente, aluno, professor supervisor, tipo (1ª consulta ou retorno) e situação: realizado, falta ou cancelado.</dd></div>
+      <div class="revela"><dt><span class="numero">15.153</span>pacientes na fila</dt><dd>Data de inscrição na recepção, data da 1ª consulta e situação: chamado, aguardando ou desistiu.</dd></div>
+      <div class="revela"><dt><span class="numero">549</span>alunos em 3 semestres</dt><dd>Com a meta de horas de prática de cada curso, e a capacidade de cada clínica: salas e horários dos turnos (8h às 12h e 13h30 às 17h30).</dd></div>
+      <div class="revela"><dt><span class="numero">17</span>arquivos de origem</dt><dd>11 exportações mensais do sistema (Odontologia e Fisioterapia), 5 planilhas Excel preenchidas à mão (Psicologia e Nutrição) e a planilha da fila da recepção.</dd></div>
+    </dl>
   </section>
 
   <section class="intro" id="problema">
@@ -264,27 +280,23 @@
 </main>
 
 <footer class="rodape">
-  <div class="tile t-declaracao">
-    <p>Dados 100% fictícios, gerados por simulação. Nenhum número é de uma instituição real.</p>
-    <p class="legal">Fotos: <a href="https://www.pexels.com/license/">Pexels</a> (<a href="https://www.pexels.com/photo/3845810/">1</a>, <a href="https://www.pexels.com/photo/20860610/">2</a>, <a href="https://www.pexels.com/photo/4101143/">3</a>, <a href="https://www.pexels.com/photo/263201/">4</a>, <a href="https://www.pexels.com/photo/20860607/">5</a>, <a href="https://www.pexels.com/photo/3952125/">6</a>). Diego Santiago, 2026.</p>
+  <div class="rodape-topo">
+    <p class="rodape-marca">Clínicas-escola em dados</p>
+    <nav class="rodape-links" aria-label="Contato">
+      <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">GitHub</a>
+      <a href="https://diegosantiago1.github.io/Portifolio/#projetos">Portfólio</a>
+      <a href="https://www.linkedin.com/in/diego-freitas-santiago">LinkedIn</a>
+      <a href="mailto:freitasdiego140@gmail.com">E-mail</a>
+    </nav>
   </div>
-  <nav class="tile t-nav" aria-label="Documentos">
+  <nav class="rodape-docs" aria-label="Documentos">
     <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores/blob/main/docs/INDICADORES.md">Dicionário de indicadores</a>
     <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores/blob/main/docs/DECISOES.md">Decisões técnicas</a>
     <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores/tree/main/powerbi">Relatório Power BI</a>
     <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores/tree/main/data">Os dados</a>
+    <a href="#topo">Voltar ao topo</a>
   </nav>
-  <div class="tile t-lugar"><p>Recife, PE</p><p class="hora" id="hora">agora</p></div>
-  <div class="tile t-email">
-    <a href="mailto:freitasdiego140@gmail.com">freitasdiego140@gmail.com</a>
-    <a class="pequeno" href="https://www.linkedin.com/in/diego-freitas-santiago">LinkedIn</a>
-    <a class="pequeno" href="https://diegosantiago1.github.io/Portifolio/#projetos">Portfólio</a>
-  </div>
-  <div class="tile t-marca"><p>Clínicas-escola</p></div>
-  <a class="tile t-acao" href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">
-    <span>Ver o código</span>
-    <svg viewBox="0 0 48 48" width="56" height="56" aria-hidden="true"><path d="M10 38 L38 10 M16 10 H38 V32" fill="none" stroke="currentColor" stroke-width="4"/></svg>
-  </a>
+  <p class="rodape-legal">Dados 100% fictícios, gerados por simulação: nenhum número é de uma instituição real. Fotos: <a href="https://www.pexels.com/license/">Pexels</a> (<a href="https://www.pexels.com/photo/3845810/">1</a>, <a href="https://www.pexels.com/photo/20860610/">2</a>, <a href="https://www.pexels.com/photo/4101143/">3</a>, <a href="https://www.pexels.com/photo/263201/">4</a>, <a href="https://www.pexels.com/photo/20860607/">5</a>, <a href="https://www.pexels.com/photo/3952125/">6</a>). Diego Santiago, Recife, 2026.</p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>

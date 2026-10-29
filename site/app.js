@@ -80,7 +80,7 @@ function desenharPainel() {
     ? `Filtrado: ${nome}. ${NUM(d.agendamentos)} agendamentos, ${NUM(d.fila?.aguardando ?? 0)} pessoas na fila em 31/10.`
     : "Dados fictícios, gerados por simulação. Os mesmos números do relatório no Power BI.";
 
-  const azul = cor("--d-azul"), coral = cor("--d-coral");
+  const azul = cor("--d-azul"), coral = cor("--d-barra-falta");
   const rotulos = d.meses.map(([m]) => `${MESES[Number(m.slice(5, 7)) - 1]}/${m.slice(2, 4)}`);
   const dadosMes = {
     labels: rotulos,
@@ -216,8 +216,8 @@ function montarCalor() {
     for (const t of ["Manhã", "Tarde"]) {
       const c = calor.find((x) => x.dia === d && x.turno === t);
       const forca = Math.round(12 + 88 * (c.taxa_faltas - min) / (max - min));
-      const texto = forca > 55 ? "#1c1c1c" : "var(--ink)";
-      html += `<span class="cel" style="background: color-mix(in srgb, var(--d-coral) ${forca}%, var(--surface)); color: ${texto}">${PCT(c.taxa_faltas)}</span>`;
+      const texto = forca > 55 ? "#0b1f3a" : "var(--ink)";
+      html += `<span class="cel" style="background: color-mix(in srgb, var(--d-barra-falta) ${forca}%, var(--surface)); color: ${texto}">${PCT(c.taxa_faltas)}</span>`;
     }
   }
   el.innerHTML = html;
@@ -231,7 +231,7 @@ function montarGraficosAchados() {
   graficos.olinda = new Chart(document.getElementById("g-olinda"), {
     type: "bar",
     data: { labels: ordem.map((c) => c.clinica), datasets: [{ data: ordem.map((c) => c.ocupacao), borderRadius: 3,
-      backgroundColor: ordem.map((c) => (c.ocupacao < 0.6 ? cor("--d-coral") : cor("--d-azul"))) }] },
+      backgroundColor: ordem.map((c) => (c.ocupacao < 0.6 ? cor("--d-barra-falta") : cor("--d-azul"))) }] },
     options: opcoesBase({ indexAxis: "y",
       plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => ` ${PCT(c.raw)} da agenda · espera ${DIAS(ordem[c.dataIndex].espera_mediana_dias)}` } } },
       scales: eixos({ x: { max: 1, grid: { color: cor("--linha") }, ticks: { color: cor("--muted"), callback: (v) => PCT(v, 0) } } }) }),
@@ -242,7 +242,7 @@ function montarGraficosAchados() {
     data: { labels: al.map((x) => SERVICOS[x.servico]), datasets: [
       { label: "Bateram a meta", data: al.map((x) => x.bateram_meta / x.alunos), backgroundColor: cor("--d-verde") },
       { label: "Bateriam sem as faltas", data: al.map((x) => x.bateriam_sem_faltas / x.alunos), backgroundColor: cor("--d-mostarda") },
-      { label: "Abaixo da meta", data: al.map((x) => (x.alunos - x.bateram_meta - x.bateriam_sem_faltas) / x.alunos), backgroundColor: cor("--d-coral") }] },
+      { label: "Abaixo da meta", data: al.map((x) => (x.alunos - x.bateram_meta - x.bateriam_sem_faltas) / x.alunos), backgroundColor: cor("--d-barra-falta") }] },
     options: opcoesBase({ indexAxis: "y",
       plugins: { legend: { display: true, position: "top", align: "start", labels: { color: cor("--muted"), boxWidth: 10, font: { family: "Clash Grotesk", size: 13 } } },
         tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${Math.round(c.raw * al[c.dataIndex].alunos)} alunos` } } },
@@ -268,8 +268,8 @@ document.querySelectorAll(".chave").forEach((b) => {
 
 document.querySelector(".tema").addEventListener("click", () => {
   const raiz = document.documentElement;
-  const claroAgora = raiz.dataset.theme === "light";
-  raiz.dataset.theme = claroAgora ? "dark" : "light";
+  const escuroAgora = raiz.dataset.theme === "dark";
+  raiz.dataset.theme = escuroAgora ? "light" : "dark";
   try { localStorage.setItem("tema", raiz.dataset.theme); } catch (e) { /* navegação privada */ }
   if (!painel) return;
   for (const k of Object.keys(graficos)) { graficos[k].destroy(); delete graficos[k]; }
@@ -277,6 +277,7 @@ document.querySelector(".tema").addEventListener("click", () => {
 });
 
 function relogio() {
+  if (!document.getElementById("hora")) return;
   const agora = new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Recife", hour: "2-digit", minute: "2-digit" }).format(new Date());
   document.getElementById("hora").textContent = `${agora} em Recife`;
 }
