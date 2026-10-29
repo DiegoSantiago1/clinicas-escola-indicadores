@@ -6,7 +6,7 @@
 <title>Clínicas-escola em dados · Diego Santiago</title>
 <meta name="description" content="Projeto de análise de dados: um ano de atendimentos de uma rede fictícia de clínicas-escola em Recife, Olinda e Jaboatão, padronizados e transformados em indicadores (faltas, agenda, fila e horas de prática dos alunos).">
 <meta property="og:title" content="Clínicas-escola em dados">
-<meta property="og:description" content="Planilhas e sistema padronizados em Python, indicadores no Power BI e no Looker Studio, cada número conferido.">
+<meta property="og:description" content="Planilhas e sistema padronizados em Python, indicadores no Power BI, cada número conferido.">
 <meta property="og:image" content="img/powerbi_visao_geral.png">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
@@ -49,7 +49,7 @@
 
 <main id="conteudo">
   <section class="abertura">
-    <p class="standfirst">Um ano de atendimentos de uma rede de clínicas-escola em Recife, Olinda e Jaboatão: planilhas e sistema padronizados, indicadores no Power BI e no Looker Studio.</p>
+    <p class="standfirst">Um ano de atendimentos de uma rede de clínicas-escola em Recife, Olinda e Jaboatão: planilhas e sistema padronizados, indicadores no Power BI e base pronta para o Looker Studio.</p>
     <div class="titulo-bloco">
       <h1 class="mascara"><span class="linha"><span>Clínicas-escola</span></span><span class="linha"><span>em dados</span></span></h1>
       <p class="autor revela">Análise de dados de uma rede de clínicas-escola: faltas, agenda, fila e horas de prática dos alunos. Projeto de Diego Santiago, com dados fictícios.</p>
@@ -219,11 +219,11 @@
       <ul class="como-fatos revela">
         <li>Python, pandas e openpyxl</li>
         <li>Power BI: Power Query, modelo estrela e 24 medidas DAX</li>
-        <li>Looker Studio sobre a mesma base</li>
+        <li>Base pronta para o Looker Studio</li>
         <li>65 testes automatizados</li>
       </ul>
       <div class="como-texto">
-        <p class="como-declaracao revela"><img class="capitular" src="img/powerbi_visao_geral.png" alt="Página Visão geral do relatório no Power BI" width="1304" height="734" loading="lazy"><strong>O Python simula a rede, bagunça os dados como na vida real e depois padroniza tudo.</strong> Power BI e Looker Studio leem a mesma base tratada.</p>
+        <p class="como-declaracao revela"><img class="capitular" src="img/powerbi_visao_geral.png" alt="Página Visão geral do relatório no Power BI" width="1304" height="734" loading="lazy"><strong>O Python simula a rede, bagunça os dados como na vida real e depois padroniza tudo.</strong> O Power BI lê a base tratada, e o Looker Studio recebe a mesma base já agregada.</p>
         <p class="revela">No Power Query ficam os tipos, a chave da clínica e a mesclagem da fila com os atendimentos; o modelo é uma estrela com 24 medidas DAX. Cada número do Power BI foi conferido contra o Python direto no motor do Power BI Desktop, e os testes garantem que a padronização encontra exatamente os problemas plantados. Feito por Diego Santiago, analista de dados em Recife, que já fez faturamento de odontoclínica e coordenou estágios num hospital.</p>
         <figure class="como-pbi">
           <img src="img/powerbi_visao_geral.png" alt="Relatório no Power BI: cartões de atendimentos, faltas, ocupação, espera e horas, gráfico por mês e faltas por clínica" width="1304" height="734">

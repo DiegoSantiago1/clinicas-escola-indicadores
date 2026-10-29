@@ -1,6 +1,6 @@
 # Clínicas-escola em dados
 
-Um ano de atendimentos de uma rede fictícia de clínicas-escola (Odontologia, Fisioterapia, Psicologia e Nutrição) em Recife, Olinda e Jaboatão: dados espalhados em planilhas e sistema, padronizados em Python e transformados em indicadores no Power BI e no Looker Studio.
+Um ano de atendimentos de uma rede fictícia de clínicas-escola (Odontologia, Fisioterapia, Psicologia e Nutrição) em Recife, Olinda e Jaboatão: dados espalhados em planilhas e sistema, padronizados em Python e transformados em indicadores no Power BI, com a mesma base pronta para o Looker Studio.
 
 ## 🔗 Acessar o projeto
 
@@ -71,7 +71,7 @@ simulacao.py ──► fontes.py ──► data/fontes/ (CSV do sistema, planilh
 
 - **Python (pandas, openpyxl):** simulação, padronização e indicadores. A limpeza fica num lugar só e serve às duas ferramentas de BI.
 - **Power BI:** modelo estrela (atendimentos, oferta e fila ligados a calendário, clínicas, alunos e supervisores), Power Query e 24 medidas DAX, incluindo inteligência de tempo (mês anterior) e transição de contexto (alunos na meta). Cada medida conferida contra o Python no motor do Power BI.
-- **Looker Studio:** a mesma base, já agregada, com campos calculados. Passo a passo em [docs/LOOKER_STUDIO.md](docs/LOOKER_STUDIO.md).
+- **Looker Studio:** a mesma base, já agregada (`data/looker/base_looker_studio.xlsx`), e os campos calculados prontos. Passo a passo em [docs/LOOKER_STUDIO.md](docs/LOOKER_STUDIO.md).
 - **Excel:** as fontes são planilhas como as de uma recepção de verdade.
 - **pytest + ruff + GitHub Actions:** 65 testes a cada push.
 
