@@ -83,6 +83,7 @@ def mensal(t: dict[str, pd.DataFrame]) -> pd.DataFrame:
         "cancelados_clinica": g["situacao"].apply(lambda s: (s == "Cancelado pela clínica").sum()),
         "primeiras_consultas": g["tipo"].apply(lambda s: (s == "Primeira consulta").sum()),
         "horas_pratica": g["horas_pratica"].sum(),
+        "horas_perdidas": a[a["situacao"] == "Falta"].groupby(chave)["duracao_min"].sum() / 60,
         "pacientes_atendidos": a[a["situacao"] == "Realizado"].groupby(chave)["prontuario"].nunique(),
     }).fillna(0)
     base = base.join(o.groupby(chave)["horarios_ofertados"].sum(), how="outer").fillna(0).reset_index()
@@ -94,7 +95,7 @@ def mensal(t: dict[str, pd.DataFrame]) -> pd.DataFrame:
     base = base.merge(t["clinicas"][["unidade", "servico", "unidade_nome", "servico_nome", "clinica"]],
                       on=["unidade", "servico"])
     inteiros = [c for c in base.columns if c not in ("mes", "unidade", "servico", "unidade_nome", "servico_nome",
-                                                     "clinica", "horas_pratica")]
+                                                     "clinica", "horas_pratica", "horas_perdidas")]
     base[inteiros] = base[inteiros].astype(int)
     base["mes"] = base["mes"].dt.strftime("%Y-%m-%d")
     return base.sort_values(["mes", "unidade", "servico"]).reset_index(drop=True)
@@ -225,6 +226,8 @@ def gerar_painel(t: dict[str, pd.DataFrame]) -> dict:
         "espera_x_falta": espera_falta,
         "continuidade": continuidade,
         "alunos_2026_1": alunos_servico,
+        "filtros": filtros(t),
+        "cenario_segunda": cenario_segunda(a),
         "qualidade": {
             "regras": qual.to_dict(orient="records"),
             "linhas_para_conferir": int(len(t["inconsistencias"])),
@@ -265,6 +268,46 @@ def base_looker(t: dict[str, pd.DataFrame], men: pd.DataFrame, destino: Path) ->
     # Os mesmos dados em CSV: a planilha do Google lê direto do GitHub com IMPORTDATA.
     for nome, tabela in abas.items():
         tabela.to_csv(destino / f"{nome}.csv", index=False, encoding="utf-8", lineterminator="\n")
+
+
+def filtros(t: dict[str, pd.DataFrame]) -> dict:
+    """Dados para o painel da página filtrar por unidade e serviço sem errar a conta.
+
+    Somas (agendamentos, faltas, horários) podem ser somadas no navegador a partir da tabela
+    mensal. Mediana não: a mediana de duas clínicas não é a média das medianas. Por isso a
+    espera mediana e a fila são pré-calculadas para cada combinação de filtro ("*" = todas).
+    """
+    men = mensal(t)
+    colunas = ["mes", "unidade", "servico", "agendamentos", "realizados", "faltas", "horarios_ofertados",
+               "horas_pratica", "horas_perdidas"]
+    linhas = men[colunas].round({"horas_pratica": 1, "horas_perdidas": 1}).to_dict(orient="records")
+    f = t["fila"]
+    chamados = f[f["data_primeira"] >= "2025-11-01"]
+    combos = {}
+    for u in ("*", *UNIDADES):
+        for sv in ("*", *ORDEM_SERVICOS):
+            filtro_c = ((chamados["unidade"] == u) | (u == "*")) & ((chamados["servico"] == sv) | (sv == "*"))
+            filtro_f = ((f["unidade"] == u) | (u == "*")) & ((f["servico"] == sv) | (sv == "*"))
+            if not filtro_f.any():
+                continue
+            mediana = chamados.loc[filtro_c, "dias_espera"].median()
+            combos[f"{u}|{sv}"] = {
+                "espera_mediana_dias": None if pd.isna(mediana) else float(mediana),
+                "aguardando": int((f.loc[filtro_f, "situacao"] == "Aguardando").sum()),
+            }
+    return {"mensal": linhas, "fila": combos}
+
+
+def cenario_segunda(a: pd.DataFrame) -> dict:
+    """Quantas faltas a menos se a segunda de manhã tivesse a taxa média dos outros turnos."""
+    uteis = a[a["data"].dt.day_of_week < 5]
+    seg = uteis[(uteis["data"].dt.day_of_week == 0) & (uteis["turno"] == "Manhã")]
+    outros = uteis.drop(seg.index)
+    base = int(seg["situacao"].isin(["Realizado", "Falta"]).sum())
+    faltas = int((seg["situacao"] == "Falta").sum())
+    taxa_outros = taxa_faltas(outros)
+    return {"faltas_segunda_manha": faltas, "base_segunda_manha": base, "taxa_outros": round(taxa_outros, 4),
+            "faltas_a_menos": int(round(faltas - base * taxa_outros))}
 
 
 def salvar(t: dict[str, pd.DataFrame], painel: dict, tratado: Path = PASTA_TRATADO, site: Path = PASTA_SITE) -> None:

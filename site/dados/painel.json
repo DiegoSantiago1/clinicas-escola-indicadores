@@ -497,6 +497,1300 @@
    "bateriam_sem_faltas": 16
   }
  ],
+ "filtros": {
+  "mensal": [
+   {
+    "mes": "2025-11-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 349,
+    "realizados": 272,
+    "faltas": 51,
+    "horarios_ofertados": 456,
+    "horas_pratica": 272.0,
+    "horas_perdidas": 51.0
+   },
+   {
+    "mes": "2025-11-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 361,
+    "realizados": 291,
+    "faltas": 55,
+    "horarios_ofertados": 456,
+    "horas_pratica": 582.0,
+    "horas_perdidas": 110.0
+   },
+   {
+    "mes": "2025-11-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 712,
+    "realizados": 520,
+    "faltas": 148,
+    "horarios_ofertados": 760,
+    "horas_pratica": 520.0,
+    "horas_perdidas": 148.0
+   },
+   {
+    "mes": "2025-11-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 394,
+    "realizados": 292,
+    "faltas": 86,
+    "horarios_ofertados": 912,
+    "horas_pratica": 292.0,
+    "horas_perdidas": 86.0
+   },
+   {
+    "mes": "2025-11-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 359,
+    "realizados": 288,
+    "faltas": 59,
+    "horarios_ofertados": 456,
+    "horas_pratica": 576.0,
+    "horas_perdidas": 118.0
+   },
+   {
+    "mes": "2025-11-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 609,
+    "realizados": 456,
+    "faltas": 137,
+    "horarios_ofertados": 760,
+    "horas_pratica": 456.0,
+    "horas_perdidas": 137.0
+   },
+   {
+    "mes": "2025-11-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 1072,
+    "realizados": 855,
+    "faltas": 170,
+    "horarios_ofertados": 1216,
+    "horas_pratica": 855.0,
+    "horas_perdidas": 170.0
+   },
+   {
+    "mes": "2025-11-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 446,
+    "realizados": 344,
+    "faltas": 78,
+    "horarios_ofertados": 608,
+    "horas_pratica": 344.0,
+    "horas_perdidas": 78.0
+   },
+   {
+    "mes": "2025-11-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 616,
+    "realizados": 489,
+    "faltas": 95,
+    "horarios_ofertados": 760,
+    "horas_pratica": 978.0,
+    "horas_perdidas": 190.0
+   },
+   {
+    "mes": "2025-11-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 1064,
+    "realizados": 791,
+    "faltas": 233,
+    "horarios_ofertados": 1216,
+    "horas_pratica": 791.0,
+    "horas_perdidas": 233.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 264,
+    "realizados": 184,
+    "faltas": 59,
+    "horarios_ofertados": 360,
+    "horas_pratica": 184.0,
+    "horas_perdidas": 59.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 273,
+    "realizados": 184,
+    "faltas": 49,
+    "horarios_ofertados": 360,
+    "horas_pratica": 368.0,
+    "horas_perdidas": 98.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 457,
+    "realizados": 307,
+    "faltas": 138,
+    "horarios_ofertados": 600,
+    "horas_pratica": 307.0,
+    "horas_perdidas": 138.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 280,
+    "realizados": 163,
+    "faltas": 87,
+    "horarios_ofertados": 720,
+    "horas_pratica": 163.0,
+    "horas_perdidas": 87.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 254,
+    "realizados": 197,
+    "faltas": 45,
+    "horarios_ofertados": 360,
+    "horas_pratica": 394.0,
+    "horas_perdidas": 90.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 461,
+    "realizados": 325,
+    "faltas": 119,
+    "horarios_ofertados": 600,
+    "horas_pratica": 325.0,
+    "horas_perdidas": 119.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 765,
+    "realizados": 573,
+    "faltas": 168,
+    "horarios_ofertados": 960,
+    "horas_pratica": 573.0,
+    "horas_perdidas": 168.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 321,
+    "realizados": 246,
+    "faltas": 64,
+    "horarios_ofertados": 480,
+    "horas_pratica": 246.0,
+    "horas_perdidas": 64.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 468,
+    "realizados": 361,
+    "faltas": 91,
+    "horarios_ofertados": 600,
+    "horas_pratica": 722.0,
+    "horas_perdidas": 182.0
+   },
+   {
+    "mes": "2025-12-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 787,
+    "realizados": 563,
+    "faltas": 191,
+    "horarios_ofertados": 960,
+    "horas_pratica": 563.0,
+    "horas_perdidas": 191.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 426,
+    "realizados": 310,
+    "faltas": 88,
+    "horarios_ofertados": 432,
+    "horas_pratica": 310.0,
+    "horas_perdidas": 88.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 426,
+    "realizados": 322,
+    "faltas": 86,
+    "horarios_ofertados": 432,
+    "horas_pratica": 644.0,
+    "horas_perdidas": 172.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 720,
+    "realizados": 516,
+    "faltas": 176,
+    "horarios_ofertados": 720,
+    "horas_pratica": 516.0,
+    "horas_perdidas": 176.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 353,
+    "realizados": 262,
+    "faltas": 80,
+    "horarios_ofertados": 864,
+    "horas_pratica": 262.0,
+    "horas_perdidas": 80.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 426,
+    "realizados": 319,
+    "faltas": 91,
+    "horarios_ofertados": 432,
+    "horas_pratica": 638.0,
+    "horas_perdidas": 182.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 712,
+    "realizados": 494,
+    "faltas": 190,
+    "horarios_ofertados": 720,
+    "horas_pratica": 494.0,
+    "horas_perdidas": 190.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 1147,
+    "realizados": 909,
+    "faltas": 194,
+    "horarios_ofertados": 1152,
+    "horas_pratica": 909.0,
+    "horas_perdidas": 194.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 558,
+    "realizados": 400,
+    "faltas": 115,
+    "horarios_ofertados": 576,
+    "horas_pratica": 400.0,
+    "horas_perdidas": 115.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 699,
+    "realizados": 545,
+    "faltas": 122,
+    "horarios_ofertados": 720,
+    "horas_pratica": 1090.0,
+    "horas_perdidas": 244.0
+   },
+   {
+    "mes": "2026-02-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 1141,
+    "realizados": 810,
+    "faltas": 281,
+    "horarios_ofertados": 1152,
+    "horas_pratica": 810.0,
+    "horas_perdidas": 281.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 527,
+    "realizados": 430,
+    "faltas": 76,
+    "horarios_ofertados": 528,
+    "horas_pratica": 430.0,
+    "horas_perdidas": 76.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 526,
+    "realizados": 409,
+    "faltas": 96,
+    "horarios_ofertados": 528,
+    "horas_pratica": 818.0,
+    "horas_perdidas": 192.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 875,
+    "realizados": 656,
+    "faltas": 181,
+    "horarios_ofertados": 880,
+    "horas_pratica": 656.0,
+    "horas_perdidas": 181.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 432,
+    "realizados": 310,
+    "faltas": 105,
+    "horarios_ofertados": 1056,
+    "horas_pratica": 310.0,
+    "horas_perdidas": 105.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 518,
+    "realizados": 405,
+    "faltas": 95,
+    "horarios_ofertados": 528,
+    "horas_pratica": 810.0,
+    "horas_perdidas": 190.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 870,
+    "realizados": 663,
+    "faltas": 164,
+    "horarios_ofertados": 880,
+    "horas_pratica": 663.0,
+    "horas_perdidas": 164.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 1394,
+    "realizados": 1113,
+    "faltas": 237,
+    "horarios_ofertados": 1408,
+    "horas_pratica": 1113.0,
+    "horas_perdidas": 237.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 686,
+    "realizados": 504,
+    "faltas": 127,
+    "horarios_ofertados": 704,
+    "horas_pratica": 504.0,
+    "horas_perdidas": 127.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 877,
+    "realizados": 684,
+    "faltas": 154,
+    "horarios_ofertados": 880,
+    "horas_pratica": 1368.0,
+    "horas_perdidas": 308.0
+   },
+   {
+    "mes": "2026-03-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 1401,
+    "realizados": 1038,
+    "faltas": 321,
+    "horarios_ofertados": 1408,
+    "horas_pratica": 1038.0,
+    "horas_perdidas": 321.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 455,
+    "realizados": 358,
+    "faltas": 56,
+    "horarios_ofertados": 480,
+    "horas_pratica": 358.0,
+    "horas_perdidas": 56.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 435,
+    "realizados": 348,
+    "faltas": 69,
+    "horarios_ofertados": 480,
+    "horas_pratica": 696.0,
+    "horas_perdidas": 138.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 779,
+    "realizados": 572,
+    "faltas": 146,
+    "horarios_ofertados": 800,
+    "horas_pratica": 572.0,
+    "horas_perdidas": 146.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 419,
+    "realizados": 311,
+    "faltas": 96,
+    "horarios_ofertados": 960,
+    "horas_pratica": 311.0,
+    "horas_perdidas": 96.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 459,
+    "realizados": 366,
+    "faltas": 75,
+    "horarios_ofertados": 480,
+    "horas_pratica": 732.0,
+    "horas_perdidas": 150.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 795,
+    "realizados": 579,
+    "faltas": 178,
+    "horarios_ofertados": 800,
+    "horas_pratica": 579.0,
+    "horas_perdidas": 178.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 1270,
+    "realizados": 996,
+    "faltas": 211,
+    "horarios_ofertados": 1280,
+    "horas_pratica": 996.0,
+    "horas_perdidas": 211.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 631,
+    "realizados": 480,
+    "faltas": 127,
+    "horarios_ofertados": 640,
+    "horas_pratica": 480.0,
+    "horas_perdidas": 127.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 783,
+    "realizados": 584,
+    "faltas": 139,
+    "horarios_ofertados": 800,
+    "horas_pratica": 1168.0,
+    "horas_perdidas": 278.0
+   },
+   {
+    "mes": "2026-04-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 1266,
+    "realizados": 912,
+    "faltas": 283,
+    "horarios_ofertados": 1280,
+    "horas_pratica": 912.0,
+    "horas_perdidas": 283.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 370,
+    "realizados": 285,
+    "faltas": 74,
+    "horarios_ofertados": 480,
+    "horas_pratica": 285.0,
+    "horas_perdidas": 74.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 341,
+    "realizados": 271,
+    "faltas": 57,
+    "horarios_ofertados": 480,
+    "horas_pratica": 542.0,
+    "horas_perdidas": 114.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 635,
+    "realizados": 479,
+    "faltas": 136,
+    "horarios_ofertados": 800,
+    "horas_pratica": 479.0,
+    "horas_perdidas": 136.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 377,
+    "realizados": 270,
+    "faltas": 93,
+    "horarios_ofertados": 960,
+    "horas_pratica": 270.0,
+    "horas_perdidas": 93.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 397,
+    "realizados": 309,
+    "faltas": 72,
+    "horarios_ofertados": 480,
+    "horas_pratica": 618.0,
+    "horas_perdidas": 144.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 677,
+    "realizados": 521,
+    "faltas": 131,
+    "horarios_ofertados": 800,
+    "horas_pratica": 521.0,
+    "horas_perdidas": 131.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 1187,
+    "realizados": 926,
+    "faltas": 218,
+    "horarios_ofertados": 1280,
+    "horas_pratica": 926.0,
+    "horas_perdidas": 218.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 609,
+    "realizados": 476,
+    "faltas": 111,
+    "horarios_ofertados": 640,
+    "horas_pratica": 476.0,
+    "horas_perdidas": 111.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 777,
+    "realizados": 577,
+    "faltas": 141,
+    "horarios_ofertados": 800,
+    "horas_pratica": 1154.0,
+    "horas_perdidas": 282.0
+   },
+   {
+    "mes": "2026-05-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 1262,
+    "realizados": 909,
+    "faltas": 268,
+    "horarios_ofertados": 1280,
+    "horas_pratica": 909.0,
+    "horas_perdidas": 268.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 312,
+    "realizados": 237,
+    "faltas": 52,
+    "horarios_ofertados": 480,
+    "horas_pratica": 237.0,
+    "horas_perdidas": 52.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 369,
+    "realizados": 288,
+    "faltas": 61,
+    "horarios_ofertados": 480,
+    "horas_pratica": 576.0,
+    "horas_perdidas": 122.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 617,
+    "realizados": 419,
+    "faltas": 145,
+    "horarios_ofertados": 800,
+    "horas_pratica": 419.0,
+    "horas_perdidas": 145.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 435,
+    "realizados": 351,
+    "faltas": 72,
+    "horarios_ofertados": 960,
+    "horas_pratica": 351.0,
+    "horas_perdidas": 72.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 384,
+    "realizados": 310,
+    "faltas": 63,
+    "horarios_ofertados": 480,
+    "horas_pratica": 620.0,
+    "horas_perdidas": 126.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 681,
+    "realizados": 524,
+    "faltas": 131,
+    "horarios_ofertados": 800,
+    "horas_pratica": 524.0,
+    "horas_perdidas": 131.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 1093,
+    "realizados": 863,
+    "faltas": 186,
+    "horarios_ofertados": 1280,
+    "horas_pratica": 863.0,
+    "horas_perdidas": 186.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 588,
+    "realizados": 463,
+    "faltas": 109,
+    "horarios_ofertados": 640,
+    "horas_pratica": 463.0,
+    "horas_perdidas": 109.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 788,
+    "realizados": 640,
+    "faltas": 117,
+    "horarios_ofertados": 800,
+    "horas_pratica": 1280.0,
+    "horas_perdidas": 234.0
+   },
+   {
+    "mes": "2026-06-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 1269,
+    "realizados": 942,
+    "faltas": 278,
+    "horarios_ofertados": 1280,
+    "horas_pratica": 942.0,
+    "horas_perdidas": 278.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 209,
+    "realizados": 172,
+    "faltas": 25,
+    "horarios_ofertados": 232,
+    "horas_pratica": 172.0,
+    "horas_perdidas": 25.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 278,
+    "realizados": 222,
+    "faltas": 45,
+    "horarios_ofertados": 312,
+    "horas_pratica": 444.0,
+    "horas_perdidas": 90.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 382,
+    "realizados": 277,
+    "faltas": 73,
+    "horarios_ofertados": 440,
+    "horas_pratica": 277.0,
+    "horas_perdidas": 73.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 326,
+    "realizados": 225,
+    "faltas": 67,
+    "horarios_ofertados": 624,
+    "horas_pratica": 225.0,
+    "horas_perdidas": 67.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 290,
+    "realizados": 231,
+    "faltas": 41,
+    "horarios_ofertados": 312,
+    "horas_pratica": 462.0,
+    "horas_perdidas": 82.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 399,
+    "realizados": 305,
+    "faltas": 86,
+    "horarios_ofertados": 440,
+    "horas_pratica": 305.0,
+    "horas_perdidas": 86.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 752,
+    "realizados": 603,
+    "faltas": 111,
+    "horarios_ofertados": 832,
+    "horas_pratica": 603.0,
+    "horas_perdidas": 111.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 401,
+    "realizados": 321,
+    "faltas": 62,
+    "horarios_ofertados": 416,
+    "horas_pratica": 321.0,
+    "horas_perdidas": 62.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 496,
+    "realizados": 393,
+    "faltas": 86,
+    "horarios_ofertados": 520,
+    "horas_pratica": 786.0,
+    "horas_perdidas": 172.0
+   },
+   {
+    "mes": "2026-07-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 832,
+    "realizados": 583,
+    "faltas": 195,
+    "horarios_ofertados": 832,
+    "horas_pratica": 583.0,
+    "horas_perdidas": 195.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 392,
+    "realizados": 317,
+    "faltas": 62,
+    "horarios_ofertados": 504,
+    "horas_pratica": 317.0,
+    "horas_perdidas": 62.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 471,
+    "realizados": 351,
+    "faltas": 102,
+    "horarios_ofertados": 504,
+    "horas_pratica": 702.0,
+    "horas_perdidas": 204.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 753,
+    "realizados": 547,
+    "faltas": 175,
+    "horarios_ofertados": 840,
+    "horas_pratica": 547.0,
+    "horas_perdidas": 175.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 411,
+    "realizados": 308,
+    "faltas": 85,
+    "horarios_ofertados": 1008,
+    "horas_pratica": 308.0,
+    "horas_perdidas": 85.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 492,
+    "realizados": 396,
+    "faltas": 56,
+    "horarios_ofertados": 504,
+    "horas_pratica": 792.0,
+    "horas_perdidas": 112.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 720,
+    "realizados": 519,
+    "faltas": 178,
+    "horarios_ofertados": 840,
+    "horas_pratica": 519.0,
+    "horas_perdidas": 178.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 1184,
+    "realizados": 918,
+    "faltas": 209,
+    "horarios_ofertados": 1344,
+    "horas_pratica": 918.0,
+    "horas_perdidas": 209.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 581,
+    "realizados": 437,
+    "faltas": 102,
+    "horarios_ofertados": 672,
+    "horas_pratica": 437.0,
+    "horas_perdidas": 102.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 809,
+    "realizados": 618,
+    "faltas": 156,
+    "horarios_ofertados": 840,
+    "horas_pratica": 1236.0,
+    "horas_perdidas": 312.0
+   },
+   {
+    "mes": "2026-08-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 1336,
+    "realizados": 980,
+    "faltas": 297,
+    "horarios_ofertados": 1344,
+    "horas_pratica": 980.0,
+    "horas_perdidas": 297.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 394,
+    "realizados": 305,
+    "faltas": 63,
+    "horarios_ofertados": 504,
+    "horas_pratica": 305.0,
+    "horas_perdidas": 63.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 373,
+    "realizados": 282,
+    "faltas": 56,
+    "horarios_ofertados": 504,
+    "horas_pratica": 564.0,
+    "horas_perdidas": 112.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 728,
+    "realizados": 561,
+    "faltas": 142,
+    "horarios_ofertados": 840,
+    "horas_pratica": 561.0,
+    "horas_perdidas": 142.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 353,
+    "realizados": 283,
+    "faltas": 59,
+    "horarios_ofertados": 1008,
+    "horas_pratica": 283.0,
+    "horas_perdidas": 59.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 481,
+    "realizados": 375,
+    "faltas": 85,
+    "horarios_ofertados": 504,
+    "horas_pratica": 750.0,
+    "horas_perdidas": 170.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 674,
+    "realizados": 514,
+    "faltas": 128,
+    "horarios_ofertados": 840,
+    "horas_pratica": 514.0,
+    "horas_perdidas": 128.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 1157,
+    "realizados": 930,
+    "faltas": 169,
+    "horarios_ofertados": 1344,
+    "horas_pratica": 930.0,
+    "horas_perdidas": 169.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 569,
+    "realizados": 444,
+    "faltas": 89,
+    "horarios_ofertados": 672,
+    "horas_pratica": 444.0,
+    "horas_perdidas": 89.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 828,
+    "realizados": 612,
+    "faltas": 145,
+    "horarios_ofertados": 840,
+    "horas_pratica": 1224.0,
+    "horas_perdidas": 290.0
+   },
+   {
+    "mes": "2026-09-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 1328,
+    "realizados": 978,
+    "faltas": 282,
+    "horarios_ofertados": 1344,
+    "horas_pratica": 978.0,
+    "horas_perdidas": 282.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "JAB",
+    "servico": "NUT",
+    "agendamentos": 362,
+    "realizados": 282,
+    "faltas": 69,
+    "horarios_ofertados": 504,
+    "horas_pratica": 282.0,
+    "horas_perdidas": 69.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "JAB",
+    "servico": "ODO",
+    "agendamentos": 337,
+    "realizados": 279,
+    "faltas": 45,
+    "horarios_ofertados": 504,
+    "horas_pratica": 558.0,
+    "horas_perdidas": 90.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "JAB",
+    "servico": "PSI",
+    "agendamentos": 733,
+    "realizados": 547,
+    "faltas": 156,
+    "horarios_ofertados": 840,
+    "horas_pratica": 547.0,
+    "horas_perdidas": 156.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "OLI",
+    "servico": "FIS",
+    "agendamentos": 404,
+    "realizados": 298,
+    "faltas": 68,
+    "horarios_ofertados": 1008,
+    "horas_pratica": 298.0,
+    "horas_perdidas": 68.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "OLI",
+    "servico": "ODO",
+    "agendamentos": 419,
+    "realizados": 355,
+    "faltas": 48,
+    "horarios_ofertados": 504,
+    "horas_pratica": 710.0,
+    "horas_perdidas": 96.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "OLI",
+    "servico": "PSI",
+    "agendamentos": 709,
+    "realizados": 535,
+    "faltas": 145,
+    "horarios_ofertados": 840,
+    "horas_pratica": 535.0,
+    "horas_perdidas": 145.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "REC",
+    "servico": "FIS",
+    "agendamentos": 1130,
+    "realizados": 911,
+    "faltas": 181,
+    "horarios_ofertados": 1344,
+    "horas_pratica": 911.0,
+    "horas_perdidas": 181.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "REC",
+    "servico": "NUT",
+    "agendamentos": 557,
+    "realizados": 425,
+    "faltas": 116,
+    "horarios_ofertados": 672,
+    "horas_pratica": 425.0,
+    "horas_perdidas": 116.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "REC",
+    "servico": "ODO",
+    "agendamentos": 823,
+    "realizados": 622,
+    "faltas": 135,
+    "horarios_ofertados": 840,
+    "horas_pratica": 1244.0,
+    "horas_perdidas": 270.0
+   },
+   {
+    "mes": "2026-10-01",
+    "unidade": "REC",
+    "servico": "PSI",
+    "agendamentos": 1320,
+    "realizados": 955,
+    "faltas": 292,
+    "horarios_ofertados": 1344,
+    "horas_pratica": 955.0,
+    "horas_perdidas": 292.0
+   }
+  ],
+  "fila": {
+   "*|*": {
+    "espera_mediana_dias": 7.0,
+    "aguardando": 469
+   },
+   "*|ODO": {
+    "espera_mediana_dias": 14.0,
+    "aguardando": 70
+   },
+   "*|FIS": {
+    "espera_mediana_dias": 9.0,
+    "aguardando": 387
+   },
+   "*|PSI": {
+    "espera_mediana_dias": 6.0,
+    "aguardando": 12
+   },
+   "*|NUT": {
+    "espera_mediana_dias": 1.0,
+    "aguardando": 0
+   },
+   "REC|*": {
+    "espera_mediana_dias": 12.0,
+    "aguardando": 80
+   },
+   "REC|ODO": {
+    "espera_mediana_dias": 20.0,
+    "aguardando": 70
+   },
+   "REC|FIS": {
+    "espera_mediana_dias": 2.0,
+    "aguardando": 0
+   },
+   "REC|PSI": {
+    "espera_mediana_dias": 10.0,
+    "aguardando": 10
+   },
+   "REC|NUT": {
+    "espera_mediana_dias": 3.0,
+    "aguardando": 0
+   },
+   "OLI|*": {
+    "espera_mediana_dias": 9.0,
+    "aguardando": 387
+   },
+   "OLI|ODO": {
+    "espera_mediana_dias": 6.0,
+    "aguardando": 0
+   },
+   "OLI|FIS": {
+    "espera_mediana_dias": 114.0,
+    "aguardando": 387
+   },
+   "OLI|PSI": {
+    "espera_mediana_dias": 1.0,
+    "aguardando": 0
+   },
+   "JAB|*": {
+    "espera_mediana_dias": 1.0,
+    "aguardando": 2
+   },
+   "JAB|ODO": {
+    "espera_mediana_dias": 1.0,
+    "aguardando": 0
+   },
+   "JAB|PSI": {
+    "espera_mediana_dias": 1.0,
+    "aguardando": 2
+   },
+   "JAB|NUT": {
+    "espera_mediana_dias": 1.0,
+    "aguardando": 0
+   }
+  }
+ },
+ "cenario_segunda": {
+  "faltas_segunda_manha": 2064,
+  "base_segunda_manha": 7469,
+  "taxa_outros": 0.1943,
+  "faltas_a_menos": 613
+ },
  "qualidade": {
   "regras": [
    {
