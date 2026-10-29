@@ -108,6 +108,10 @@ function montarQuadro(clinicas) {
 }
 
 // ------------------------------------------------------------- achados
+function temaEscuro() {
+  const t = document.documentElement.dataset.theme;
+  return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+}
 function montarCalor(calor) {
   const el = document.getElementById("calor");
   const dias = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
@@ -119,7 +123,7 @@ function montarCalor(calor) {
     for (const t of ["Manhã", "Tarde"]) {
       const c = calor.find((x) => x.dia === d && x.turno === t);
       const forca = Math.round(18 + 82 * (c.taxa_faltas - min) / (max - min));
-      const texto = forca > 60 ? "#14213d" : "var(--ink)";
+      const texto = temaEscuro() ? (forca > 90 ? "#0b1220" : "#f4f5f6") : (forca > 60 ? "#0b1220" : "var(--ink)");
       html += `<span class="cel" style="background: color-mix(in srgb, var(--coral) ${forca}%, var(--surface)); color: ${texto}">${PCT(c.taxa_faltas)}</span>`;
     }
   }
@@ -225,7 +229,7 @@ document.querySelector(".tema").addEventListener("click", () => {
   const escuroAgora = raiz.dataset.theme ? raiz.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
   raiz.dataset.theme = escuroAgora ? "light" : "dark";
   try { localStorage.setItem("tema", raiz.dataset.theme); } catch (e) { /* navegação privada */ }
-  if (painel) montarGraficos(painel);
+  if (painel) { montarGraficos(painel); montarCalor(painel.calor_faltas); }
 });
 
 document.getElementById("entrada").addEventListener("input", padronizar);
