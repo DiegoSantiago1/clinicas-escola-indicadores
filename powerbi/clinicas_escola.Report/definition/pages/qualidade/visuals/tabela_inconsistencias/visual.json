@@ -1,0 +1,135 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "tabela_inconsistencias",
+  "position": {
+    "x": 652,
+    "y": 192,
+    "z": 5000,
+    "width": 612,
+    "height": 516,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "inconsistencias"
+                    }
+                  },
+                  "Property": "regra"
+                }
+              },
+              "queryRef": "inconsistencias.regra",
+              "nativeQueryRef": "regra",
+              "displayName": "Regra"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "inconsistencias"
+                    }
+                  },
+                  "Property": "arquivo"
+                }
+              },
+              "queryRef": "inconsistencias.arquivo",
+              "nativeQueryRef": "arquivo",
+              "displayName": "Arquivo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "inconsistencias"
+                    }
+                  },
+                  "Property": "aba"
+                }
+              },
+              "queryRef": "inconsistencias.aba",
+              "nativeQueryRef": "aba",
+              "displayName": "Aba"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "inconsistencias"
+                    }
+                  },
+                  "Property": "linha"
+                }
+              },
+              "queryRef": "inconsistencias.linha",
+              "nativeQueryRef": "linha",
+              "displayName": "Linha"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "inconsistencias"
+                    }
+                  },
+                  "Property": "valor_original"
+                }
+              },
+              "queryRef": "inconsistencias.valor_original",
+              "nativeQueryRef": "valor_original",
+              "displayName": "Valor original"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "inconsistencias"
+                    }
+                  },
+                  "Property": "valor_final"
+                }
+              },
+              "queryRef": "inconsistencias.valor_final",
+              "nativeQueryRef": "valor_final",
+              "displayName": "Valor final"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Linhas para conferir na origem'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

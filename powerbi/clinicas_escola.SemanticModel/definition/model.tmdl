@@ -1,0 +1,26 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["PastaDados", "atendimentos", "oferta", "fila", "clinicas", "calendario", "alunos", "supervisores", "resumo_qualidade", "inconsistencias", "Medidas"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table atendimentos
+ref table oferta
+ref table fila
+ref table clinicas
+ref table calendario
+ref table alunos
+ref table supervisores
+ref table resumo_qualidade
+ref table inconsistencias
+ref table Medidas
+
+ref cultureInfo pt-BR

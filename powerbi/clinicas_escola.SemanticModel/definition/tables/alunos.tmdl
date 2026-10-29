@@ -1,0 +1,73 @@
+/// Alunos de cada semestre, com a meta de horas de prática.
+table alunos
+	lineageTag: 67cfe945-3e26-59bf-ae33-1c9f7e517ab5
+
+	column matricula
+		dataType: string
+		isKey
+		lineageTag: eda92631-fde4-5b68-8416-9b9ae8ea245a
+		summarizeBy: none
+		sourceColumn: matricula
+
+	column nome
+		dataType: string
+		lineageTag: 81b70efc-e980-5b3c-a068-4365a5242d08
+		summarizeBy: none
+		sourceColumn: nome
+
+	column curso
+		dataType: string
+		lineageTag: 5631b782-10b2-57c4-a7bb-e943e6b8a798
+		summarizeBy: none
+		sourceColumn: curso
+
+	column semestre
+		dataType: string
+		lineageTag: c9f13407-1c88-5124-a316-9e954241c7a4
+		summarizeBy: none
+		sourceColumn: semestre
+
+	column unidade
+		dataType: string
+		lineageTag: abf25d67-589e-530a-9e53-24209d67a71a
+		summarizeBy: none
+		sourceColumn: unidade
+
+	column servico
+		dataType: string
+		isHidden
+		lineageTag: 983a0401-4ab4-57db-9979-7efc46190022
+		summarizeBy: none
+		sourceColumn: servico
+
+	column meta_horas_semestre
+		dataType: int64
+		formatString: #,0
+		lineageTag: e55676c6-c969-53b8-9480-fc88daee04aa
+		summarizeBy: none
+		sourceColumn: meta_horas_semestre
+
+	column proporcao_semestre
+		dataType: double
+		formatString: 0.0%
+		lineageTag: df7d5f3f-fb03-55f5-ae37-b121c10adb05
+		summarizeBy: none
+		sourceColumn: proporcao_semestre
+
+	/// Meta proporcional aos dias letivos já decorridos até 31/10/2026 (vazia em 2025.2, que começou antes dos dados).
+	column meta_ate_fim_dados
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 9e135e57-e862-52c1-b962-b63706f7037c
+		summarizeBy: none
+		sourceColumn: meta_ate_fim_dados
+
+	partition alunos = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "alunos.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"matricula", type text}, {"nome", type text}, {"curso", type text}, {"semestre", type text}, {"unidade", type text}, {"servico", type text}, {"meta_horas_semestre", Int64.Type}, {"proporcao_semestre", type number}, {"meta_ate_fim_dados", type number}}, "en-US")
+				in
+				    Tipos

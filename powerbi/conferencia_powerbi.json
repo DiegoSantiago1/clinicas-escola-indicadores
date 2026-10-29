@@ -1,0 +1,253 @@
+{
+ "variacao": [
+  {
+   "mes": "/Date(1761966000000)/",
+   "taxa": 0.19474605954465848,
+   "variacao_pp": null
+  },
+  {
+   "mes": "/Date(1764558000000)/",
+   "taxa": 0.2457462323772484,
+   "variacao_pp": 5.1000172832589925
+  },
+  {
+   "mes": "/Date(1769914800000)/",
+   "taxa": 0.22551505546751188,
+   "variacao_pp": null
+  },
+  {
+   "mes": "/Date(1772334000000)/",
+   "taxa": 0.20030895983522143,
+   "variacao_pp": -2.5206095632290455
+  },
+  {
+   "mes": "/Date(1775012400000)/",
+   "taxa": 0.20040662213186175,
+   "variacao_pp": 0.009766229664032178
+  },
+  {
+   "mes": "/Date(1777604400000)/",
+   "taxa": 0.20572422517394054,
+   "variacao_pp": 0.5317603042078789
+  },
+  {
+   "mes": "/Date(1780282800000)/",
+   "taxa": 0.1942089265717485,
+   "variacao_pp": -1.1515298602192026
+  },
+  {
+   "mes": "/Date(1782874800000)/",
+   "taxa": 0.19185059422750425,
+   "variacao_pp": -0.23583323442442627
+  },
+  {
+   "mes": "/Date(1785553200000)/",
+   "taxa": 0.20871862615587847,
+   "variacao_pp": 1.6868031928374216
+  },
+  {
+   "mes": "/Date(1788231600000)/",
+   "taxa": 0.18732697631498,
+   "variacao_pp": -2.1391649840898475
+  },
+  {
+   "mes": "/Date(1790823600000)/",
+   "taxa": 0.19415222772277227,
+   "variacao_pp": 0.6825251407792277
+  },
+  {
+   "mes": "/Date(1767236400000)/",
+   "taxa": null,
+   "variacao_pp": -24.57462323772484
+  }
+ ],
+ "espera": [
+  {
+   "faixa_espera_1a_consulta": null,
+   "taxa_faltas": 0.19626645276552301,
+   "consultas": 54854
+  },
+  {
+   "faixa_espera_1a_consulta": "Até 7 dias",
+   "taxa_faltas": 0.19174413108555222,
+   "consultas": 6347
+  },
+  {
+   "faixa_espera_1a_consulta": "31 a 60 dias",
+   "taxa_faltas": 0.3389450056116723,
+   "consultas": 891
+  },
+  {
+   "faixa_espera_1a_consulta": "Mais de 60 dias",
+   "taxa_faltas": 0.40848214285714285,
+   "consultas": 448
+  },
+  {
+   "faixa_espera_1a_consulta": "8 a 30 dias",
+   "taxa_faltas": 0.2571428571428571,
+   "consultas": 4725
+  }
+ ],
+ "por_clinica": [
+  {
+   "clinica": "Nutrição · Jaboatão",
+   "taxa_faltas": 0.17637836425398484,
+   "ocupacao": 0.8185483870967742,
+   "espera_mediana_dias": 1,
+   "fila_aguardando_fim": null
+  },
+  {
+   "clinica": "Odontologia · Jaboatão",
+   "taxa_faltas": 0.18170362903225806,
+   "ocupacao": 0.8313492063492064,
+   "espera_mediana_dias": 1,
+   "fila_aguardando_fim": null
+  },
+  {
+   "clinica": "Psicologia · Jaboatão",
+   "taxa_faltas": 0.23029784808322645,
+   "ocupacao": 0.8883413461538462,
+   "espera_mediana_dias": 1,
+   "fila_aguardando_fim": 2
+  },
+  {
+   "clinica": "Fisioterapia · Olinda",
+   "taxa_faltas": 0.226139511458071,
+   "ocupacao": 0.4150793650793651,
+   "espera_mediana_dias": 114,
+   "fila_aguardando_fim": 387
+  },
+  {
+   "clinica": "Odontologia · Olinda",
+   "taxa_faltas": 0.17052090633029665,
+   "ocupacao": 0.8886904761904761,
+   "espera_mediana_dias": 6,
+   "fila_aguardando_fim": null
+  },
+  {
+   "clinica": "Psicologia · Olinda",
+   "taxa_faltas": 0.22600398746795786,
+   "ocupacao": 0.8782451923076923,
+   "espera_mediana_dias": 1,
+   "fila_aguardando_fim": null
+  },
+  {
+   "clinica": "Fisioterapia · Recife",
+   "taxa_faltas": 0.1762938803536177,
+   "ocupacao": 0.9040922619047619,
+   "espera_mediana_dias": 2,
+   "fila_aguardando_fim": null
+  },
+  {
+   "clinica": "Nutrição · Recife",
+   "taxa_faltas": 0.1950354609929078,
+   "ocupacao": 0.8849702380952381,
+   "espera_mediana_dias": 3,
+   "fila_aguardando_fim": null
+  },
+  {
+   "clinica": "Odontologia · Recife",
+   "taxa_faltas": 0.1839861444177991,
+   "ocupacao": 0.9480952380952381,
+   "espera_mediana_dias": 20,
+   "fila_aguardando_fim": 70
+  },
+  {
+   "clinica": "Psicologia · Recife",
+   "taxa_faltas": 0.2359069617186238,
+   "ocupacao": 0.9677083333333333,
+   "espera_mediana_dias": 10,
+   "fila_aguardando_fim": 10
+  }
+ ],
+ "calor": [
+  {
+   "dia_semana": "Segunda",
+   "turno": "Manhã",
+   "taxa_faltas": 0.2763422144865444
+  },
+  {
+   "dia_semana": "Segunda",
+   "turno": "Tarde",
+   "taxa_faltas": 0.18633540372670807
+  },
+  {
+   "dia_semana": "Terça",
+   "turno": "Manhã",
+   "taxa_faltas": 0.1911786183730101
+  },
+  {
+   "dia_semana": "Terça",
+   "turno": "Tarde",
+   "taxa_faltas": 0.18340472790734572
+  },
+  {
+   "dia_semana": "Quarta",
+   "turno": "Manhã",
+   "taxa_faltas": 0.19933168676449223
+  },
+  {
+   "dia_semana": "Quarta",
+   "turno": "Tarde",
+   "taxa_faltas": 0.19463200540175557
+  },
+  {
+   "dia_semana": "Quinta",
+   "turno": "Manhã",
+   "taxa_faltas": 0.19105579868708972
+  },
+  {
+   "dia_semana": "Quinta",
+   "turno": "Tarde",
+   "taxa_faltas": 0.17469238948807533
+  },
+  {
+   "dia_semana": "Sexta",
+   "turno": "Manhã",
+   "taxa_faltas": 0.19493263034563563
+  },
+  {
+   "dia_semana": "Sexta",
+   "turno": "Tarde",
+   "taxa_faltas": 0.2372347480106101
+  }
+ ],
+ "geral": [
+  {
+   "agendamentos": 70679,
+   "realizados": 53582,
+   "faltas": 13683,
+   "taxa_faltas": 0.2034193116776927,
+   "ofertados": 83760,
+   "ocupacao": 0.8438276026743076,
+   "aproveitamento": 0.6397086914995225,
+   "horas_pratica": 66505,
+   "horas_perdidas_faltas": 16515,
+   "espera_mediana_dias": 7,
+   "fila_aguardando_fim": 469,
+   "linhas_para_conferir": 4104
+  }
+ ],
+ "alunos": [
+  {
+   "servico": "ODO",
+   "bateram_meta": 42,
+   "alunos": 66
+  },
+  {
+   "servico": "FIS",
+   "bateram_meta": 24,
+   "alunos": 42
+  },
+  {
+   "servico": "PSI",
+   "bateram_meta": 37,
+   "alunos": 54
+  },
+  {
+   "servico": "NUT",
+   "bateram_meta": 18,
+   "alunos": 21
+  }
+ ]
+}

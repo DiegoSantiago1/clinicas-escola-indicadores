@@ -1,0 +1,40 @@
+/// Professores supervisores de cada clínica.
+table supervisores
+	lineageTag: e2fe2b78-f444-5aa6-bf2e-708d825d71d5
+
+	column codigo
+		dataType: string
+		isKey
+		lineageTag: de3709f6-f529-50dc-8814-b45379ba0e2b
+		summarizeBy: none
+		sourceColumn: codigo
+
+	column nome
+		dataType: string
+		lineageTag: 9074b511-501e-5c68-ab07-0777be2fd076
+		summarizeBy: none
+		sourceColumn: nome
+
+	column unidade
+		dataType: string
+		isHidden
+		lineageTag: 2817fd34-528b-5809-8744-1fb634da4820
+		summarizeBy: none
+		sourceColumn: unidade
+
+	column servico
+		dataType: string
+		isHidden
+		lineageTag: 104828f3-875d-5a06-b205-be4ceeb97d6d
+		summarizeBy: none
+		sourceColumn: servico
+
+	partition supervisores = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "supervisores.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"codigo", type text}, {"nome", type text}, {"unidade", type text}, {"servico", type text}}, "en-US")
+				in
+				    Tipos

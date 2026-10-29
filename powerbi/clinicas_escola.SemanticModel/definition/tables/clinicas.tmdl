@@ -1,0 +1,74 @@
+/// As 10 clínicas: unidade, serviço, salas e de onde vêm os dados (sistema ou planilha).
+table clinicas
+	lineageTag: 330e80c1-55ef-57bd-bf3f-b8603cfb03f8
+
+	column unidade
+		dataType: string
+		isHidden
+		lineageTag: cabc5684-1dcc-53f5-9aee-77715128d818
+		summarizeBy: none
+		sourceColumn: unidade
+
+	column servico
+		dataType: string
+		isHidden
+		lineageTag: 836eec06-42cb-51a9-962b-df3d62b64d7e
+		summarizeBy: none
+		sourceColumn: servico
+
+	column salas
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3150cb0e-ff7f-58e3-a7b6-01338b2c71fd
+		summarizeBy: none
+		sourceColumn: salas
+
+	column duracao_min
+		dataType: int64
+		formatString: #,0
+		lineageTag: ae398133-d58f-587a-bb2d-36c25955a6ea
+		summarizeBy: none
+		sourceColumn: duracao_min
+
+	column unidade_nome
+		dataType: string
+		lineageTag: b8851759-36ae-5cc9-a2bb-8fbe5e85c904
+		summarizeBy: none
+		sourceColumn: unidade_nome
+
+	column servico_nome
+		dataType: string
+		lineageTag: 4e3c244f-c1d9-5abf-9df1-e29f8cd31eac
+		summarizeBy: none
+		sourceColumn: servico_nome
+
+	column clinica
+		dataType: string
+		lineageTag: 103c93ec-8dd3-55d3-a7ec-1e57a96f9af0
+		summarizeBy: none
+		sourceColumn: clinica
+
+	column origem_dados
+		dataType: string
+		lineageTag: fdfe5472-be9a-5692-a952-6aba34f1b790
+		summarizeBy: none
+		sourceColumn: origem_dados
+
+	column id_clinica
+		dataType: string
+		isKey
+		isHidden
+		lineageTag: 92529eb8-44b9-5664-b08d-44406ad8fc9b
+		summarizeBy: none
+		sourceColumn: id_clinica
+
+	partition clinicas = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "clinicas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"unidade", type text}, {"servico", type text}, {"salas", Int64.Type}, {"duracao_min", Int64.Type}, {"unidade_nome", type text}, {"servico_nome", type text}, {"clinica", type text}, {"origem_dados", type text}}, "en-US"),
+				    ComClinica = Table.AddColumn(Tipos, "id_clinica", each [unidade] & "-" & [servico], type text)
+				in
+				    ComClinica

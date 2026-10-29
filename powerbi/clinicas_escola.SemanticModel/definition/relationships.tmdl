@@ -1,0 +1,31 @@
+relationship 380623ce-d5ff-58c3-bce9-f22625affd9f
+	fromColumn: atendimentos.data
+	toColumn: calendario.data
+
+relationship 54419a2b-dff9-5a41-9331-21fffff10c01
+	fromColumn: oferta.data
+	toColumn: calendario.data
+
+relationship 40297146-228c-5fb9-9ed1-29ec1cb3bc6c
+	fromColumn: fila.data_inscricao
+	toColumn: calendario.data
+
+relationship 420de598-605b-584b-bfd5-ba27a6a8885e
+	fromColumn: atendimentos.id_clinica
+	toColumn: clinicas.id_clinica
+
+relationship 9ff6d2b7-e8e3-56aa-b410-fd87287c78e1
+	fromColumn: oferta.id_clinica
+	toColumn: clinicas.id_clinica
+
+relationship 044bb78c-ebf6-564c-b595-c515a0ebb58b
+	fromColumn: fila.id_clinica
+	toColumn: clinicas.id_clinica
+
+relationship 17f2c695-c647-547b-9649-d3bd73d61366
+	fromColumn: atendimentos.matricula_aluno
+	toColumn: alunos.matricula
+
+relationship 2a23743a-eaa7-5b14-9b85-7428fe824c1f
+	fromColumn: atendimentos.supervisor
+	toColumn: supervisores.codigo

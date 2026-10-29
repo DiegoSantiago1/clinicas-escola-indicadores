@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "nota_faltas",
+  "position": {
+    "x": 792,
+    "y": 458,
+    "z": 11000,
+    "width": 472,
+    "height": 250,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Como ler: a segunda de manhã concentra as faltas, e quem esperou mais de 60 dias na fila falta duas vezes mais na 1ª consulta do que quem esperou até 7 dias. Ação sugerida: confirmação na véspera (WhatsApp) para as primeiras consultas e para a segunda de manhã, e lista de espera para preencher o horário de quem desmarca.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#4A5568"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

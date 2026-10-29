@@ -424,6 +424,23 @@ def montar_calendario(cad: dict[str, pd.DataFrame]) -> pd.DataFrame:
     return cal
 
 
+def alunos_com_meta(alunos: pd.DataFrame, fim_dados: date) -> pd.DataFrame:
+    """Meta de horas proporcional aos dias letivos já decorridos até o fim dos dados.
+
+    2025.2 fica sem meta: os dados começam em novembro, no meio do semestre, e as horas de
+    agosto a outubro não estão na base (comparar seria injusto com o aluno).
+    """
+    saida = alunos.copy()
+    proporcao = {}
+    for rotulo, inicio, fim in SEMESTRES:
+        uteis = pd.bdate_range(inicio, fim)
+        proporcao[rotulo] = round(len(uteis[uteis <= pd.Timestamp(fim_dados)]) / len(uteis), 4)
+    proporcao["2025.2"] = None
+    saida["proporcao_semestre"] = saida["semestre"].map(proporcao)
+    saida["meta_ate_fim_dados"] = (saida["meta_horas_semestre"] * saida["proporcao_semestre"]).round(1)
+    return saida
+
+
 def padronizar(fontes: Path = PASTA_FONTES, destino: Path = PASTA_TRATADO) -> dict[str, pd.DataFrame]:
     reg = Registro()
     cad = ler_cadastros(fontes)
@@ -476,10 +493,10 @@ def padronizar(fontes: Path = PASTA_FONTES, destino: Path = PASTA_TRATADO) -> di
                             "ocorrencias": reg.contagem.get(r, 0)} for r in DESCRICAO_REGRA])
     tabelas = {
         "atendimentos": atend,
+        "alunos": alunos_com_meta(cad["alunos"], atend["data"].max()),
         "oferta": montar_oferta(cad),
         "fila": fila,
         "pacientes": pacientes,
-        "alunos": cad["alunos"],
         "supervisores": cad["supervisores"],
         "clinicas": clinicas,
         "calendario": montar_calendario(cad),

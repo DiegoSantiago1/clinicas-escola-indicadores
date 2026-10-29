@@ -1,0 +1,6 @@
+/// Pasta com os CSVs de data/tratado (termina com barra).
+expression PastaDados = "C:\Users\freit\OneDrive\Desktop\Clinicas_Escola\data\tratado\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 48f5ec98-103c-572d-9072-5caa0d52a28d
+
+	annotation PBI_ResultType = Text
+

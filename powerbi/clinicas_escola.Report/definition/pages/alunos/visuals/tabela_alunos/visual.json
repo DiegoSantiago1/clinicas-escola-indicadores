@@ -1,0 +1,224 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "tabela_alunos",
+  "position": {
+    "x": 652,
+    "y": 192,
+    "z": 6000,
+    "width": 612,
+    "height": 516,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "alunos"
+                    }
+                  },
+                  "Property": "matricula"
+                }
+              },
+              "queryRef": "alunos.matricula",
+              "nativeQueryRef": "matricula",
+              "displayName": "Matrícula"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "alunos"
+                    }
+                  },
+                  "Property": "nome"
+                }
+              },
+              "queryRef": "alunos.nome",
+              "nativeQueryRef": "nome",
+              "displayName": "Aluno"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "alunos"
+                    }
+                  },
+                  "Property": "curso"
+                }
+              },
+              "queryRef": "alunos.curso",
+              "nativeQueryRef": "curso",
+              "displayName": "Curso"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "alunos"
+                    }
+                  },
+                  "Property": "unidade"
+                }
+              },
+              "queryRef": "alunos.unidade",
+              "nativeQueryRef": "unidade",
+              "displayName": "Unidade"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Horas de prática"
+                }
+              },
+              "queryRef": "Medidas.Horas de prática",
+              "nativeQueryRef": "Horas de prática",
+              "displayName": "Horas"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "alunos"
+                    }
+                  },
+                  "Property": "meta_ate_fim_dados"
+                }
+              },
+              "queryRef": "alunos.meta_ate_fim_dados",
+              "nativeQueryRef": "meta_ate_fim_dados",
+              "displayName": "Meta"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Horas perdidas por faltas"
+                }
+              },
+              "queryRef": "Medidas.Horas perdidas por faltas",
+              "nativeQueryRef": "Horas perdidas por faltas",
+              "displayName": "Perdidas"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "Horas de prática"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Horas de cada aluno (2026.1)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "so_2026_1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "alunos"
+              }
+            },
+            "Property": "semestre"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "alunos",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "t"
+                          }
+                        },
+                        "Property": "semestre"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026.1'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

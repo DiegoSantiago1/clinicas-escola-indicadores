@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "seg_servico",
+  "position": {
+    "x": 1092,
+    "y": 8,
+    "z": 2000,
+    "width": 172,
+    "height": 64,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "clinicas"
+                    }
+                  },
+                  "Property": "servico_nome"
+                }
+              },
+              "queryRef": "clinicas.servico_nome",
+              "nativeQueryRef": "servico_nome",
+              "displayName": "Serviço"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

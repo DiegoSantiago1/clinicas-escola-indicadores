@@ -1,0 +1,72 @@
+/// Fila de espera da recepção: inscrição, 1ª consulta e situação de cada paciente.
+table fila
+	lineageTag: dcc8ca9e-856d-5ad7-b118-ec2dc146f6a2
+
+	column prontuario
+		dataType: string
+		lineageTag: b484fae1-1608-5d55-9031-ae9c7a5886be
+		summarizeBy: none
+		sourceColumn: prontuario
+
+	column unidade
+		dataType: string
+		isHidden
+		lineageTag: 025a4a93-9583-5318-9534-f25f17ff6144
+		summarizeBy: none
+		sourceColumn: unidade
+
+	column servico
+		dataType: string
+		isHidden
+		lineageTag: 1b681d7f-c99a-5396-bf2a-7578f7f77fda
+		summarizeBy: none
+		sourceColumn: servico
+
+	column data_inscricao
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 41fcfaaa-b7ee-5165-a157-e33747cca261
+		summarizeBy: none
+		sourceColumn: data_inscricao
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column data_primeira
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 685e2c7b-de3d-5a80-b99e-04ff0d96dfc7
+		summarizeBy: none
+		sourceColumn: data_primeira
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column situacao
+		dataType: string
+		lineageTag: 4008ab52-e50c-5661-b382-f04891475645
+		summarizeBy: none
+		sourceColumn: situacao
+
+	column dias_espera
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9e9d25ec-d427-5bc3-9fff-131809d05913
+		summarizeBy: none
+		sourceColumn: dias_espera
+
+	column id_clinica
+		dataType: string
+		isHidden
+		lineageTag: cb938c42-85cd-5302-9e73-f95a54efe457
+		summarizeBy: none
+		sourceColumn: id_clinica
+
+	partition fila = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "fila.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"prontuario", type text}, {"unidade", type text}, {"servico", type text}, {"data_inscricao", type date}, {"data_primeira", type date}, {"situacao", type text}, {"dias_espera", Int64.Type}}, "en-US"),
+				    ComClinica = Table.AddColumn(Tipos, "id_clinica", each [unidade] & "-" & [servico], type text)
+				in
+				    ComClinica

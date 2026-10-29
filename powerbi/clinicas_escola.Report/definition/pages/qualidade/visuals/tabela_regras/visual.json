@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "tabela_regras",
+  "position": {
+    "x": 16,
+    "y": 192,
+    "z": 4000,
+    "width": 620,
+    "height": 516,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "resumo_qualidade"
+                    }
+                  },
+                  "Property": "regra"
+                }
+              },
+              "queryRef": "resumo_qualidade.regra",
+              "nativeQueryRef": "regra",
+              "displayName": "Regra"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "resumo_qualidade"
+                    }
+                  },
+                  "Property": "descricao"
+                }
+              },
+              "queryRef": "resumo_qualidade.descricao",
+              "nativeQueryRef": "descricao",
+              "displayName": "O que foi encontrado"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "resumo_qualidade"
+                    }
+                  },
+                  "Property": "acao"
+                }
+              },
+              "queryRef": "resumo_qualidade.acao",
+              "nativeQueryRef": "acao",
+              "displayName": "O que foi feito"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "resumo_qualidade"
+                    }
+                  },
+                  "Property": "ocorrencias"
+                }
+              },
+              "queryRef": "resumo_qualidade.ocorrencias",
+              "nativeQueryRef": "ocorrencias",
+              "displayName": "Ocorrências"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "resumo_qualidade"
+                  }
+                },
+                "Property": "regra"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Regras de padronização'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

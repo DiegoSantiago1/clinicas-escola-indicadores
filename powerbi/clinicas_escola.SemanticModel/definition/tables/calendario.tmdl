@@ -1,0 +1,95 @@
+/// Uma linha por dia do período, com recesso, feriados e plantão de férias.
+table calendario
+	lineageTag: b3e01743-0511-5fda-be7b-79b7e1ca94f0
+	dataCategory: Time
+
+	column data
+		dataType: dateTime
+		isKey
+		formatString: dd/mm/yyyy
+		lineageTag: 8f379ae0-eb07-5178-b794-7f2c025b8425
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column situacao
+		dataType: string
+		lineageTag: 34365a14-ab92-537b-acaf-9b7977b7e619
+		summarizeBy: none
+		sourceColumn: situacao
+
+	column fator_salas
+		dataType: double
+		formatString: 0.0
+		lineageTag: e787d657-9af3-5f2f-997a-94ec57d654d0
+		summarizeBy: none
+		sourceColumn: fator_salas
+
+	column ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 9db4126d-8dfe-55cb-afbe-ce6bff9019ff
+		summarizeBy: none
+		sourceColumn: ano
+
+	column mes_numero
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b9e1129d-ead7-549b-8d35-506746dcbba0
+		summarizeBy: none
+		sourceColumn: mes_numero
+
+	column mes
+		dataType: dateTime
+		formatString: mmm/yyyy
+		lineageTag: 9a5b79cc-536e-5a45-9a09-05c054410e4b
+		summarizeBy: none
+		sourceColumn: mes
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column mes_nome
+		dataType: string
+		lineageTag: 4949bbce-f6e2-51bb-8f09-4b4ab3304f75
+		summarizeBy: none
+		sourceColumn: mes_nome
+		sortByColumn: mes
+
+	column dia_semana
+		dataType: string
+		lineageTag: cd0d31d6-8f17-5e7b-b842-d389f85f73a4
+		summarizeBy: none
+		sourceColumn: dia_semana
+		sortByColumn: dia_semana_numero
+
+	column dia_semana_numero
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 92e41c0e-7ec0-55c1-b521-2bba2254cc36
+		summarizeBy: none
+		sourceColumn: dia_semana_numero
+
+	column semestre
+		dataType: string
+		lineageTag: 0e9001e0-4be6-5691-99c2-abab51e040b2
+		summarizeBy: none
+		sourceColumn: semestre
+
+	column aberto
+		dataType: boolean
+		lineageTag: 51d84fe6-95e3-519b-852c-987a1ee8c7eb
+		summarizeBy: none
+		sourceColumn: aberto
+
+	partition calendario = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "calendario.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"data", type date}, {"situacao", type text}, {"fator_salas", type number}, {"ano", Int64.Type}, {"mes_numero", Int64.Type}, {"mes", type date}, {"mes_nome", type text}, {"dia_semana", type text}, {"dia_semana_numero", Int64.Type}, {"semestre", type text}, {"aberto", type logical}}, "en-US")
+				in
+				    Tipos

@@ -108,18 +108,11 @@ def horas_alunos(t: dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
     a = t["atendimentos"]
     al = t["alunos"][t["alunos"]["semestre"].isin(["2026.1", "2026.2"])].copy()
-    sem = t["semestres"].set_index("semestre")
     horas = a.groupby("matricula_aluno")["horas_pratica"].sum()
     perdidas = a[a["situacao"] == "Falta"].groupby("matricula_aluno")["duracao_min"].sum() / 60
     al["horas"] = al["matricula"].map(horas).fillna(0)
     al["horas_perdidas_faltas"] = al["matricula"].map(perdidas).fillna(0)
-    proporcao = {}
-    for s in ("2026.1", "2026.2"):
-        inicio, fim = pd.Timestamp(sem.at[s, "inicio"]), pd.Timestamp(sem.at[s, "fim"])
-        uteis = pd.bdate_range(inicio, fim)
-        proporcao[s] = len(uteis[uteis <= pd.Timestamp(FIM_DADOS)]) / len(uteis)
-    al["proporcao_semestre"] = al["semestre"].map(proporcao)
-    al["meta_ate_agora"] = al["meta_horas_semestre"] * al["proporcao_semestre"]
+    al["meta_ate_agora"] = al["meta_ate_fim_dados"]
     al["atingimento"] = al["horas"] / al["meta_ate_agora"]
     al["sem_faltas_bateria"] = (al["horas"] + al["horas_perdidas_faltas"]) >= al["meta_ate_agora"]
     return al
@@ -240,9 +233,41 @@ def gerar_painel(t: dict[str, pd.DataFrame]) -> dict:
     return painel
 
 
+def base_looker(t: dict[str, pd.DataFrame], men: pd.DataFrame, destino: Path) -> None:
+    """Planilha para o Looker Studio (via Google Sheets): três abas já no formato de gráfico.
+
+    O Looker Studio não tem Power Query nem modelo de relacionamentos como o Power BI: o mais
+    simples e robusto é entregar tabelas já agregadas e calcular as taxas em campos calculados
+    (SUM(faltas) / (SUM(realizados) + SUM(faltas))), que continuam certas com qualquer filtro.
+    """
+    a = t["atendimentos"]
+    uteis = a[a["data"].dt.day_of_week < 5]
+    dia_turno = (uteis
+                 .assign(mes=uteis["data"].dt.to_period("M").dt.start_time.dt.strftime("%Y-%m-%d"),
+                         dia_semana=uteis["data"].dt.day_of_week.map(lambda d: f"{d + 1}. {DIAS[d]}"))
+                 .groupby(["mes", "clinica", "dia_semana", "turno"])["situacao"]
+                 .agg(realizados=lambda s: int((s == "Realizado").sum()), faltas=lambda s: int((s == "Falta").sum()))
+                 .reset_index())
+    cl = t["clinicas"].set_index(["unidade", "servico"])
+    fila = t["fila"].copy()
+    chaves = list(zip(fila["unidade"], fila["servico"], strict=True))
+    for coluna in ("clinica", "unidade_nome", "servico_nome"):
+        fila[coluna] = [cl.at[k, coluna] for k in chaves]
+    for c in ("data_inscricao", "data_primeira"):
+        fila[c] = fila[c].dt.strftime("%Y-%m-%d")
+    fila = fila[["clinica", "unidade_nome", "servico_nome", "data_inscricao", "data_primeira", "situacao",
+                 "dias_espera"]]
+    destino.mkdir(parents=True, exist_ok=True)
+    with pd.ExcelWriter(destino / "base_looker_studio.xlsx", engine="openpyxl") as xl:
+        men.to_excel(xl, sheet_name="indicadores_mensais", index=False)
+        dia_turno.to_excel(xl, sheet_name="faltas_dia_turno", index=False)
+        fila.to_excel(xl, sheet_name="fila", index=False)
+
+
 def salvar(t: dict[str, pd.DataFrame], painel: dict, tratado: Path = PASTA_TRATADO, site: Path = PASTA_SITE) -> None:
     men = mensal(t)
     men.to_csv(tratado / "indicadores_mensais.csv", index=False, encoding="utf-8", lineterminator="\n")
+    base_looker(t, men, tratado.parent / "looker")
     site.mkdir(parents=True, exist_ok=True)
     (site / "painel.json").write_text(json.dumps(painel, ensure_ascii=False, indent=1, default=_json),
                                       encoding="utf-8", newline="\n")

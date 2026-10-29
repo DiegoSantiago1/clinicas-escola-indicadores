@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "matriz_dia_turno",
+  "position": {
+    "x": 16,
+    "y": 192,
+    "z": 8000,
+    "width": 520,
+    "height": 250,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "calendario"
+                    }
+                  },
+                  "Property": "dia_semana"
+                }
+              },
+              "queryRef": "calendario.dia_semana",
+              "nativeQueryRef": "dia_semana",
+              "displayName": "Dia"
+            }
+          ]
+        },
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "atendimentos"
+                    }
+                  },
+                  "Property": "turno"
+                }
+              },
+              "queryRef": "atendimentos.turno",
+              "nativeQueryRef": "turno",
+              "displayName": "Turno"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Taxa de faltas"
+                }
+              },
+              "queryRef": "Medidas.Taxa de faltas",
+              "nativeQueryRef": "Taxa de faltas",
+              "displayName": "Taxa de faltas"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "calendario"
+                  }
+                },
+                "Property": "dia_semana"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Taxa de faltas por dia e turno'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

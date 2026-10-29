@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "visao_geral",
+    "faltas",
+    "agenda_fila",
+    "alunos",
+    "qualidade"
+  ],
+  "activePageName": "visao_geral"
+}

@@ -1,0 +1,57 @@
+/// Horários de atendimento ofertados por dia, clínica e turno (salas x horários; metade no plantão).
+table oferta
+	lineageTag: 757887f6-a295-567e-bcba-bbf6aaf6d653
+
+	column data
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 21e83a8f-ad2c-5929-8a93-84d2bf69d5e8
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column unidade
+		dataType: string
+		isHidden
+		lineageTag: a6b0d4f7-435b-5489-b247-fee8dd496924
+		summarizeBy: none
+		sourceColumn: unidade
+
+	column servico
+		dataType: string
+		isHidden
+		lineageTag: c06a1f62-21b2-5924-8a17-672e0289afad
+		summarizeBy: none
+		sourceColumn: servico
+
+	column turno
+		dataType: string
+		lineageTag: 944a9db8-8771-5ed4-92f6-6f844c2595e8
+		summarizeBy: none
+		sourceColumn: turno
+
+	column horarios_ofertados
+		dataType: int64
+		formatString: #,0
+		lineageTag: 6debb1a8-443f-5e57-b1b0-764731b4bb52
+		summarizeBy: sum
+		sourceColumn: horarios_ofertados
+
+	column id_clinica
+		dataType: string
+		isHidden
+		lineageTag: 2cf17868-9da8-5999-accd-f9473bda59cc
+		summarizeBy: none
+		sourceColumn: id_clinica
+
+	partition oferta = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "oferta.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"data", type date}, {"unidade", type text}, {"servico", type text}, {"turno", type text}, {"horarios_ofertados", Int64.Type}}, "en-US"),
+				    ComClinica = Table.AddColumn(Tipos, "id_clinica", each [unidade] & "-" & [servico], type text)
+				in
+				    ComClinica

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "clinicas_escola"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9f7c6836-f6ea-5afb-81ea-108ea0da43d3"
+  }
+}

@@ -1,0 +1,38 @@
+/// Quantas vezes cada regra de padronização foi aplicada.
+table resumo_qualidade
+	lineageTag: 32ade587-8a99-5f1b-bcc7-0eaf9a7bdce6
+
+	column regra
+		dataType: string
+		lineageTag: 1597db5a-9d1b-531e-9e1a-1e71378f08e8
+		summarizeBy: none
+		sourceColumn: regra
+
+	column descricao
+		dataType: string
+		lineageTag: cdc0b796-206f-5db0-b600-9f122c5fe1c7
+		summarizeBy: none
+		sourceColumn: descricao
+
+	column acao
+		dataType: string
+		lineageTag: 7f368500-bfa3-5027-96d4-e714de16be27
+		summarizeBy: none
+		sourceColumn: acao
+
+	column ocorrencias
+		dataType: int64
+		formatString: #,0
+		lineageTag: a624467a-695f-5283-a0f3-8d9ab56f2b9f
+		summarizeBy: sum
+		sourceColumn: ocorrencias
+
+	partition resumo_qualidade = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "resumo_qualidade.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"regra", type text}, {"descricao", type text}, {"acao", type text}, {"ocorrencias", Int64.Type}}, "en-US")
+				in
+				    Tipos

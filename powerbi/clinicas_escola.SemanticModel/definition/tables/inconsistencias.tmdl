@@ -1,0 +1,62 @@
+/// Linhas que precisam de conferência na origem: arquivo, aba e linha.
+table inconsistencias
+	lineageTag: 3adc5e98-d0ce-5606-9dfc-bda5f235b615
+
+	column regra
+		dataType: string
+		lineageTag: cec41142-2580-5102-b1f3-f2f522380ef3
+		summarizeBy: none
+		sourceColumn: regra
+
+	column descricao
+		dataType: string
+		lineageTag: 8553eeed-3006-5f66-84a4-8f0f93354bcd
+		summarizeBy: none
+		sourceColumn: descricao
+
+	column acao
+		dataType: string
+		lineageTag: 7cb524fd-b4da-5e99-b21f-fc099b564fb9
+		summarizeBy: none
+		sourceColumn: acao
+
+	column arquivo
+		dataType: string
+		lineageTag: 4afa119d-07f2-5410-baf8-d252f2c2db5d
+		summarizeBy: none
+		sourceColumn: arquivo
+
+	column aba
+		dataType: string
+		lineageTag: aec59f4a-ae21-5c3c-a41f-d3e2a107daaf
+		summarizeBy: none
+		sourceColumn: aba
+
+	column linha
+		dataType: int64
+		formatString: 0
+		lineageTag: 78d0c12c-f580-5ed9-a56c-e7d618902703
+		summarizeBy: none
+		sourceColumn: linha
+
+	column valor_original
+		dataType: string
+		lineageTag: 1b773b32-e70b-5934-9b2c-698df8118368
+		summarizeBy: none
+		sourceColumn: valor_original
+
+	column valor_final
+		dataType: string
+		lineageTag: e1696167-14ca-5ba5-818e-48352c131086
+		summarizeBy: none
+		sourceColumn: valor_final
+
+	partition inconsistencias = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "inconsistencias.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"regra", type text}, {"descricao", type text}, {"acao", type text}, {"arquivo", type text}, {"aba", type text}, {"linha", Int64.Type}, {"valor_original", type text}, {"valor_final", type text}}, "en-US")
+				in
+				    Tipos

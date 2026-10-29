@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "nota_fila",
+  "position": {
+    "x": 652,
+    "y": 508,
+    "z": 10000,
+    "width": 612,
+    "height": 200,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Como ler: Fisioterapia de Olinda tem a agenda mais vazia e a fila mais longa ao mesmo tempo. Não falta sala: a primeira consulta só é marcada às segundas e quartas, e a recepção não consegue contato com parte da fila. Ação sugerida: abrir primeira consulta todos os dias e atualizar os telefones da fila.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#4A5568"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

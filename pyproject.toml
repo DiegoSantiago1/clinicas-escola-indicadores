@@ -14,3 +14,6 @@ src = ["src", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"powerbi/*.py" = ["E501"]  # strings de M e DAX: quebrar a linha atrapalha a leitura

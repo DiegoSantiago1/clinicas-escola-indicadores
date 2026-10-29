@@ -1,0 +1,157 @@
+table Medidas
+	lineageTag: dfb8e03a-4e31-5f8b-b3ca-bfdfd68a0599
+
+	/// Todos os agendamentos, de qualquer situação.
+	measure Agendamentos = COUNTROWS ( atendimentos )
+		formatString: #,0
+		displayFolder: Atendimento
+		lineageTag: 15bd89c2-5c47-54dd-8d36-254d4ea6d415
+
+	/// Atendimentos em que o paciente veio.
+	measure Realizados = CALCULATE ( [Agendamentos], atendimentos[situacao] = "Realizado" )
+		formatString: #,0
+		displayFolder: Atendimento
+		lineageTag: c6a44f24-108a-5b2a-a041-198e28bfdbed
+
+	/// Paciente não veio e não avisou.
+	measure Faltas = CALCULATE ( [Agendamentos], atendimentos[situacao] = "Falta" )
+		formatString: #,0
+		displayFolder: Atendimento
+		lineageTag: 0409cb4b-9cd0-5694-8cdb-2cdf06143139
+
+	/// Paciente avisou com antecedência.
+	measure 'Cancelados pelo paciente' = CALCULATE ( [Agendamentos], atendimentos[situacao] = "Cancelado pelo paciente" )
+		formatString: #,0
+		displayFolder: Atendimento
+		lineageTag: 05ab3670-1055-58f2-b0d0-a65764a68868
+
+	/// A clínica cancelou (supervisor ausente).
+	measure 'Cancelados pela clínica' = CALCULATE ( [Agendamentos], atendimentos[situacao] = "Cancelado pela clínica" )
+		formatString: #,0
+		displayFolder: Atendimento
+		lineageTag: 092f03bd-6dc2-57aa-acbf-816a378971c3
+
+	/// Faltas / (realizados + faltas). Cancelamento avisado fica de fora: o horário pôde ser remarcado.
+	measure 'Taxa de faltas' = DIVIDE ( [Faltas], [Realizados] + [Faltas] )
+		formatString: 0.0%
+		displayFolder: Atendimento
+		lineageTag: c74ed6fc-80e2-53a5-94b7-f5652ce2a184
+
+	/// A mesma taxa, no mês anterior (inteligência de tempo sobre a tabela de datas).
+	measure 'Taxa de faltas (mês anterior)' = CALCULATE ( [Taxa de faltas], DATEADD ( calendario[data], -1, MONTH ) )
+		formatString: 0.0%
+		displayFolder: Atendimento
+		lineageTag: c69660a5-5615-5353-a431-75f2d71358a3
+
+	/// Diferença em pontos percentuais contra o mês anterior.
+	measure 'Variação das faltas (p.p.)' = VAR atual = [Taxa de faltas] VAR anterior = [Taxa de faltas (mês anterior)] RETURN IF ( NOT ISBLANK ( anterior ), ( atual - anterior ) * 100 )
+		formatString: +0.0;-0.0;0.0
+		displayFolder: Atendimento
+		lineageTag: 8049deb4-cd5d-54ab-ab27-f70e5503c8ab
+
+	/// Pacientes diferentes com ao menos um atendimento realizado.
+	measure 'Pacientes atendidos' = CALCULATE ( DISTINCTCOUNT ( atendimentos[prontuario] ), atendimentos[situacao] = "Realizado" )
+		formatString: #,0
+		displayFolder: Atendimento
+		lineageTag: 71a7eb96-7659-544a-bae1-c52f9c213e25
+
+	/// Capacidade: salas x horários de cada turno nos dias abertos.
+	measure 'Horários ofertados' = SUM ( oferta[horarios_ofertados] )
+		formatString: #,0
+		displayFolder: Agenda
+		lineageTag: b1c757bb-2970-5723-8f79-a05260fe5368
+
+	/// Quanto da agenda foi preenchido com agendamentos.
+	measure 'Ocupação da agenda' = DIVIDE ( [Agendamentos], [Horários ofertados] )
+		formatString: 0.0%
+		displayFolder: Agenda
+		lineageTag: 2a9af37c-da7c-5758-9523-8e55985078de
+
+	/// Quanto da capacidade virou atendimento de fato (agenda cheia não é atendimento).
+	measure Aproveitamento = DIVIDE ( [Realizados], [Horários ofertados] )
+		formatString: 0.0%
+		displayFolder: Agenda
+		lineageTag: 7ab37018-f161-5ec2-8722-196fe9758f8a
+
+	/// Pacientes que entraram na fila (pela data de inscrição).
+	measure 'Entradas na fila' = COUNTROWS ( fila )
+		formatString: #,0
+		displayFolder: Fila
+		lineageTag: e90ed151-f47a-55d0-b14c-e2613b6fc35a
+
+	/// Mediana de dias entre a inscrição e a 1ª consulta, para quem foi chamado no período.
+	measure 'Espera mediana (dias)' = CALCULATE ( MEDIAN ( fila[dias_espera] ), fila[data_primeira] >= DATE ( 2025, 11, 1 ) )
+		formatString: 0
+		displayFolder: Fila
+		lineageTag: 1f29dda3-18ba-51ca-9ebc-40817bd87ba3
+
+	/// Pacientes ainda na fila em 31/10/2026.
+	measure Aguardando = CALCULATE ( COUNTROWS ( fila ), fila[situacao] = "Aguardando" )
+		formatString: #,0
+		displayFolder: Fila
+		lineageTag: 3ebafed7-7f3c-5605-b9dc-3f8add011bb6
+
+	/// Horas de atendimento realizado: é a prática do aluno.
+	measure 'Horas de prática' = SUM ( atendimentos[horas_pratica] )
+		formatString: #,0
+		displayFolder: Alunos
+		lineageTag: 26f6ba2b-975c-5dfd-a4cf-703b099cc959
+
+	/// Horas de prática que o aluno deixou de fazer porque o paciente faltou.
+	measure 'Horas perdidas por faltas' = DIVIDE ( CALCULATE ( SUM ( atendimentos[duracao_min] ), atendimentos[situacao] = "Falta" ), 60 )
+		formatString: #,0
+		displayFolder: Alunos
+		lineageTag: 9aff6ff9-447b-5fc8-93d8-39855d820bdb
+
+	/// Alunos de 2026.1 e 2026.2 (2025.2 começou antes dos dados).
+	measure 'Alunos com meta' = COUNTROWS ( FILTER ( alunos, NOT ISBLANK ( alunos[meta_ate_fim_dados] ) ) )
+		formatString: #,0
+		displayFolder: Alunos
+		lineageTag: 2f814ac5-0679-5c8d-bdd2-e29201930b8e
+
+	/// Alunos cujas horas já alcançaram a meta proporcional. O CALCULATE dentro do FILTER faz a transição de contexto: soma as horas de cada aluno da linha.
+	measure 'Alunos na meta' = COUNTROWS ( FILTER ( alunos, NOT ISBLANK ( alunos[meta_ate_fim_dados] ) && CALCULATE ( SUM ( atendimentos[horas_pratica] ) ) >= alunos[meta_ate_fim_dados] ) )
+		formatString: #,0
+		displayFolder: Alunos
+		lineageTag: 4c89505e-8a33-52bf-8179-b4889c8a7d70
+
+	/// Parte dos alunos que já alcançou a meta proporcional.
+	measure '% alunos na meta' = DIVIDE ( [Alunos na meta], [Alunos com meta] )
+		formatString: 0.0%
+		displayFolder: Alunos
+		lineageTag: 325f0a5f-83d0-5760-9bca-f74ad4fd1153
+
+	/// Média de horas de prática por aluno que atendeu.
+	measure 'Horas por aluno' = DIVIDE ( [Horas de prática], DISTINCTCOUNT ( atendimentos[matricula_aluno] ) )
+		formatString: #,0.0
+		displayFolder: Alunos
+		lineageTag: c5fc0e37-9a78-554b-b956-225b2b83ae3b
+
+	/// Total de correções e sinalizações feitas pela padronização.
+	measure 'Regras aplicadas' = SUM ( resumo_qualidade[ocorrencias] )
+		formatString: #,0
+		displayFolder: Qualidade
+		lineageTag: b5302665-50a3-57dc-a602-371b44168fdc
+
+	/// Linhas que a equipe deve conferir na origem (arquivo, aba e linha).
+	measure 'Linhas para conferir' = COUNTROWS ( inconsistencias )
+		formatString: #,0
+		displayFolder: Qualidade
+		lineageTag: df3ff4e2-6840-5f26-adb1-9fa7aee0254e
+
+	/// Prontuário em branco na planilha, recuperado pelo nome (só quando o nome é único).
+	measure 'Prontuários recuperados' = CALCULATE ( [Agendamentos], atendimentos[prontuario_recuperado] = "Sim" )
+		formatString: #,0
+		displayFolder: Qualidade
+		lineageTag: 3ced3a8a-f69f-516c-9eac-aa898eea2acc
+
+	column Coluna
+		dataType: string
+		isHidden
+		lineageTag: d4da5f44-1957-55e9-8b60-91567c4a034e
+		summarizeBy: none
+		sourceColumn: Coluna
+
+	partition Medidas = m
+		mode: import
+		source = #table(type table [Coluna = text], {})

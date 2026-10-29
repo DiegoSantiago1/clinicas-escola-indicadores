@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "tabela_fila",
+  "position": {
+    "x": 652,
+    "y": 192,
+    "z": 9000,
+    "width": 612,
+    "height": 300,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "clinicas"
+                    }
+                  },
+                  "Property": "clinica"
+                }
+              },
+              "queryRef": "clinicas.clinica",
+              "nativeQueryRef": "clinica",
+              "displayName": "Clínica"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Ocupação da agenda"
+                }
+              },
+              "queryRef": "Medidas.Ocupação da agenda",
+              "nativeQueryRef": "Ocupação da agenda",
+              "displayName": "Ocupação"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Espera mediana (dias)"
+                }
+              },
+              "queryRef": "Medidas.Espera mediana (dias)",
+              "nativeQueryRef": "Espera mediana (dias)",
+              "displayName": "Espera mediana (dias)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Aguardando"
+                }
+              },
+              "queryRef": "Medidas.Aguardando",
+              "nativeQueryRef": "Aguardando",
+              "displayName": "Aguardando"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Medidas"
+                  }
+                },
+                "Property": "Espera mediana (dias)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fila por clínica'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,166 @@
+/// Um agendamento por linha, das duas origens (sistema e planilhas), já padronizado em Python.
+table atendimentos
+	lineageTag: c3ee3f0d-af9a-521f-accf-237961b460ac
+
+	column id_atendimento
+		dataType: string
+		lineageTag: 6ecb109d-c167-5cbd-9572-d05dac1315f4
+		summarizeBy: none
+		sourceColumn: id_atendimento
+
+	column data
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 311ba0b7-7849-5cb3-9156-350ee809b61b
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column hora
+		dataType: string
+		lineageTag: a7e5b05b-17c4-5c3f-9b6d-6c7beff60074
+		summarizeBy: none
+		sourceColumn: hora
+
+	column turno
+		dataType: string
+		lineageTag: 89bd8f21-8a3d-51df-bf2c-95c71e187d30
+		summarizeBy: none
+		sourceColumn: turno
+
+	column unidade
+		dataType: string
+		isHidden
+		lineageTag: 816d4aa9-8ee6-56ca-9c19-4aedebc2bbb0
+		summarizeBy: none
+		sourceColumn: unidade
+
+	column servico
+		dataType: string
+		isHidden
+		lineageTag: f519ecea-1deb-5b9e-948a-10a30f291f90
+		summarizeBy: none
+		sourceColumn: servico
+
+	column clinica
+		dataType: string
+		isHidden
+		lineageTag: e7a3fec9-3b1b-5a04-b00c-2fceed756024
+		summarizeBy: none
+		sourceColumn: clinica
+
+	column prontuario
+		dataType: string
+		lineageTag: fcd2de85-91c9-59ae-8436-861ae93f30e5
+		summarizeBy: none
+		sourceColumn: prontuario
+
+	column matricula_aluno
+		dataType: string
+		lineageTag: 030ff0ac-b46a-5c22-be91-37f23a8b4b37
+		summarizeBy: none
+		sourceColumn: matricula_aluno
+
+	column supervisor
+		dataType: string
+		lineageTag: 6ddd2c6a-256e-540d-a352-d9f0c3a9e18c
+		summarizeBy: none
+		sourceColumn: supervisor
+
+	column tipo
+		dataType: string
+		lineageTag: 43e201e5-7351-50dd-a549-ec879be95979
+		summarizeBy: none
+		sourceColumn: tipo
+
+	column procedimento
+		dataType: string
+		lineageTag: 44a135b5-9c77-5fd9-8898-05a77435e7c1
+		summarizeBy: none
+		sourceColumn: procedimento
+
+	column situacao
+		dataType: string
+		lineageTag: 58547cab-7291-5151-9f5d-8ce47025797d
+		summarizeBy: none
+		sourceColumn: situacao
+
+	column duracao_min
+		dataType: int64
+		formatString: #,0
+		lineageTag: 00776a95-a28e-53e8-8c60-4c8308d3daf0
+		summarizeBy: none
+		sourceColumn: duracao_min
+
+	column horas_pratica
+		dataType: double
+		formatString: #,0.0
+		lineageTag: fdc095d5-6d92-521b-a830-88d96209eb24
+		summarizeBy: sum
+		sourceColumn: horas_pratica
+
+	column origem
+		dataType: string
+		lineageTag: f8e35ef2-51d0-58c7-9473-51badedaf60a
+		summarizeBy: none
+		sourceColumn: origem
+
+	column arquivo
+		dataType: string
+		lineageTag: 3d0acf73-6b50-5b98-8675-171988a5b0b5
+		summarizeBy: none
+		sourceColumn: arquivo
+
+	column conflito_horario
+		dataType: string
+		lineageTag: 111b06cc-0695-5cc9-9d2b-1dcfd45beca6
+		summarizeBy: none
+		sourceColumn: conflito_horario
+
+	column prontuario_recuperado
+		dataType: string
+		lineageTag: 0a605097-39a6-5011-a1eb-a392bded19ba
+		summarizeBy: none
+		sourceColumn: prontuario_recuperado
+
+	column id_clinica
+		dataType: string
+		isHidden
+		lineageTag: 6d1651d6-f303-5948-86b1-0ca62c36208a
+		summarizeBy: none
+		sourceColumn: id_clinica
+
+	/// Só nas primeiras consultas: quanto o paciente esperou na fila (veio da mesclagem).
+	column faixa_espera_1a_consulta
+		dataType: string
+		lineageTag: fa2c956b-ff58-548a-b83b-4f760c02c7e4
+		summarizeBy: none
+		sourceColumn: faixa_espera_1a_consulta
+		sortByColumn: faixa_espera_ordem
+
+	column faixa_espera_ordem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cc638c84-be13-54a9-a10a-b8673648ee12
+		summarizeBy: none
+		sourceColumn: faixa_espera_ordem
+
+	partition atendimentos = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "atendimentos.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"id_atendimento", type text}, {"data", type date}, {"hora", type text}, {"turno", type text}, {"unidade", type text}, {"servico", type text}, {"clinica", type text}, {"prontuario", type text}, {"matricula_aluno", type text}, {"supervisor", type text}, {"tipo", type text}, {"procedimento", type text}, {"situacao", type text}, {"duracao_min", Int64.Type}, {"horas_pratica", type number}, {"origem", type text}, {"arquivo", type text}, {"conflito_horario", type text}, {"prontuario_recuperado", type text}}, "en-US"),
+				    FilaFonte = Csv.Document(File.Contents(PastaDados & "fila.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Fila = Table.TransformColumnTypes(Table.SelectColumns(Table.PromoteHeaders(FilaFonte), {"prontuario", "dias_espera"}), {{"dias_espera", Int64.Type}}, "en-US"),
+				    ComClinica = Table.AddColumn(Tipos, "id_clinica", each [unidade] & "-" & [servico], type text),
+				    MescladoComFila = Table.NestedJoin(ComClinica, {"prontuario"}, Fila, {"prontuario"}, "fila", JoinKind.LeftOuter),
+				    ComDiasEspera = Table.ExpandTableColumn(MescladoComFila, "fila", {"dias_espera"}, {"dias_espera_fila"}),
+				    ComOrdemFaixa = Table.AddColumn(ComDiasEspera, "faixa_espera_ordem", each if [tipo] <> "Primeira consulta" or [dias_espera_fila] = null then null else if [dias_espera_fila] <= 7 then 1 else if [dias_espera_fila] <= 30 then 2 else if [dias_espera_fila] <= 60 then 3 else 4, Int64.Type),
+				    ComFaixaEspera = Table.AddColumn(ComOrdemFaixa, "faixa_espera_1a_consulta", each {null, "Até 7 dias", "8 a 30 dias", "31 a 60 dias", "Mais de 60 dias"}{if [faixa_espera_ordem] = null then 0 else [faixa_espera_ordem]}, type text),
+				    SemColunaAuxiliar = Table.RemoveColumns(ComFaixaEspera, {"dias_espera_fila"})
+				in
+				    SemColunaAuxiliar
