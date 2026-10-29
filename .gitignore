@@ -10,3 +10,4 @@ powerbi/*.Report/.pbi/localSettings.json
 powerbi/*.SemanticModel/.pbi/localSettings.json
 powerbi/*.SemanticModel/.pbi/cache.abf
 data/verdade/
+.taste-skill/

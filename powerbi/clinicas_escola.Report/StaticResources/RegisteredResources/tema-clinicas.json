@@ -2,7 +2,7 @@
   "name": "Clínicas-Escola",
   "dataColors": [
     "#1F4E79",
-    "#E2725B",
+    "#E85A5A",
     "#2E8B6E",
     "#C9A227",
     "#7A5C99",
@@ -15,10 +15,10 @@
   "tableAccent": "#1F4E79",
   "good": "#2E8B6E",
   "neutral": "#C9A227",
-  "bad": "#E2725B",
-  "maximum": "#E2725B",
-  "center": "#F4C7B8",
-  "minimum": "#FBF1EC",
+  "bad": "#E85A5A",
+  "maximum": "#E85A5A",
+  "center": "#F4B8B8",
+  "minimum": "#FCEDED",
   "null": "#E5E7EB",
   "textClasses": {
     "title": {
@@ -111,7 +111,7 @@
           {
             "color": {
               "solid": {
-                "color": "#F6F4EF"
+                "color": "#F4F5F6"
               }
             },
             "transparency": 0

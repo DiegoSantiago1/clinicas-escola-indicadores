@@ -1,0 +1,28 @@
+# Dicionário de indicadores
+
+Cada indicador tem nome, fórmula, fonte, frequência e para que serve. As fórmulas são as mesmas no Python (`src/clinicas/indicadores.py`), no DAX (`powerbi/gerar_pbip.py`) e nos campos calculados do Looker Studio (`docs/LOOKER_STUDIO.md`). O `scripts/conferir_powerbi.py` confere que o DAX e o Python dão o mesmo número.
+
+| Indicador | Fórmula | Fonte | Frequência | Para que serve |
+|---|---|---|---|---|
+| Agendamentos | quantidade de linhas de `atendimentos` | sistema + planilhas | diária | volume de trabalho da recepção |
+| Atendimentos realizados | agendamentos com situação "Realizado" | sistema + planilhas | diária | produção da clínica |
+| **Taxa de faltas** | faltas / (realizados + faltas) | sistema + planilhas | semanal | o principal indicador da operação |
+| Cancelados pelo paciente | situação "Cancelado pelo paciente" | sistema + planilhas | semanal | remarcação; não conta como falta |
+| Cancelados pela clínica | situação "Cancelado pela clínica" | sistema + planilhas | semanal | turnos perdidos por ausência do supervisor |
+| Horários ofertados | salas x horários do turno, nos dias abertos (metade no plantão de julho) | grade de horários + calendário | mensal | capacidade |
+| **Ocupação da agenda** | agendamentos / horários ofertados | atendimentos + oferta | mensal | a agenda está cheia? |
+| Aproveitamento | realizados / horários ofertados | atendimentos + oferta | mensal | quanto da capacidade virou atendimento |
+| Entradas na fila | pacientes inscritos na fila (pela data de inscrição) | fila da recepção | mensal | procura |
+| **Espera mediana** | mediana de dias entre inscrição e 1ª consulta, de quem foi chamado no período | fila da recepção | mensal | quanto o paciente espera |
+| Aguardando | pacientes com situação "Aguardando" em 31/10/2026 | fila da recepção | semanal | tamanho da fila hoje |
+| **Horas de prática** | soma da duração dos atendimentos realizados (60 min; Odontologia 120 min) | atendimentos | semanal | a prática do aluno, razão de existir da clínica-escola |
+| Horas perdidas por faltas | soma da duração dos agendamentos com falta | atendimentos | semanal | o custo da falta para a formação |
+| Alunos na meta | alunos com horas ≥ meta proporcional | atendimentos + alunos | semanal | quem está no ritmo do estágio |
+| Linhas para conferir | linhas sinalizadas pela padronização | inconsistências | a cada carga | qualidade dos dados |
+
+## Decisões de definição (as que mais cairiam numa entrevista)
+
+- **Por que a taxa de faltas não usa todos os agendamentos no denominador?** Porque o cancelamento avisado libera o horário para outro paciente. A falta é o problema: o horário se perde. Com todos os agendamentos no denominador, a taxa ficaria menor e esconderia o problema.
+- **Meta proporcional.** A meta é do semestre inteiro (ex.: 200 h em Psicologia). Em 31/10, o semestre 2026.2 está pela metade, então a meta comparada é a fração dos dias letivos já decorridos. O 2025.2 fica sem meta: os dados começam em novembro e as horas de agosto a outubro não estão na base.
+- **Espera mediana, e não média.** Poucos pacientes que esperam meses puxariam a média para cima. A mediana diz quanto espera o paciente típico.
+- **Ocupação x aproveitamento.** Uma agenda 95% ocupada com 23% de faltas atende menos do que parece. Por isso os dois aparecem lado a lado.

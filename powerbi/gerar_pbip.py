@@ -41,8 +41,8 @@ SCHEMA_PAGINA = (
 )
 
 # Identidade própria do projeto (a mesma da página de resultados).
-AZUL, CORAL, VERDE, MOSTARDA = "#1F4E79", "#E2725B", "#2E8B6E", "#C9A227"
-TEXTO, TEXTO_2, FUNDO = "#14213D", "#4A5568", "#F6F4EF"
+AZUL, CORAL, VERDE, MOSTARDA = "#1F4E79", "#E85A5A", "#2E8B6E", "#C9A227"
+TEXTO, TEXTO_2, FUNDO = "#14213D", "#4A5568", "#F4F5F6"
 
 TEMA: dict[str, Any] = {
     "name": "Clínicas-Escola",
@@ -54,8 +54,8 @@ TEMA: dict[str, Any] = {
     "neutral": MOSTARDA,
     "bad": CORAL,
     "maximum": CORAL,
-    "center": "#F4C7B8",
-    "minimum": "#FBF1EC",
+    "center": "#F4B8B8",
+    "minimum": "#FCEDED",
     "null": "#E5E7EB",
     "textClasses": {
         "title": {"fontFace": "Segoe UI Semibold", "color": TEXTO, "fontSize": 12},
