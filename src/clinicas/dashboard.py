@@ -69,9 +69,10 @@ def bloco(a: pd.DataFrame, f: pd.DataFrame, sup: pd.DataFrame) -> dict:
         "sem_prontuario": int((realizado & a["valor_cobrado"].isna()).sum()),
         "por_servico": [{"servico": SERVICOS[s].nome, "valor": float(a.loc[a["servico"] == s, "valor_cobrado"].sum())}
                         for s in ORDEM_SERVICOS if (a["servico"] == s).any()],
-        "por_procedimento": (a[realizado].groupby("procedimento")["valor_cobrado"].sum().sort_values(ascending=False)
-                             .head(6).round(0).reset_index().rename(columns={"valor_cobrado": "valor"})
-                             .to_dict("records")),
+        "por_procedimento": [
+            {"procedimento": k, "valor": float(g["valor_cobrado"].sum()), "realizados": len(g),
+             "pagos": int((g["valor_cobrado"] > 0).sum()), "taxa": float(g["valor_tabela"].iloc[0])}
+            for k, g in sorted(a[realizado].groupby("procedimento"), key=lambda kg: -kg[1]["valor_cobrado"].sum())[:6]],
     }
 
     # Profissionais: o supervisor (professor) responsável por cada atendimento.
@@ -143,8 +144,9 @@ def bloco(a: pd.DataFrame, f: pd.DataFrame, sup: pd.DataFrame) -> dict:
         "mediana_min": arred(e["espera_recepcao_min"].median()),
         "medidos": len(e),
         "sem_chamada": int((realizado & a["hora_chegada"].notna() & a["hora_chamada"].isna()).sum()),
-        "por_clinica": sorted([{"clinica": k, "media_min": arred(v)} for k, v in
-                               e.groupby("clinica")["espera_recepcao_min"].mean().items()],
+        "por_clinica": sorted([{"clinica": k, "media_min": arred(g.mean()), "mediana_min": arred(g.median()),
+                                "medidos": len(g), "ate_30": arred((g < 30).mean(), 4), "max_min": arred(g.max(), 0)}
+                               for k, g in e.groupby("clinica")["espera_recepcao_min"]],
                               key=lambda x: -x["media_min"]),
         "por_hora": [{"hora": k, "media_min": arred(v)} for k, v in e.groupby("hora")["espera_recepcao_min"].mean()
                      .items()],

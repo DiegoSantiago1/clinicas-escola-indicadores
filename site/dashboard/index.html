@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR" data-theme="light" data-escuro="azul">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,9 +8,16 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="dashboard.css?v=5">
+<link rel="stylesheet" href="dashboard.css?v=7">
 <script>
-  try { const t = localStorage.getItem("tema-dashboard"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  (function () {
+    var r = document.documentElement, t = null;
+    try { t = localStorage.getItem("tema-dashboard"); } catch (e) {}
+    if (!t && matchMedia("(prefers-color-scheme: dark)").matches) t = "dark";
+    if (t) r.dataset.theme = t;
+    var e = new URLSearchParams(location.search).get("escuro");  /* ?escuro=grafite ou ?escuro=azul */
+    if (e === "grafite" || e === "azul") r.dataset.escuro = e;
+  })();
 </script>
 </head>
 <body class="carregando">
@@ -276,6 +283,6 @@
 </aside>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="dashboard.js?v=3"></script>
+<script src="dashboard.js?v=5"></script>
 </body>
 </html>

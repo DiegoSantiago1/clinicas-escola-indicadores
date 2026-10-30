@@ -13,6 +13,11 @@
   --neutro: #2b2d33;          /* série neutra dos gráficos */
   --neutro-claro: #c7cad0;
   --sobre-quente: #170b05;
+  --sobre-quente-2: rgba(23, 11, 5, 0.72);
+  --destaque-fundo: #f2652f;
+  --dica-fundo: #131417;
+  --dica-texto: #ffffff;
+  --dica-texto-2: #b9bcc4;
   --pilula: #131417;
   --sobre-pilula: #ffffff;
   --sombra: 0 14px 30px -18px rgba(19, 20, 23, 0.28);
@@ -22,20 +27,25 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --chao: #0d0e10; --cartao: #17181b; --cartao-2: #202125; --cartao-3: #2a2c31;
-    --tinta: #f1f1f3; --tinta-2: #a6a9b0; --tinta-3: #868a92;
-    --quente: #f26a35; --quente-texto: #ff9a6e; --quente-suave: #4a2416;
-    --neutro: #e4e5e8; --neutro-claro: #4a4c53; --pilula: #f1f1f3; --sobre-pilula: #131417;
-    --sombra: 0 14px 30px -18px rgba(0, 0, 0, 0.7); color-scheme: dark;
-  }
-}
+/* Modo escuro azul (o padrão). Para voltar ao escuro grafite, troque data-escuro="azul" por "grafite"
+   no <html> do index.html, ou abra a página com ?escuro=grafite para comparar. */
 :root[data-theme="dark"] {
+  --chao: #060d1a; --cartao: #0c1729; --cartao-2: #13213a; --cartao-3: #1c2e4f;
+  --tinta: #eaf1ff; --tinta-2: #9fb1cf; --tinta-3: #7387aa;
+  --quente: #3b82f6; --quente-texto: #8cb8ff; --quente-suave: #13305f;
+  --destaque-fundo: #2563eb; --sobre-quente: #ffffff; --sobre-quente-2: rgba(255, 255, 255, 0.82);
+  --neutro: #d3e0f5; --neutro-claro: #2d4269; --pilula: #eaf1ff; --sobre-pilula: #0b1629;
+  --dica-fundo: #eaf1ff; --dica-texto: #0b1629; --dica-texto-2: #4b5d7d;
+  --sombra: 0 16px 34px -18px rgba(0, 0, 0, 0.8); color-scheme: dark;
+}
+/* Escuro grafite: o primeiro modo escuro, guardado a pedido do Diego (29/10/2026). */
+:root[data-theme="dark"][data-escuro="grafite"] {
   --chao: #0d0e10; --cartao: #17181b; --cartao-2: #202125; --cartao-3: #2a2c31;
   --tinta: #f1f1f3; --tinta-2: #a6a9b0; --tinta-3: #868a92;
   --quente: #f26a35; --quente-texto: #ff9a6e; --quente-suave: #4a2416;
+  --destaque-fundo: #f26a35; --sobre-quente: #170b05; --sobre-quente-2: rgba(23, 11, 5, 0.72);
   --neutro: #e4e5e8; --neutro-claro: #4a4c53; --pilula: #f1f1f3; --sobre-pilula: #131417;
+  --dica-fundo: #f1f1f3; --dica-texto: #131417; --dica-texto-2: #5b5f67;
   --sombra: 0 14px 30px -18px rgba(0, 0, 0, 0.7); color-scheme: dark;
 }
 
@@ -162,11 +172,11 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
 .valor { font-size: 34px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
 .valor-grande { font-size: 40px; font-weight: 600; letter-spacing: -0.035em; line-height: 1; }
 
-.destaque { background: var(--quente); color: var(--sobre-quente); }
-.destaque .dica, .destaque dt, .nota-destaque { color: rgba(23, 11, 5, 0.72); }
+.destaque { background: var(--destaque-fundo); color: var(--sobre-quente); }
+.destaque .dica, .destaque dt, .nota-destaque { color: var(--sobre-quente-2); }
 .nota-destaque { font-size: 13px; margin-top: auto; }
 .pares { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: auto; }
-.pares div { background: rgba(255, 255, 255, 0.28); border-radius: var(--raio-p); padding: 12px 14px; }
+.pares div { background: rgba(255, 255, 255, 0.2); border-radius: var(--raio-p); padding: 12px 14px; }
 .pares dt { font-size: 13px; }
 .pares dd { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-top: 2px; }
 
@@ -181,7 +191,7 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
 .spark-claro path.area { fill: rgba(255, 255, 255, 0.25); }
 .spark circle { fill: var(--cartao); stroke: var(--neutro); stroke-width: 2; }
 .spark-quente circle { stroke: var(--quente); }
-.spark-claro circle { fill: var(--quente); stroke: var(--sobre-quente); }
+.spark-claro circle { fill: var(--destaque-fundo); stroke: var(--sobre-quente); }
 
 .legenda { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--tinta-2); }
 .legenda li { display: flex; align-items: center; gap: 6px; }
@@ -368,3 +378,30 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
   .rodape { flex-direction: column; }
   .cartao:hover { transform: none; box-shadow: none; }
 }
+
+/* ---------- dica detalhada ao passar o mouse ---------- */
+.dica-flutuante {
+  position: fixed; left: 0; top: 0; z-index: 60; min-width: 210px; max-width: 290px; padding: 12px 14px;
+  border-radius: 16px; background: var(--dica-fundo); color: var(--dica-texto); pointer-events: none;
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.45); opacity: 0; font-size: 13px; line-height: 1.35;
+  transition: opacity 140ms ease, transform 120ms var(--ease); will-change: transform;
+}
+.dica-flutuante.on { opacity: 1; }
+.df-titulo { font-weight: 600; font-size: 14px; margin-bottom: 8px; }
+.dica-flutuante dl { display: grid; gap: 5px; }
+.dica-flutuante dl div { display: flex; justify-content: space-between; gap: 14px; }
+.dica-flutuante dt { color: var(--dica-texto-2); display: flex; align-items: center; gap: 6px; }
+.dica-flutuante dt i { width: 9px; height: 9px; border-radius: 3px; display: inline-block;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--dica-texto-2) 70%, transparent); }
+.dica-flutuante dd { font-weight: 600; text-align: right; white-space: nowrap; }
+.df-destaque dd { color: #ff9a6e; }
+:root[data-theme="dark"] .df-destaque dd { color: #1d5fe0; }
+:root[data-theme="dark"][data-escuro="grafite"] .df-destaque dd { color: #b2400f; }
+.df-nota { margin-top: 9px; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--dica-texto-2) 30%, transparent);
+  color: var(--dica-texto-2); font-size: 12px; }
+[data-dica] { cursor: default; }
+.barra[data-dica]:hover .barra-cheia, .prof[data-dica]:hover .avatar { filter: brightness(1.12); }
+.barra[data-dica] { border-radius: 10px; transition: background 150ms; margin: -3px -6px; padding: 3px 6px; }
+.barra[data-dica]:hover { background: var(--cartao-2); }
+.celula[data-dica]:hover { outline: 2px solid var(--tinta); outline-offset: 1px; }
+
