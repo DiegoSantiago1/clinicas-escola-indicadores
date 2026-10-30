@@ -11,7 +11,7 @@ const DIAS = (n) => (n == null ? "—" : `${NUM(n)} ${n === 1 ? "dia" : "dias"}`
 const esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const tela = document.getElementById("tela");
 let J = null, P = null;
-const estado = { servico: "*", busca: "", soFaltas: false };
+const estado = { servico: "*", busca: "", soFaltas: false, etapaCelular: "sem_retorno" };
 
 // Cor pálida e estável por aluno (identidade, não dado): 6 tons a 60 graus.
 const TONS = ["#9fd8d2", "#b9c8f5", "#f3c4a8", "#d6c3f0", "#c9e3a5", "#f2b9cf"];
@@ -60,6 +60,7 @@ function telaJornada() {
       ${Object.entries(J.servicos).map(([k, n]) => `<button class="chip" type="button" data-servico="${k}" aria-pressed="${estado.servico === k}"><span class="ponto-servico s-${k}"></span>${n}</button>`).join("")}
       <label class="alternar"><input type="checkbox" id="so-faltas" ${estado.soFaltas ? "checked" : ""}><span class="trilho" aria-hidden="true"></span>Só com faltas</label>
     </div>
+    <div class="abas-etapa" id="abas-etapa" role="group" aria-label="Etapa mostrada no celular"></div>
     <div class="funil" id="funil"></div>`;
   desenharFunil();
   document.getElementById("busca").addEventListener("input", (e) => { estado.busca = e.target.value.trim().toUpperCase(); desenharFunil(); });
@@ -74,6 +75,9 @@ function telaJornada() {
 
 function desenharFunil() {
   const funil = document.getElementById("funil");
+  const abas = document.getElementById("abas-etapa");
+  abas.innerHTML = J.etapas.map((et) => `<button type="button" data-etapa="${et.chave}" aria-pressed="${estado.etapaCelular === et.chave}">${esc(et.nome)} ${NUM(J.colunas[`${estado.servico}|${et.chave}`].total)}</button>`).join("");
+  abas.querySelectorAll("[data-etapa]").forEach((b) => b.addEventListener("click", () => { estado.etapaCelular = b.dataset.etapa; desenharFunil(); }));
   funil.innerHTML = J.etapas.map((et, i) => {
     const col = J.colunas[`${estado.servico}|${et.chave}`];
     let cartoes = col.cartoes.map((p) => J.detalhes[p]);
@@ -81,7 +85,7 @@ function desenharFunil() {
     if (estado.soFaltas) cartoes = cartoes.filter((d) => d.faltas > 0);
     const resto = col.total - col.cartoes.length;
     const copiavel = col.todos.length > 0;
-    return `<section class="coluna" aria-label="${esc(et.nome)}">
+    return `<section class="coluna${estado.etapaCelular === et.chave ? " no-celular" : ""}" aria-label="${esc(et.nome)}">
       <div class="coluna-topo">
         <span class="etapa-n">${i + 1}</span>
         <div><p class="coluna-nome">${esc(et.nome)}</p><p class="coluna-meta">${NUM(col.total)} · ${col.mediana == null ? MEDIANA[et.chave]() : MEDIANA[et.chave](col.mediana)}</p></div>
