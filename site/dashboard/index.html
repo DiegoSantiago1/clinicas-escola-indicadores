@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel da rede · Rede Acolher</title>
+<meta name="description" content="Painel animado da rede fictícia de clínicas-escola: faturamento, presença, profissionais, fila, horários, motivos de falta e espera na recepção.">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css?v=5">
+<script>
+  try { const t = localStorage.getItem("tema-dashboard"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body class="carregando">
+<div class="app">
+  <nav class="trilho" aria-label="Seções do painel">
+    <a class="marca" href="../" aria-label="Rede Acolher, voltar à página do projeto">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+    </a>
+    <button class="trilho-item" type="button" data-aba="geral" aria-label="Visão geral" title="Visão geral">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>
+      <span>Geral</span>
+    </button>
+    <button class="trilho-item" type="button" data-aba="agenda" aria-label="Agenda e fila" title="Agenda e fila">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+      <span>Agenda</span>
+    </button>
+    <button class="trilho-item" type="button" data-aba="motivos" aria-label="Motivos de falta" title="Motivos de falta">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H9l-5 4z"/><path d="M8.5 9.5h7M8.5 12.5h4"/></svg>
+      <span>Motivos</span>
+    </button>
+    <button class="trilho-item" type="button" data-aba="espera" aria-label="Espera na recepção" title="Espera na recepção">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7.5"/><path d="M12 9v4.2l2.8 1.8M9.5 3h5"/></svg>
+      <span>Espera</span>
+    </button>
+    <button class="trilho-item so-celular" type="button" id="perguntar" aria-label="Pergunte ao painel" aria-controls="chat">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4M12 16.6v.1"/></svg>
+      <span>Perguntar</span>
+    </button>
+  </nav>
+
+  <div class="principal">
+    <header class="topo">
+      <div class="titulo">
+        <h1>Painel da rede</h1>
+        <p class="sub">Rede Acolher · nov/2025 a out/2026 · dados fictícios</p>
+      </div>
+      <div class="abas" role="tablist" aria-label="Telas">
+        <button role="tab" type="button" data-aba="geral" aria-selected="true">Visão geral</button>
+        <button role="tab" type="button" data-aba="agenda" aria-selected="false">Agenda e fila</button>
+        <button role="tab" type="button" data-aba="motivos" aria-selected="false">Motivos</button>
+        <button role="tab" type="button" data-aba="espera" aria-selected="false">Espera</button>
+      </div>
+      <div class="acoes">
+        <button class="icone" type="button" id="som" aria-pressed="true" aria-label="Som ligado" title="Som">
+          <svg class="som-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+          <svg class="som-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+        </button>
+        <button class="icone" type="button" id="tema" aria-label="Alternar tema claro ou escuro" title="Tema">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        </button>
+        <a class="botao" href="../">Página do projeto</a>
+      </div>
+    </header>
+
+    <div class="filtro" role="radiogroup" aria-label="Unidade">
+      <span class="filtro-rotulo">Unidade</span>
+      <div class="segmento" id="unidades"></div>
+      <p class="filtro-nota" id="nota-filtro">Rede toda: 10 clínicas em 3 cidades</p>
+    </div>
+
+    <main id="conteudo">
+      <!-- VISÃO GERAL -->
+      <section class="tela" data-tela="geral" aria-label="Visão geral">
+        <div class="bento bento-geral">
+          <article class="cartao destaque" id="c-faturamento" data-alvo="faturamento">
+            <div class="cartao-cab">
+              <h2>Faturamento da taxa social</h2>
+              <span class="dica">12 meses</span>
+            </div>
+            <p class="valor-grande"><span data-contar="fat-total" data-fmt="moeda">R$ 0</span></p>
+            <svg class="spark spark-claro" viewBox="0 0 300 70" preserveAspectRatio="none" id="spark-fat" aria-hidden="true"></svg>
+            <dl class="pares">
+              <div><dt>Deixou de entrar com faltas</dt><dd data-contar="fat-perdido" data-fmt="moeda">R$ 0</dd></div>
+              <div><dt>Ticket médio pago</dt><dd data-contar="fat-ticket" data-fmt="moeda2">R$ 0</dd></div>
+            </dl>
+          </article>
+
+          <article class="cartao kpi" id="c-realizadas" data-alvo="presenca">
+            <h2>Consultas realizadas</h2>
+            <p class="valor"><span data-contar="k-realizados">0</span></p>
+            <svg class="spark" viewBox="0 0 200 44" preserveAspectRatio="none" id="spark-real" aria-hidden="true"></svg>
+            <p class="nota" id="n-realizadas"></p>
+          </article>
+          <article class="cartao kpi" id="c-faltas" data-alvo="presenca">
+            <h2>Faltas</h2>
+            <p class="valor"><span data-contar="k-faltas">0</span></p>
+            <svg class="spark spark-quente" viewBox="0 0 200 44" preserveAspectRatio="none" id="spark-faltas" aria-hidden="true"></svg>
+            <p class="nota"><span data-contar="k-taxa" data-fmt="pct">0%</span> das consultas marcadas</p>
+          </article>
+          <article class="cartao kpi" id="c-cancel" data-alvo="presenca">
+            <h2>Cancelamentos</h2>
+            <p class="valor"><span data-contar="k-cancel">0</span></p>
+            <svg class="spark" viewBox="0 0 200 44" preserveAspectRatio="none" id="spark-cancel" aria-hidden="true"></svg>
+            <p class="nota" id="n-cancel"></p>
+          </article>
+          <article class="cartao kpi" id="c-espera-kpi" data-alvo="espera">
+            <h2>Espera na recepção</h2>
+            <p class="valor"><span data-contar="k-espera" data-fmt="min">0 min</span></p>
+            <svg class="spark" viewBox="0 0 200 44" preserveAspectRatio="none" id="spark-espera" aria-hidden="true"></svg>
+            <p class="nota">da chegada até ser chamado</p>
+          </article>
+
+          <article class="cartao largo" id="c-presenca" data-alvo="presenca">
+            <div class="cartao-cab">
+              <h2>Quem veio, quem faltou, quem desmarcou</h2>
+              <ul class="legenda" aria-hidden="true">
+                <li><i class="sw sw-neutro"></i>Realizadas</li>
+                <li><i class="sw sw-quente"></i>Faltas</li>
+                <li><i class="sw sw-listra"></i>Desmarcadas</li>
+              </ul>
+            </div>
+            <div class="grafico alto"><canvas id="g-presenca" aria-label="Consultas por mês: realizadas, faltas e desmarcadas" role="img"></canvas></div>
+            <p class="nota">Janeiro é o recesso acadêmico: as clínicas fecham e julho funciona com metade das salas.</p>
+          </article>
+
+          <article class="cartao" id="c-unidades" data-alvo="unidades">
+            <div class="cartao-cab"><h2>Unidade que mais atende</h2></div>
+            <div class="barras" id="b-unidades"></div>
+            <p class="nota" id="n-unidades"></p>
+          </article>
+
+          <article class="cartao" id="c-areas" data-alvo="areas">
+            <div class="cartao-cab"><h2>Área mais procurada</h2><span class="dica">entradas na fila</span></div>
+            <div class="rosca">
+              <div class="rosca-graf"><canvas id="g-areas" role="img" aria-label="Entradas na fila por área"></canvas>
+                <p class="rosca-centro"><strong data-contar="areas-total">0</strong><span>pessoas</span></p>
+              </div>
+              <ul class="lista-legenda" id="l-areas"></ul>
+            </div>
+          </article>
+
+          <article class="cartao" id="c-procedimentos" data-alvo="faturamento">
+            <div class="cartao-cab"><h2>De onde vem o dinheiro</h2><span class="dica">por procedimento</span></div>
+            <div class="barras" id="b-procedimentos"></div>
+            <p class="nota" id="n-procedimentos"></p>
+          </article>
+        </div>
+      </section>
+
+      <!-- AGENDA E FILA -->
+      <section class="tela" data-tela="agenda" aria-label="Agenda e fila" hidden>
+        <div class="bento bento-agenda">
+          <article class="cartao" id="c-horarios" data-alvo="horarios">
+            <div class="cartao-cab"><h2>Horário mais marcado</h2><span class="dica">agendamentos por horário</span></div>
+            <div class="grafico"><canvas id="g-horarios" role="img" aria-label="Agendamentos por horário de início"></canvas></div>
+            <p class="nota" id="n-horarios"></p>
+          </article>
+          <article class="cartao" id="c-horarios-faltas" data-alvo="horarios">
+            <div class="cartao-cab"><h2>Horário com mais faltas</h2><span class="dica">% de faltas</span></div>
+            <div class="grafico"><canvas id="g-horarios-faltas" role="img" aria-label="Taxa de faltas por horário"></canvas></div>
+            <p class="nota" id="n-horarios-faltas"></p>
+          </article>
+          <article class="cartao" id="c-calor" data-alvo="horarios">
+            <div class="cartao-cab"><h2>Faltas por dia e turno</h2></div>
+            <div class="calor" id="calor"></div>
+            <p class="nota" id="n-calor"></p>
+          </article>
+          <article class="cartao alto2" id="c-fila" data-alvo="fila">
+            <div class="cartao-cab"><h2>Fila de espera por clínica</h2><span class="dica">mediana de dias até a 1ª consulta</span></div>
+            <div class="barras" id="b-fila"></div>
+            <p class="nota" id="n-fila"></p>
+          </article>
+          <article class="cartao alto2" id="c-profissionais" data-alvo="profissionais">
+            <div class="cartao-cab"><h2>Professores mais e menos procurados</h2><span class="dica">atendimentos supervisionados</span></div>
+            <div class="ranking" id="r-prof"></div>
+            <p class="nota">O paciente escolhe o horário, não o professor: quem supervisiona mais é quem cobre mais turnos numa clínica grande.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- MOTIVOS -->
+      <section class="tela" data-tela="motivos" aria-label="Motivos" hidden>
+        <div class="bento bento-motivos">
+          <article class="cartao alto2" id="c-motivos" data-alvo="motivos">
+            <div class="cartao-cab"><h2>Por que os pacientes faltam</h2><span class="dica">o que a recepção registrou</span></div>
+            <div class="barras" id="b-motivos-falta"></div>
+          </article>
+          <article class="cartao" id="c-justificadas" data-alvo="motivos">
+            <div class="cartao-cab"><h2>Faltas justificadas</h2></div>
+            <div class="medidor" id="m-justificadas"></div>
+            <p class="nota">O resto faltou sem avisar e não atendeu a ligação da recepção.</p>
+          </article>
+          <article class="cartao" id="c-desmarc" data-alvo="motivos">
+            <div class="cartao-cab"><h2>Por que desmarcam</h2></div>
+            <div class="barras" id="b-motivos-desm"></div>
+          </article>
+          <article class="cartao largo" id="c-chuva" data-alvo="motivos">
+            <div class="cartao-cab"><h2>A chuva entra na conta no inverno</h2><span class="dica">% das faltas justificadas por chuva</span></div>
+            <div class="grafico"><canvas id="g-chuva" role="img" aria-label="Faltas por chuva em cada mês"></canvas></div>
+            <p class="nota" id="n-chuva"></p>
+          </article>
+          <article class="cartao" id="c-transporte" data-alvo="motivos">
+            <div class="cartao-cab"><h2>Transporte por unidade</h2></div>
+            <div class="barras" id="b-transporte"></div>
+            <p class="nota">% das faltas justificadas por transporte.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ESPERA -->
+      <section class="tela" data-tela="espera" aria-label="Espera na recepção" hidden>
+        <div class="bento bento-espera">
+          <article class="cartao destaque" id="c-espera" data-alvo="espera">
+            <div class="cartao-cab"><h2>Espera média na recepção</h2></div>
+            <p class="valor-grande"><span data-contar="e-media" data-fmt="min">0 min</span></p>
+            <dl class="pares">
+              <div><dt>Segunda de manhã</dt><dd data-contar="e-segunda" data-fmt="min">0 min</dd></div>
+              <div><dt>Demais turnos</dt><dd data-contar="e-demais" data-fmt="min">0 min</dd></div>
+            </dl>
+            <p class="nota-destaque" id="n-espera-medidos"></p>
+          </article>
+          <article class="cartao" id="c-ate30" data-alvo="espera">
+            <div class="cartao-cab"><h2>Chamados em até 30 minutos</h2></div>
+            <div class="medidor" id="m-ate30"></div>
+            <p class="nota" id="n-ate30"></p>
+          </article>
+          <article class="cartao" id="c-faixas" data-alvo="espera">
+            <div class="cartao-cab"><h2>Quanto cada um esperou</h2><span class="dica">atendimentos</span></div>
+            <div class="grafico"><canvas id="g-faixas" role="img" aria-label="Atendimentos por faixa de espera"></canvas></div>
+          </article>
+          <article class="cartao alto2" id="c-espera-clinica" data-alvo="espera">
+            <div class="cartao-cab"><h2>Espera por clínica</h2><span class="dica">minutos, em média</span></div>
+            <div class="barras" id="b-espera-clinica"></div>
+          </article>
+          <article class="cartao largo" id="c-cascata" data-alvo="espera">
+            <div class="cartao-cab">
+              <h2>O atraso passa de uma sessão para a seguinte</h2>
+              <ul class="legenda" id="leg-cascata" aria-hidden="true"></ul>
+            </div>
+            <div class="grafico"><canvas id="g-cascata" role="img" aria-label="Espera média por posição do horário no turno, por área"></canvas></div>
+            <p class="nota" id="n-cascata"></p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <p>Rede Acolher é fictícia: pacientes, alunos, professores e valores foram gerados por simulação. Nenhum dado é de instituição real.</p>
+      <p><a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">Código no GitHub</a> · <a href="../painel/">Painel de trabalho</a></p>
+    </footer>
+  </div>
+</div>
+
+<!-- Perguntas rápidas (estilo assistente, sem IA: as respostas saem dos dados) -->
+<button class="bolha" type="button" id="bolha" aria-expanded="false" aria-controls="chat">
+  <span class="bolha-ponto" aria-hidden="true"></span>
+  <span>Pergunte ao painel</span>
+</button>
+<aside class="chat" id="chat" aria-label="Perguntas sobre os dados" hidden>
+  <header class="chat-cab">
+    <div>
+      <h2>Pergunte ao painel</h2>
+      <p>Respostas calculadas dos dados, sem IA.</p>
+    </div>
+    <button class="icone" type="button" id="fechar-chat" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </header>
+  <div class="chat-msgs" id="chat-msgs" aria-live="polite">
+    <p class="msg msg-painel">Escolha uma pergunta. Eu respondo com os números da unidade filtrada e mostro onde está no painel.</p>
+  </div>
+  <div class="chat-perguntas" id="chat-perguntas"></div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="dashboard.js?v=3"></script>
+</body>
+</html>

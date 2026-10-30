@@ -27,6 +27,9 @@ from clinicas.fontes import sha256
     ("P13b_tipo_em_branco", ["R13b"], 1),
     ("P14_unidade_ou_servico_escrito_diferente", ["R14"], 1),
     ("P15_primeira_consulta_antes_da_inscricao", ["R15"], 1),
+    ("P16_motivo_escrito_livre", ["R16"], 1),
+    ("P17_chamada_em_branco", ["R17"], 1),
+    ("P18_chegada_registrada_duas_vezes", ["R18"], 1),
 ])
 def test_cada_problema_plantado_e_encontrado(manifesto, resumo, plantado, regras, fator):
     esperado = manifesto["problemas_plantados"][plantado] * fator
@@ -109,3 +112,48 @@ def test_hash_de_planilha_ignora_data_de_gravacao(tmp_path: Path):
         wb.save(caminho)
         caminhos.append(caminho)
     assert sha256(caminhos[0]) == sha256(caminhos[1])
+
+
+@pytest.fixture(scope="session")
+def com_verdade(tratado, verdade) -> pd.DataFrame:
+    chave = ["unidade", "servico", "data", "matricula_aluno", "hora"]
+    sem_conflito = tratado[tratado["conflito_horario"] == "Não"]
+    return sem_conflito.merge(verdade, on=chave, suffixes=("", "_v"), validate="one_to_one")
+
+
+def test_motivo_igual_a_verdade(com_verdade):
+    """Com prontuário, o motivo da base tratada é o que a recepção ouviu do paciente."""
+    m = com_verdade[com_verdade["prontuario"].notna() & com_verdade["motivo_v"].notna()]
+    assert len(m) > 10_000
+    assert (m["motivo"] == m["motivo_v"]).all()
+    sem = com_verdade[com_verdade["prontuario"].isna() & com_verdade["situacao"].isin(
+        ["Falta", "Cancelado pelo paciente"])]
+    assert (sem["motivo"] == "Não identificado").all()
+    assert com_verdade.loc[com_verdade["situacao"] == "Realizado", "motivo"].isna().all()
+
+
+def test_espera_na_recepcao_igual_a_verdade(com_verdade):
+    m = com_verdade[com_verdade["espera_recepcao_min"].notna()].copy()
+    assert len(m) > 40_000
+    minutos = pd.to_datetime(m["chamada"], format="%H:%M") - pd.to_datetime(m["chegada"], format="%H:%M")
+    assert (m["espera_recepcao_min"].astype(float) == minutos.dt.total_seconds() / 60).all()
+    assert (m["espera_recepcao_min"].astype(float) > 0).all()
+
+
+def test_faturamento_igual_a_verdade(com_verdade, tratado, verdade):
+    """Linha a linha igual; no total, a diferença é só o que ficou sem prontuário (sem saber se é isento)."""
+    m = com_verdade[com_verdade["valor_cobrado"].notna()]
+    assert (m["valor_cobrado"].astype(float) == m["valor_cobrado_v"].astype(float)).all()
+    total_tratado = tratado["valor_cobrado"].astype(float).sum()
+    total_verdade = verdade["valor_cobrado"].astype(float).sum()
+    sem_valor = com_verdade[com_verdade["valor_cobrado"].isna()]
+    assert set(sem_valor["prontuario"].isna()) == {True}
+    assert 0 < total_verdade - total_tratado < 0.01 * total_verdade
+
+
+def test_registro_da_recepcao_sem_agendamento_e_so_de_quem_ficou_sem_prontuario(com_verdade, resumo):
+    """R19: o tablet sabe o prontuário, mas o agendamento dele perdeu o número na planilha (R07x)."""
+    sem = com_verdade[com_verdade["prontuario"].isna()]
+    com_registro = sem["chegada"].notna() | (sem["justificou"] == "True")
+    assert resumo["R19"] <= resumo["R07x"]
+    assert abs(resumo["R19"] - com_registro.sum()) <= resumo["R13"]  # linhas em conflito ficam fora do merge

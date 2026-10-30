@@ -16,3 +16,7 @@ R13,Aluno com dois pacientes no mesmo horário,sinalizado,138
 R13b,Tipo de atendimento em branco,deduzido pela fila,2992
 R14,Unidade ou serviço escrito de outro jeito na fila,padronizado,12592
 R15,1ª consulta antes da inscrição na fila,corrigida pelos atendimentos,50
+R16,Motivo digitado em texto livre na recepção,classificado,5099
+R17,Chegada sem o horário de chamada,fora da média de espera,1565
+R18,Chegada registrada duas vezes,mantida a primeira,570
+R19,Registro da recepção sem agendamento correspondente,sinalizado,144

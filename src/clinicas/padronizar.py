@@ -19,6 +19,13 @@ R13 aluno com dois pacientes no mesmo horário ....................... sinalizad
 R13b tipo de atendimento em branco .................................. deduzido pela fila de espera
 R14 unidade/serviço escrito de outro jeito na fila ................... padronizado
 R15 1ª consulta antes da inscrição na fila .......................... corrigida pelos atendimentos
+R16 motivo digitado em texto livre no tablet da recepção ............. classificado
+R17 chegada sem o horário em que o paciente foi chamado .............. fora da média de espera
+R18 chegada registrada duas vezes (cartão passado de novo) ........... mantida a primeira
+R19 registro da recepção sem agendamento correspondente .............. sinalizado
+
+Faturamento: a taxa social da tabela vale só para atendimento realizado de paciente não isento.
+Atendimento sem prontuário (R07x) fica sem valor: não dá para saber se o paciente é isento.
 
 Uso: python -m clinicas.padronizar
 """
@@ -61,9 +68,13 @@ DESCRICAO_REGRA = {
     "R13b": ("Tipo de atendimento em branco", "deduzido pela fila"),
     "R14": ("Unidade ou serviço escrito de outro jeito na fila", "padronizado"),
     "R15": ("1ª consulta antes da inscrição na fila", "corrigida pelos atendimentos"),
+    "R16": ("Motivo digitado em texto livre na recepção", "classificado"),
+    "R17": ("Chegada sem o horário de chamada", "fora da média de espera"),
+    "R18": ("Chegada registrada duas vezes", "mantida a primeira"),
+    "R19": ("Registro da recepção sem agendamento correspondente", "sinalizado"),
 }
 # Regras que viram uma linha em inconsistencias.csv (as demais só são contadas).
-REGRAS_POR_LINHA = {"R01", "R07", "R07x", "R08", "R09", "R10", "R12", "R13", "R15"}
+REGRAS_POR_LINHA = {"R01", "R07", "R07x", "R08", "R09", "R10", "R12", "R13", "R15", "R17", "R18", "R19"}
 
 SITUACAO = {
     "atendido": "Realizado", "compareceu": "Realizado", "ok": "Realizado", "r": "Realizado",
@@ -80,6 +91,22 @@ SERVICO = {"odontologia": "ODO", "odonto": "ODO", "fisioterapia": "FIS", "fisio"
            "psicologia": "PSI", "psico": "PSI", "nutricao": "NUT"}
 TIPO = {"1a consulta": "Primeira consulta", "1a vez": "Primeira consulta", "sim": "Primeira consulta",
         "retorno": "Retorno", "nao": "Retorno"}
+# Motivos como a recepção digita (já normalizados por norm) e a categoria de cada um.
+MOTIVO = {
+    "esqueceu": "Esqueceu", "esqueceu da consulta": "Esqueceu", "paciente esqueceu": "Esqueceu",
+    "nao lembrou": "Esqueceu",
+    "trabalho": "Trabalho", "nao foi liberado do trabalho": "Trabalho", "horario de trabalho": "Trabalho",
+    "transporte": "Transporte", "sem passagem": "Transporte", "onibus atrasou": "Transporte",
+    "sem transporte": "Transporte",
+    "doenca": "Doença", "estava doente": "Doença", "gripe": "Doença", "doente": "Doença",
+    "chuva": "Chuva", "choveu muito": "Chuva", "rua alagada": "Chuva", "chuva forte": "Chuva",
+    "familia": "Família", "problema familiar": "Família", "filho doente": "Família",
+    "problema na familia": "Família",
+    "compromisso pessoal": "Compromisso pessoal", "compromisso": "Compromisso pessoal",
+    "outro compromisso": "Compromisso pessoal",
+    "sentiu melhora": "Sentiu melhora", "melhorou": "Sentiu melhora", "disse que esta melhor": "Sentiu melhora",
+}
+MOTIVO_CANONICO = set(MOTIVO.values())
 COLUNAS_PLANILHA = {
     "data": "data", "dt atendimento": "data",
     "horario": "hora", "hora": "hora",
@@ -167,6 +194,7 @@ def ler_cadastros(fontes: Path) -> dict[str, pd.DataFrame]:
         "supervisores": pd.read_csv(cad / "supervisores.csv", dtype=str),
         "grade": pd.read_csv(cad / "grade_horarios.csv"),
         "calendario": pd.read_csv(cad / "calendario_rede.csv"),
+        "taxa": pd.read_csv(cad / "tabela_taxa_social.csv"),
     }
 
 
@@ -364,6 +392,67 @@ def ler_fila(fontes: Path, reg: Registro) -> pd.DataFrame:
     return pd.DataFrame(saida)
 
 
+def ler_recepcao(fontes: Path, reg: Registro) -> pd.DataFrame:
+    partes = []
+    for caminho in sorted((fontes / "recepcao").glob("recepcao_*.csv")):
+        df = pd.read_csv(caminho, encoding="utf-8-sig", dtype=str)
+        df["arquivo"] = caminho.name
+        df["linha"] = range(2, len(df) + 2)
+        partes.append(df)
+    rec = pd.concat(partes, ignore_index=True)
+    rec["data"] = pd.to_datetime(rec["data"], format="%Y-%m-%d").dt.date
+    rec["unidade"] = rec["unidade"].map(lambda v: UNIDADE[norm(v)])
+    rec["servico"] = rec["servico"].map(lambda v: SERVICO[norm(v)])
+    aviso = rec["registro"] == "AVISO"
+    rec["motivo"] = None
+    for i in rec.index[aviso]:
+        texto = rec.at[i, "motivo_informado"]
+        rec.at[i, "motivo"] = MOTIVO[norm(texto)]  # texto desconhecido: KeyError, não se adivinha
+        if texto not in MOTIVO_CANONICO:
+            reg.anotar("R16")
+    return rec
+
+
+def juntar_recepcao(atend: pd.DataFrame, rec: pd.DataFrame, reg: Registro) -> pd.DataFrame:
+    """Liga cada registro do tablet ao agendamento do mesmo paciente no mesmo dia.
+
+    Um paciente tem um só serviço e nunca duas sessões no mesmo dia, então (data, prontuário) basta.
+    """
+    chave = ["data", "prontuario"]
+    chegadas = rec[rec["registro"] == "CHEGADA"]
+    repetida = chegadas.duplicated(chave, keep="first")
+    for r in chegadas[repetida].itertuples():
+        reg.anotar("R18", r.arquivo, "", r.linha, f"{r.prontuario} {r.data} {r.chegada}", "removida")
+    chegadas = chegadas[~repetida]
+    for r in chegadas[chegadas["chamada"].isna()].itertuples():
+        reg.anotar("R17", r.arquivo, "", r.linha, f"{r.prontuario} {r.data} chegada {r.chegada}", "sem espera")
+    avisos = rec[rec["registro"] == "AVISO"]
+
+    com_pront = atend.dropna(subset=["prontuario"])
+    if com_pront.duplicated(chave).any():
+        raise ValueError("Paciente com dois agendamentos no mesmo dia: (data, prontuário) deixou de ser chave")
+    conhecidos = set(zip(com_pront["data"], com_pront["prontuario"], strict=True))
+    for r in pd.concat([chegadas, avisos]).itertuples():
+        if (r.data, r.prontuario) not in conhecidos:
+            reg.anotar("R19", r.arquivo, "", r.linha, f"{r.registro} {r.prontuario} {r.data}", "")
+
+    atend = atend.merge(chegadas[[*chave, "chegada", "chamada"]], on=chave, how="left", validate="many_to_one")
+    atend = atend.merge(avisos[[*chave, "motivo"]], on=chave, how="left", validate="many_to_one")
+    sem_pront = atend["prontuario"].isna()
+    falta = atend["situacao"] == "Falta"
+    atend.loc[falta & atend["motivo"].isna() & ~sem_pront, "motivo"] = "Sem justificativa"
+    atend.loc[atend["situacao"] == "Cancelado pela clínica", "motivo"] = "Supervisor ausente"
+    atend.loc[(falta | (atend["situacao"] == "Cancelado pelo paciente")) & sem_pront, "motivo"] = "Não identificado"
+
+    def minutos(h: object) -> float:
+        return float("nan") if not isinstance(h, str) else int(h[:2]) * 60 + int(h[3:5])
+
+    atend["hora_chegada"] = atend["chegada"]
+    atend["hora_chamada"] = atend["chamada"]
+    atend["espera_recepcao_min"] = atend["chamada"].map(minutos) - atend["chegada"].map(minutos)
+    return atend.drop(columns=["chegada", "chamada"])
+
+
 def completar_tipo_e_fila(atend: pd.DataFrame, fila: pd.DataFrame, reg: Registro) -> None:
     """R15 e R13b: a fila e os atendimentos se corrigem um ao outro.
 
@@ -450,12 +539,20 @@ def padronizar(fontes: Path = PASTA_FONTES, destino: Path = PASTA_TRATADO) -> di
     fila = ler_fila(fontes, reg)
     completar_tipo_e_fila(atend, fila, reg)
     marcar_conflitos(atend, reg)
+    atend = juntar_recepcao(atend, ler_recepcao(fontes, reg), reg)
 
     # Procedimento das planilhas: elas não têm a coluna; vale o padrão do serviço.
     sem_proc = atend["procedimento"].isna()
     atend.loc[sem_proc, "procedimento"] = [
         PROCEDIMENTOS[s][0] if t == "Primeira consulta" else PROCEDIMENTOS[s][1][0]
         for s, t in zip(atend.loc[sem_proc, "servico"], atend.loc[sem_proc, "tipo"], strict=True)]
+
+    # Faturamento: taxa da tabela, só no realizado e só de quem não é isento.
+    taxa = dict(zip(cad["taxa"]["procedimento"], cad["taxa"]["valor"], strict=True))
+    isento = dict(zip(cad["pacientes"]["prontuario"], cad["pacientes"]["isento_taxa"], strict=True))
+    atend["valor_tabela"] = atend["procedimento"].map(taxa)
+    paga = atend["prontuario"].map(isento).map({"Não": 1.0, "Sim": 0.0})  # sem prontuário: em branco
+    atend["valor_cobrado"] = atend["valor_tabela"] * paga * (atend["situacao"] == "Realizado")
 
     atend["duracao_min"] = atend["servico"].map(lambda s: SERVICOS[s].duracao_min)
     atend["horas_pratica"] = (atend["situacao"] == "Realizado") * atend["duracao_min"] / 60
@@ -468,7 +565,9 @@ def padronizar(fontes: Path = PASTA_FONTES, destino: Path = PASTA_TRATADO) -> di
     atend["hora"] = atend["hora"].map(lambda h: h.strftime("%H:%M"))
     atend = atend[["id_atendimento", "data", "hora", "turno", "unidade", "servico", "clinica", "prontuario",
                    "matricula_aluno", "supervisor", "tipo", "procedimento", "situacao", "duracao_min",
-                   "horas_pratica", "origem", "arquivo", "conflito_horario", "prontuario_recuperado"]]
+                   "horas_pratica", "origem", "arquivo", "conflito_horario", "prontuario_recuperado",
+                   "valor_tabela", "valor_cobrado", "motivo", "hora_chegada", "hora_chamada",
+                   "espera_recepcao_min"]]
 
     fila["dias_espera"] = [(p - i).days if p is not None and p == p else None
                            for p, i in zip(fila["data_primeira"], fila["data_inscricao"], strict=True)]
@@ -478,7 +577,7 @@ def padronizar(fontes: Path = PASTA_FONTES, destino: Path = PASTA_TRATADO) -> di
     idade = (pd.Timestamp("2026-10-31") - pd.to_datetime(pac["data_nascimento"])).dt.days // 365
     pac["faixa_etaria"] = pd.cut(idade, [0, 29, 44, 59, 200], labels=["18-29", "30-44", "45-59", "60+"]).astype(str)
     # Minimização (LGPD): a base de análise não leva nome nem data de nascimento do paciente.
-    pacientes = pac[["prontuario", "sexo", "faixa_etaria", "unidade", "servico"]]
+    pacientes = pac[["prontuario", "sexo", "faixa_etaria", "unidade", "servico", "isento_taxa"]]
 
     clinicas = (cad["grade"].groupby(["unidade", "servico"], as_index=False)
                 .agg(salas=("salas", "first"), duracao_min=("duracao_min", "first")))

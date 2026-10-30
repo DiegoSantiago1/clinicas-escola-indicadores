@@ -41,3 +41,9 @@ A procura de cada clínica é calculada a partir dos horários ofertados e de qu
 
 ## D11. Arquivos reproduzíveis
 Mesma semente, mesmos arquivos: o teste compara os hashes com o `manifesto.json` versionado. O `.xlsx` guarda a data de gravação dentro do zip, então o hash dele é do conteúdo das células. As quebras de linha são fixas (`\r\n` na exportação do "sistema Windows", `\n` no resto) e o `.gitattributes` impede o git de convertê-las.
+
+## D12. A recepção como fonte nova, sem mexer no que já estava publicado
+Motivo de falta, horário de chegada e de chamada vêm de uma exportação mensal do tablet da recepção, ligada ao agendamento por (data, prontuário): um paciente tem um só serviço e nunca duas sessões no mesmo dia (o código confere e para se isso deixar de valer). A simulação desses campos usa um gerador aleatório próprio, então a agenda, as faltas e todos os números já publicados continuaram idênticos. Problemas plantados P16 a P18; regras R16 a R19.
+
+## D13. Painel animado: movimento e som a serviço da leitura
+Inspirado em quatro vídeos de painéis animados: cartões em bento, números que contam, gráficos que se desenham, troca de tema circular e um assistente. O assistente não usa IA: as perguntas são fixas e as respostas são escritas pelo Python a partir dos números (`dashboard.py`), testadas. Os sons são sintetizados na Web Audio API e só tocam depois do primeiro clique (o navegador bloqueia antes), com botão para desligar; quem pede menos movimento no sistema vê tudo sem animação. O Python arredonda 0,5 para o par e o JavaScript para cima: as respostas usam a mesma regra da página para o "31 min" do cartão não virar "30 min" na resposta.

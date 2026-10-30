@@ -79,6 +79,17 @@ CLINICAS = [
     Clinica("JAB", "NUT", 3, 9, 1, 0.95),
 ]
 
+# Taxa social por procedimento realizado, em reais (valores inventados; falta e desmarcação não pagam).
+TAXA_SOCIAL = {
+    "Avaliação odontológica": 20.0, "Profilaxia": 30.0, "Restauração": 45.0, "Raspagem": 40.0,
+    "Endodontia": 90.0, "Exodontia": 50.0,
+    "Avaliação fisioterapêutica": 25.0, "Sessão de fisioterapia": 20.0,
+    "Triagem psicológica": 15.0, "Sessão de psicoterapia": 20.0,
+    "Avaliação nutricional": 20.0, "Retorno nutricional": 15.0,
+}
+# Pacientes isentos da taxa pelo cadastro socioeconômico.
+FRACAO_ISENTOS = 0.28
+
 # Turnos de atendimento: (nome, início, fim).
 TURNOS = [("Manhã", time(8, 0), time(12, 0)), ("Tarde", time(13, 30), time(17, 30))]
 

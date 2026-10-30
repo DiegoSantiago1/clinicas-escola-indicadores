@@ -1894,8 +1894,32 @@
     "descricao": "1ª consulta antes da inscrição na fila",
     "acao": "corrigida pelos atendimentos",
     "ocorrencias": 50
+   },
+   {
+    "regra": "R16",
+    "descricao": "Motivo digitado em texto livre na recepção",
+    "acao": "classificado",
+    "ocorrencias": 5099
+   },
+   {
+    "regra": "R17",
+    "descricao": "Chegada sem o horário de chamada",
+    "acao": "fora da média de espera",
+    "ocorrencias": 1565
+   },
+   {
+    "regra": "R18",
+    "descricao": "Chegada registrada duas vezes",
+    "acao": "mantida a primeira",
+    "ocorrencias": 570
+   },
+   {
+    "regra": "R19",
+    "descricao": "Registro da recepção sem agendamento correspondente",
+    "acao": "sinalizado",
+    "ocorrencias": 144
    }
   ],
-  "linhas_para_conferir": 4104
+  "linhas_para_conferir": 6383
  }
 }

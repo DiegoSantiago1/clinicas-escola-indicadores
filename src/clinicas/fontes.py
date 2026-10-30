@@ -6,7 +6,10 @@
 - Psicologia e Nutrição: planilhas Excel preenchidas à mão, uma aba por mês, com colunas
   diferentes entre os serviços e os problemas P03 a P13.
 - Recepção: planilha da fila de espera (P14 e P15).
-- Cadastros limpos dos sistemas: pacientes, alunos, supervisores, grade de horários e calendário.
+- Recepção: exportação mensal do tablet do balcão, com a chegada e a chamada de cada paciente e o
+  motivo que ele deu ao desmarcar ou ao justificar uma falta (P16 a P18).
+- Cadastros limpos dos sistemas: pacientes (com a isenção da taxa social), alunos, supervisores,
+  grade de horários, calendário e a tabela da taxa social por procedimento.
 
 Cada problema plantado é contado no manifesto. Os testes conferem que a padronização
 encontra exatamente o que foi plantado e recupera a verdade da simulação.
@@ -38,6 +41,7 @@ from clinicas.config import (
     SEMENTE,
     SEMESTRES,
     SERVICOS,
+    TAXA_SOCIAL,
     TURNOS,
     UNIDADES,
 )
@@ -57,6 +61,18 @@ SITUACAO_PLANILHA = {
     "Cancelado pelo paciente": ["Desmarcou", "Paciente desmarcou", "desmarcado"],
     "Cancelado pela clínica": ["Cancelado (supervisor ausente)", "Clínica cancelou"],
 }
+# Como a recepção digita cada motivo no tablet (P16: texto livre). A primeira forma é a canônica.
+MOTIVO_DIGITADO = {
+    "Esqueceu": ["Esqueceu", "esqueceu da consulta", "Paciente esqueceu", "não lembrou"],
+    "Trabalho": ["Trabalho", "não foi liberado do trabalho", "trabalho", "Horário de trabalho"],
+    "Transporte": ["Transporte", "sem passagem", "ônibus atrasou", "Sem transporte"],
+    "Doença": ["Doença", "estava doente", "gripe", "doente"],
+    "Chuva": ["Chuva", "choveu muito", "rua alagada", "chuva forte"],
+    "Família": ["Família", "problema familiar", "filho doente", "Problema na família"],
+    "Compromisso pessoal": ["Compromisso pessoal", "compromisso", "Outro compromisso"],
+    "Sentiu melhora": ["Sentiu melhora", "melhorou", "Disse que está melhor"],
+}
+
 # Proporção de linhas com cada problema nas planilhas.
 TAXA = {
     "data_texto": 0.10,      # P04: data digitada como texto dd/mm/aaaa
@@ -335,6 +351,38 @@ def escrever_fila(pacientes: pd.DataFrame, pasta: Path, rng: np.random.Generator
     wb.save(pasta / "Fila de espera - Recepção.xlsx")
 
 
+def escrever_recepcao(atend: pd.DataFrame, pasta: Path, rng: np.random.Generator, contagem: dict) -> None:
+    """Exportação mensal do tablet da recepção (todas as clínicas): CHEGADA para quem veio
+    (com o horário em que foi chamado) e AVISO para quem desmarcou ou justificou a falta."""
+    pasta.mkdir(parents=True, exist_ok=True)
+    linhas = []
+    for r in atend.itertuples():
+        base = {"data": r.data.isoformat(), "unidade": UNIDADES[r.unidade].split()[0],
+                "servico": SERVICOS[r.servico].nome, "prontuario": r.prontuario}
+        if isinstance(r.chegada, str):
+            chamada = r.chamada
+            if rng.random() < 0.03:  # P17: o aluno chamou o paciente sem tocar no tablet
+                chamada = None
+                contagem["P17_chamada_em_branco"] += 1
+            linhas.append({**base, "registro": "CHEGADA", "chegada": r.chegada, "chamada": chamada,
+                           "motivo_informado": None})
+            if rng.random() < 0.01:  # P18: passou o cartão duas vezes
+                segunda = (datetime.strptime(r.chegada, "%H:%M") + timedelta(minutes=int(rng.integers(1, 4))))
+                linhas.append({**base, "registro": "CHEGADA", "chegada": segunda.strftime("%H:%M"),
+                               "chamada": chamada, "motivo_informado": None})
+                contagem["P18_chegada_registrada_duas_vezes"] += 1
+        elif r.justificou:
+            formas = MOTIVO_DIGITADO[r.motivo]
+            texto = formas[0] if rng.random() < 0.55 else formas[int(rng.integers(1, len(formas)))]
+            if texto != formas[0]:
+                contagem["P16_motivo_escrito_livre"] += 1
+            linhas.append({**base, "registro": "AVISO", "chegada": None, "chamada": None, "motivo_informado": texto})
+    df = pd.DataFrame(linhas)
+    meses = df["data"].str[:7]
+    for mes, parte in df.groupby(meses, sort=True):
+        parte.to_csv(pasta / f"recepcao_{mes}.csv", index=False, encoding="utf-8-sig", lineterminator="\n")
+
+
 def sha256(caminho: Path) -> str:
     """Hash do conteúdo. Para .xlsx, hash dos valores das células: o arquivo em si muda a cada
     gravação (o openpyxl grava a data e a hora dentro do zip), mas o conteúdo não pode mudar."""
@@ -371,15 +419,21 @@ def gerar(destino: Path = PASTA_FONTES, semente: int = SEMENTE) -> dict:
         "P06_nome_paciente_variante", "P07_prontuario_vazio", "P08_linhas_duplicadas", "P09_linhas_de_total",
         "P10_linhas_em_branco", "P11_nome_aluno_variante", "P12_ano_digitado_errado",
         "P13_conflito_horario_aluno", "P13b_tipo_em_branco", "P14_unidade_ou_servico_escrito_diferente",
-        "P15_primeira_consulta_antes_da_inscricao"]}
+        "P15_primeira_consulta_antes_da_inscricao", "P16_motivo_escrito_livre", "P17_chamada_em_branco",
+        "P18_chegada_registrada_duas_vezes"]}
 
     escrever_sistema(atend, sup, destino / "sistema", contagem)
     escrever_planilhas(atend, alunos, sup, destino / "planilhas", rng, contagem)
     escrever_fila(pacientes, destino, rng, contagem)
+    # Gerador próprio para a recepção: os arquivos das versões anteriores não mudam.
+    escrever_recepcao(atend, destino / "recepcao", np.random.default_rng(semente + 8), contagem)
 
     cad = destino / "cadastros"
-    pacientes[["prontuario", "nome", "sexo", "data_nascimento", "unidade", "servico"]].to_csv(
-        cad / "pacientes.csv", index=False, encoding="utf-8", lineterminator="\n")
+    cadastro = pacientes[["prontuario", "nome", "sexo", "data_nascimento", "unidade", "servico"]].copy()
+    cadastro["isento_taxa"] = pacientes["isento_taxa"].map({True: "Sim", False: "Não"})
+    cadastro.to_csv(cad / "pacientes.csv", index=False, encoding="utf-8", lineterminator="\n")
+    pd.DataFrame([{"procedimento": k, "valor": v} for k, v in TAXA_SOCIAL.items()]).to_csv(
+        cad / "tabela_taxa_social.csv", index=False, encoding="utf-8", lineterminator="\n")
     alunos.to_csv(cad / "alunos.csv", index=False, encoding="utf-8", lineterminator="\n")
     sup_df.to_csv(cad / "supervisores.csv", index=False, encoding="utf-8", lineterminator="\n")
     grade_horarios().to_csv(cad / "grade_horarios.csv", index=False, encoding="utf-8", lineterminator="\n")
@@ -409,6 +463,13 @@ def gerar(destino: Path = PASTA_FONTES, semente: int = SEMENTE) -> dict:
             "I5": "12% dos pacientes têm propensão 3,2 vezes maior a faltar e concentram boa parte das faltas.",
             "I6": "Quanto mais o paciente esperou na fila, maior a chance de faltar à primeira consulta.",
             "I7": "Recife (Odontologia e Psicologia) com procura acima da capacidade: a fila não zera.",
+            "M1": "Chuva vira motivo frequente de abril a julho (inverno chuvoso), mais de manhã.",
+            "M2": "Trabalho pesa mais na segunda-feira e de manhã.",
+            "M3": "Transporte pesa mais em Jaboatão e no horário das 8h.",
+            "M4": "Esquecimento pesa mais na Nutrição (retorno a cada 21 dias) e em quem esperou mais de 45 dias.",
+            "E1": "Espera na recepção cresce ao longo do turno (cascata), mais na Odontologia.",
+            "E2": "Recife espera mais: uma recepção para quatro clínicas. Segunda de manhã, +5 minutos.",
+            "F1": "Taxa social só sobre atendimento realizado; 28% dos pacientes são isentos.",
         },
         "arquivos": {str(p.relative_to(destino)).replace("\\", "/"): sha256(p)
                      for p in sorted(destino.rglob("*")) if p.is_file()},
