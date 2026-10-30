@@ -7,6 +7,8 @@ Um ano de atendimentos de uma rede fictícia de clínicas-escola (Odontologia, F
 [![Abrir o projeto](https://img.shields.io/badge/%E2%96%B6%20Abrir%20o%20projeto-EA580C?style=for-the-badge)](https://diegosantiago1.github.io/clinicas-escola-indicadores/)
 [![Ver no portfólio](https://img.shields.io/badge/Ver%20no%20portf%C3%B3lio-1F2937?style=for-the-badge&logo=googlechrome&logoColor=white)](https://diegosantiago1.github.io/Portifolio/#projetos)
 
+**Painel de trabalho:** https://diegosantiago1.github.io/clinicas-escola-indicadores/painel/ mostra a jornada de cada paciente em funil (na fila, chamado, em tratamento, sem retorno, encerrado), com o detalhe de cada um.
+
 **Link direto:** https://diegosantiago1.github.io/clinicas-escola-indicadores/ abre a página de resultados, com a padronização ao vivo (digite como a recepção anotaria uma falta), as dez clínicas e os achados.
 
 ![Relatório no Power BI](site/img/powerbi_visao_geral.png)
@@ -84,6 +86,7 @@ set PYTHONPATH=src
 python -m clinicas.fontes         # gera as fontes bagunçadas (e a verdade)
 python -m clinicas.padronizar     # padroniza e gera data/tratado
 python -m clinicas.indicadores    # indicadores, base do Looker e site/dados/painel.json
+python -m clinicas.jornada        # a jornada de cada paciente para o painel de trabalho (site/painel)
 pytest                            # 65 testes
 python powerbi/gerar_pbip.py      # gera o relatório Power BI
 ```

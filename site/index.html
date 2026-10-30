@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css?v=3">
+<link rel="stylesheet" href="estilo.css?v=4">
 <script>
   document.documentElement.classList.add("js");
   try { const t = localStorage.getItem("tema"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -28,6 +28,7 @@
     <a href="#padronizacao">Padronização</a>
     <a href="#achados">Achados</a>
     <a href="#carta">Sobre</a>
+    <a href="painel/">Painel de trabalho</a>
   </nav>
   <div class="barra-fim">
     <button class="tema" type="button" aria-label="Alternar tema claro ou escuro"><span data-escuro>Escuro</span><span data-claro>Claro</span></button>
@@ -39,7 +40,10 @@
   <section class="hero" id="painel">
     <div class="hero-texto">
       <h1 class="revela">Onde as clínicas-escola perdem consultas</h1>
-      <p class="hero-frase revela">Um ano de atendimentos de 10 clínicas-escola de saúde em Recife, Olinda e Jaboatão: uma em cada cinco consultas fica vazia. Mude a unidade e o serviço no painel.</p>
+      <div>
+        <p class="hero-frase revela">Um ano de atendimentos de 10 clínicas-escola de saúde em Recife, Olinda e Jaboatão: uma em cada cinco consultas fica vazia. Mude a unidade e o serviço no painel.</p>
+        <a class="botao hero-botao revela" href="painel/">Abrir o painel de trabalho</a>
+      </div>
     </div>
 
     <div class="painel revela" data-ui aria-label="Painel de indicadores interativo">
