@@ -78,6 +78,8 @@ function desenharFunil() {
   const abas = document.getElementById("abas-etapa");
   abas.innerHTML = J.etapas.map((et) => `<button type="button" data-etapa="${et.chave}" aria-pressed="${estado.etapaCelular === et.chave}">${esc(et.nome)} ${NUM(J.colunas[`${estado.servico}|${et.chave}`].total)}</button>`).join("");
   abas.querySelectorAll("[data-etapa]").forEach((b) => b.addEventListener("click", () => { estado.etapaCelular = b.dataset.etapa; desenharFunil(); }));
+  const marcada = abas.querySelector('[aria-pressed="true"]');
+  if (marcada) abas.scrollLeft = marcada.offsetLeft - 16;
   funil.innerHTML = J.etapas.map((et, i) => {
     const col = J.colunas[`${estado.servico}|${et.chave}`];
     let cartoes = col.cartoes.map((p) => J.detalhes[p]);
