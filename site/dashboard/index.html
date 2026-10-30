@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR" data-theme="light" data-escuro="azul">
+<html lang="pt-BR" data-theme="light" data-escuro="azul" data-claro="azul">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="dashboard.css?v=7">
+<link rel="stylesheet" href="dashboard.css?v=8">
 <script>
   (function () {
     var r = document.documentElement, t = null;
@@ -17,6 +17,8 @@
     if (t) r.dataset.theme = t;
     var e = new URLSearchParams(location.search).get("escuro");  /* ?escuro=grafite ou ?escuro=azul */
     if (e === "grafite" || e === "azul") r.dataset.escuro = e;
+    var c = new URLSearchParams(location.search).get("claro");  /* ?claro=laranja ou ?claro=azul */
+    if (c === "laranja" || c === "azul") r.dataset.claro = c;
   })();
 </script>
 </head>
