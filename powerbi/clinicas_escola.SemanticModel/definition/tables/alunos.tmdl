@@ -68,6 +68,7 @@ table alunos
 				let
 				    Fonte = Csv.Document(File.Contents(PastaDados & "alunos.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
-				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"matricula", type text}, {"nome", type text}, {"curso", type text}, {"semestre", type text}, {"unidade", type text}, {"servico", type text}, {"meta_horas_semestre", Int64.Type}, {"proporcao_semestre", type number}, {"meta_ate_fim_dados", type number}}, "en-US")
+				    Colunas = Table.SelectColumns(Cabecalho, {"matricula", "nome", "curso", "semestre", "unidade", "servico", "meta_horas_semestre", "proporcao_semestre", "meta_ate_fim_dados"}),
+				    Tipos = Table.TransformColumnTypes(Colunas, {{"matricula", type text}, {"nome", type text}, {"curso", type text}, {"semestre", type text}, {"unidade", type text}, {"servico", type text}, {"meta_horas_semestre", Int64.Type}, {"proporcao_semestre", type number}, {"meta_ate_fim_dados", type number}}, "en-US")
 				in
 				    Tipos

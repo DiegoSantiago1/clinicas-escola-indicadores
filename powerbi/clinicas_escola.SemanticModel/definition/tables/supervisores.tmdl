@@ -35,6 +35,7 @@ table supervisores
 				let
 				    Fonte = Csv.Document(File.Contents(PastaDados & "supervisores.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
-				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"codigo", type text}, {"nome", type text}, {"unidade", type text}, {"servico", type text}}, "en-US")
+				    Colunas = Table.SelectColumns(Cabecalho, {"codigo", "nome", "unidade", "servico"}),
+				    Tipos = Table.TransformColumnTypes(Colunas, {{"codigo", type text}, {"nome", type text}, {"unidade", type text}, {"servico", type text}}, "en-US")
 				in
 				    Tipos

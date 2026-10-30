@@ -33,6 +33,7 @@ table resumo_qualidade
 				let
 				    Fonte = Csv.Document(File.Contents(PastaDados & "resumo_qualidade.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
-				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"regra", type text}, {"descricao", type text}, {"acao", type text}, {"ocorrencias", Int64.Type}}, "en-US")
+				    Colunas = Table.SelectColumns(Cabecalho, {"regra", "descricao", "acao", "ocorrencias"}),
+				    Tipos = Table.TransformColumnTypes(Colunas, {{"regra", type text}, {"descricao", type text}, {"acao", type text}, {"ocorrencias", Int64.Type}}, "en-US")
 				in
 				    Tipos

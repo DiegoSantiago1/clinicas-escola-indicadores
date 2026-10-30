@@ -68,7 +68,8 @@ table clinicas
 				let
 				    Fonte = Csv.Document(File.Contents(PastaDados & "clinicas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
-				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"unidade", type text}, {"servico", type text}, {"salas", Int64.Type}, {"duracao_min", Int64.Type}, {"unidade_nome", type text}, {"servico_nome", type text}, {"clinica", type text}, {"origem_dados", type text}}, "en-US"),
+				    Colunas = Table.SelectColumns(Cabecalho, {"unidade", "servico", "salas", "duracao_min", "unidade_nome", "servico_nome", "clinica", "origem_dados"}),
+				    Tipos = Table.TransformColumnTypes(Colunas, {{"unidade", type text}, {"servico", type text}, {"salas", Int64.Type}, {"duracao_min", Int64.Type}, {"unidade_nome", type text}, {"servico_nome", type text}, {"clinica", type text}, {"origem_dados", type text}}, "en-US"),
 				    ComClinica = Table.AddColumn(Tipos, "id_clinica", each [unidade] & "-" & [servico], type text)
 				in
 				    ComClinica

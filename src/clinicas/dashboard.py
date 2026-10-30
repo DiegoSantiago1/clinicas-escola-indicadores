@@ -58,7 +58,8 @@ def bloco(a: pd.DataFrame, f: pd.DataFrame, sup: pd.DataFrame) -> dict:
         serie.append({"mes": rotulo_mes(m), **contagens(g), "faturamento": float(g["valor_cobrado"].sum()),
                       "taxa_faltas": arred(taxa_faltas(g), 4),
                       "espera_min": arred(g["espera_recepcao_min"].mean()) if g["espera_recepcao_min"].notna().any()
-                      else None})
+                      else None,
+                      "entradas_fila": int((f["data_inscricao"].dt.strftime("%Y-%m") == m).sum())})
 
     # Faturamento: o que entrou e o que deixou de entrar com as faltas de quem pagaria.
     pagantes_falta = a[falta & a["isento"].eq("Não")]

@@ -391,7 +391,9 @@ def m_fonte(t: Tabela) -> tuple[list[str], str]:
         f'Fonte = Csv.Document(File.Contents(PastaDados & "{t.arquivo}"), '
         "[Delimiter = \",\", Encoding = 65001, QuoteStyle = QuoteStyle.Csv])",
         "Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true])",
-        f'Tipos = Table.TransformColumnTypes(Cabecalho, {{{tipos}}}, "en-US")',
+        # Só as colunas que o modelo declara: uma coluna nova no CSV não quebra a atualização.
+        "Colunas = Table.SelectColumns(Cabecalho, {" + ", ".join(f'"{c.nome}"' for c in lidas) + "})",
+        f'Tipos = Table.TransformColumnTypes(Colunas, {{{tipos}}}, "en-US")',
     ]
     if t.nome == "atendimentos":
         passos += [

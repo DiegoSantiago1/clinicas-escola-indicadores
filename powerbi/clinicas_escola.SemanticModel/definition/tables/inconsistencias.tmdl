@@ -57,6 +57,7 @@ table inconsistencias
 				let
 				    Fonte = Csv.Document(File.Contents(PastaDados & "inconsistencias.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
-				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"regra", type text}, {"descricao", type text}, {"acao", type text}, {"arquivo", type text}, {"aba", type text}, {"linha", Int64.Type}, {"valor_original", type text}, {"valor_final", type text}}, "en-US")
+				    Colunas = Table.SelectColumns(Cabecalho, {"regra", "descricao", "acao", "arquivo", "aba", "linha", "valor_original", "valor_final"}),
+				    Tipos = Table.TransformColumnTypes(Colunas, {{"regra", type text}, {"descricao", type text}, {"acao", type text}, {"arquivo", type text}, {"aba", type text}, {"linha", Int64.Type}, {"valor_original", type text}, {"valor_final", type text}}, "en-US")
 				in
 				    Tipos

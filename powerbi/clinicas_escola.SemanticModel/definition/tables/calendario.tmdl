@@ -90,6 +90,7 @@ table calendario
 				let
 				    Fonte = Csv.Document(File.Contents(PastaDados & "calendario.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
-				    Tipos = Table.TransformColumnTypes(Cabecalho, {{"data", type date}, {"situacao", type text}, {"fator_salas", type number}, {"ano", Int64.Type}, {"mes_numero", Int64.Type}, {"mes", type date}, {"mes_nome", type text}, {"dia_semana", type text}, {"dia_semana_numero", Int64.Type}, {"semestre", type text}, {"aberto", type logical}}, "en-US")
+				    Colunas = Table.SelectColumns(Cabecalho, {"data", "situacao", "fator_salas", "ano", "mes_numero", "mes", "mes_nome", "dia_semana", "dia_semana_numero", "semestre", "aberto"}),
+				    Tipos = Table.TransformColumnTypes(Colunas, {{"data", type date}, {"situacao", type text}, {"fator_salas", type number}, {"ano", Int64.Type}, {"mes_numero", Int64.Type}, {"mes", type date}, {"mes_nome", type text}, {"dia_semana", type text}, {"dia_semana_numero", Int64.Type}, {"semestre", type text}, {"aberto", type logical}}, "en-US")
 				in
 				    Tipos

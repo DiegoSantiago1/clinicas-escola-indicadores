@@ -42,3 +42,15 @@ def test_detalhe_fecha_a_conta(pastas, monkeypatch):
     for d in jornada.montar()["detalhes"].values():
         assert d["agendamentos"] == len(d["agenda"])
         assert d["realizados"] + d["faltas"] + d["cancelados"] == d["agendamentos"]
+
+
+def test_agenda_traz_motivo_e_espera_no_lugar_certo(pastas, monkeypatch):
+    """Motivo só em falta e cancelamento; espera na recepção só em atendimento realizado."""
+    monkeypatch.setattr(jornada, "PASTA_TRATADO", pastas["tratado"])
+    for d in jornada.montar()["detalhes"].values():
+        for a in d["agenda"]:
+            if a["situacao"] == "Realizado":
+                assert a["motivo"] is None
+            else:
+                assert a["espera_min"] is None
+                assert a["motivo"] is not None  # a jornada parte da fila: todo paciente tem prontuário

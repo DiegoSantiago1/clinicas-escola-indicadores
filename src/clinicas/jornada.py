@@ -150,9 +150,11 @@ def montar() -> dict:
             "supervisor": None if ultimo_sup is None else sup.at[ultimo_sup, "nome"],
             "origem": None if not len(ag) else ag["origem"].iloc[-1],
             "recuperado": bool((ag["prontuario_recuperado"] == "Sim").any()),
-            "agenda": [{"data": d.date().isoformat(), "hora": h, "tipo": tp, "situacao": s}
-                       for d, h, tp, s in zip(ag["data"], ag["hora"], ag["tipo"], ag["situacao"],
-                                              strict=True)],
+            # Motivo (falta ou desmarcação) e espera na recepção (quando veio), da exportação do tablet.
+            "agenda": [{"data": d.date().isoformat(), "hora": h, "tipo": tp, "situacao": s,
+                        "motivo": None if pd.isna(m) else m, "espera_min": None if pd.isna(e) else int(e)}
+                       for d, h, tp, s, m, e in zip(ag["data"], ag["hora"], ag["tipo"], ag["situacao"], ag["motivo"],
+                                                    ag["espera_recepcao_min"], strict=True)],
         }
 
     totais = {chave: int((f["etapa"] == chave).sum()) for chave, _ in ETAPAS}

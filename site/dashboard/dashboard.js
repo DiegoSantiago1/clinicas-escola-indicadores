@@ -251,6 +251,34 @@
     });
   }
 
+  // Faixa com "Recesso" nos meses em que as clínicas fecham (senão a coluna parece dado faltando).
+  function faixaRecesso(fechados, c) {
+    return {
+      id: "recesso",
+      beforeDatasetsDraw(chart) {
+        const { ctx, chartArea: a, scales: { x } } = chart;
+        const largura = Math.min(48, (a.right - a.left) / fechados.length * 0.8);
+        fechados.forEach((f, i) => {
+          if (!f) return;
+          const cx = x.getPixelForValue(i);
+          ctx.save();
+          ctx.fillStyle = c.c2;
+          ctx.beginPath();
+          ctx.roundRect(cx - largura / 2, a.top, largura, a.bottom - a.top, 8);
+          ctx.fill();
+          ctx.translate(cx, (a.top + a.bottom) / 2);
+          ctx.rotate(-Math.PI / 2);
+          ctx.fillStyle = c.tinta2;
+          ctx.font = `500 12px ${Chart.defaults.font.family}`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("Recesso", 0, 0);
+          ctx.restore();
+        });
+      },
+    };
+  }
+
   // ---------- sparklines (SVG que se desenha) ----------
   function spark(svg, valores, meses, fmt, rotulo) {
     if (!svg) return;
@@ -278,9 +306,16 @@
     const min = Math.min(...vals), max = Math.max(...vals);
     const x = (i) => 4 + (i / (valores.length - 1)) * (W - 8);
     const y = (v) => H - 5 - ((v - min) / (max - min || 1)) * (H - 12);
-    const d = pontos.map(([i, v], k) => `${k ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+    const trechos = [];
+    pontos.forEach(([i, v], k) => {
+      if (!k || i - pontos[k - 1][0] > 1) trechos.push([]);
+      trechos[trechos.length - 1].push([i, v]);
+    });
+    const traco = (t) => t.map(([i, v], k) => `${k ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+    const d = trechos.map(traco).join(" ");
+    const fundo = trechos.map((t) => `${traco(t)} L${x(t[t.length - 1][0]).toFixed(1)},${H} L${x(t[0][0]).toFixed(1)},${H} Z`).join(" ");
     const [ui, uv] = pontos[pontos.length - 1];
-    svg.innerHTML = `<path class="area" d="${d} L${x(ui)},${H} L${x(pontos[0][0])},${H} Z"/>` +
+    svg.innerHTML = `<path class="area" d="${fundo}"/>` +
       `<path class="linha" d="${d}"/><circle cx="${x(ui)}" cy="${y(uv)}" r="3.5"/>`;
     const linha = $(".linha", svg);
     const area = $(".area", svg);
@@ -389,14 +424,16 @@
       $("#n-realizadas").textContent = `de ${FMT.int(k.agendamentos)} consultas marcadas`;
       $("#n-cancel").textContent = `${FMT.int(k.cancelados_paciente)} pelo paciente · ${FMT.int(k.cancelados_clinica)} pela clínica`;
       const meses = s.map((m) => m.mes);
-      spark($("#spark-fat"), s.map((m) => m.faturamento), meses, "moeda", "Faturamento");
-      spark($("#spark-real"), s.map((m) => m.realizados), meses, "int", "Consultas realizadas");
-      spark($("#spark-faltas"), s.map((m) => m.faltas), meses, "int", "Faltas");
-      spark($("#spark-cancel"), s.map((m) => m.cancelados_paciente + m.cancelados_clinica), meses, "int", "Cancelamentos");
+      const aberto = (m, v) => (m.agendamentos ? v : null);  // mês de recesso: intervalo na linha
+      spark($("#spark-fat"), s.map((m) => aberto(m, m.faturamento)), meses, "moeda", "Faturamento");
+      spark($("#spark-real"), s.map((m) => aberto(m, m.realizados)), meses, "int", "Consultas realizadas");
+      spark($("#spark-faltas"), s.map((m) => aberto(m, m.faltas)), meses, "int", "Faltas");
+      spark($("#spark-cancel"), s.map((m) => aberto(m, m.cancelados_paciente + m.cancelados_clinica)), meses, "int", "Cancelamentos");
       spark($("#spark-espera"), s.map((m) => m.espera_min), meses, "min", "Espera média");
 
       grafico("g-presenca", (c) => ({
         type: "bar",
+        plugins: [faixaRecesso(s.map((m) => !m.agendamentos), c)],
         data: { labels: meses, datasets: [
           { label: "Realizadas", data: s.map((m) => m.realizados), backgroundColor: c.neutro, borderRadius: 6, stack: "a", maxBarThickness: 38 },
           { label: "Faltas", data: s.map((m) => m.faltas), backgroundColor: c.quente, borderRadius: 6, stack: "a", maxBarThickness: 38 },
@@ -408,7 +445,10 @@
             y: { stacked: true, grid: { color: c.c2 }, border: { display: false }, ticks: { color: c.tinta2, maxTicksLimit: 5 } } } }),
         (pts) => {
           const m = s[pts[0].dataIndex];
-          if (!m.agendamentos) return { titulo: m.mes, linhas: [["Agendamentos", "0"]], nota: "Recesso acadêmico: as clínicas fecham." };
+          if (!m.agendamentos) {
+            return { titulo: `${m.mes} · recesso`, linhas: [["Consultas", "0"], ["Entraram na fila", FMT.int(m.entradas_fila), null, true]],
+              nota: "Recesso acadêmico: as clínicas fecham, mas a procura continua e a fila cresce." };
+          }
           return { titulo: m.mes, linhas: [
             ["Realizadas", `${FMT.int(m.realizados)} (${pctDe(m.realizados, m.agendamentos)})`, c.neutro],
             ["Faltas", FMT.int(m.faltas), c.quente, true],
@@ -417,6 +457,7 @@
             ["Canceladas pela clínica", FMT.int(m.cancelados_clinica), c.tinta3],
             ["Agendamentos", FMT.int(m.agendamentos)],
             ["Faturamento do mês", FMT.moeda(m.faturamento)],
+            ["Entraram na fila", FMT.int(m.entradas_fila)],
           ], nota: m.espera_min !== null ? `Espera média na recepção: ${Math.round(m.espera_min)} min.` : "" };
         }),
       }));

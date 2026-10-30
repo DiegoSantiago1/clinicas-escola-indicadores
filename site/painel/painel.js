@@ -203,8 +203,8 @@ function telaPaciente(p) {
       <h2>Agendamentos</h2>
       <p class="painel-sub">${d.agenda.length ? `${d.agenda.length} no período, do mais antigo ao mais recente` : "Nenhum agendamento no período"}</p>
       ${d.agenda.length ? `<div class="tabela-rolagem"><table>
-        <thead><tr><th>Data</th><th>Hora</th><th>Tipo</th><th>Situação</th></tr></thead>
-        <tbody>${d.agenda.map((a) => `<tr><td class="num">${DATA(a.data)}</td><td class="num">${a.hora}</td><td>${esc(a.tipo)}</td><td>${pilulaSituacao(a.situacao)}</td></tr>`).join("")}</tbody>
+        <thead><tr><th>Data</th><th>Hora</th><th>Tipo</th><th>Situação</th><th>Motivo ou espera</th></tr></thead>
+        <tbody>${d.agenda.map((a) => `<tr><td class="num">${DATA(a.data)}</td><td class="num">${a.hora}</td><td>${esc(a.tipo)}</td><td>${pilulaSituacao(a.situacao)}</td><td class="detalhe-ag">${a.motivo ? esc(a.motivo) : a.espera_min !== null && a.espera_min !== undefined ? `esperou ${a.espera_min} min` : "—"}</td></tr>`).join("")}</tbody>
       </table></div>` : ""}
     </section>`;
 }
