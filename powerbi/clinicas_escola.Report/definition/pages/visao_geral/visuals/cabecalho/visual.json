@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "cabecalho",
   "position": {
-    "x": 16,
-    "y": 8,
+    "x": 8,
+    "y": 4,
     "z": 0,
-    "width": 1248,
-    "height": 64,
+    "width": 892,
+    "height": 76,
     "tabOrder": 0
   },
   "visual": {
@@ -19,11 +19,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Clínicas-escola: visão geral",
+                    "value": "Clínicas-escola · visão geral",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "20pt",
-                      "color": "#14213D"
+                      "fontSize": "18pt",
+                      "color": "#131417"
                     }
                   }
                 ]
@@ -31,10 +31,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Rede fictícia, 10 clínicas em 3 unidades, nov/2025 a out/2026. Dados simulados.",
+                    "value": "Rede fictícia: 10 clínicas em Recife, Olinda e Jaboatão, nov/2025 a out/2026. Dados simulados.",
                     "textStyle": {
-                      "fontSize": "11pt",
-                      "color": "#4A5568"
+                      "fontSize": "10pt",
+                      "color": "#5B5F67"
                     }
                   }
                 ]

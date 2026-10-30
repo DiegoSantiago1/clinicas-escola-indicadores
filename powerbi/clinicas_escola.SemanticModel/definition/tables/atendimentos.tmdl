@@ -100,6 +100,37 @@ table atendimentos
 		summarizeBy: sum
 		sourceColumn: horas_pratica
 
+	/// Taxa social do procedimento (tabela).
+	column valor_tabela
+		dataType: double
+		formatString: R$ #,0.00
+		lineageTag: 24330517-13c5-59db-b507-ac8ee65c48dc
+		summarizeBy: none
+		sourceColumn: valor_tabela
+
+	/// Taxa cobrada: só no realizado e de quem não é isento. Em branco sem prontuário.
+	column valor_cobrado
+		dataType: double
+		formatString: R$ #,0.00
+		lineageTag: 694e5453-b5b8-5ea3-9a14-639f96faf179
+		summarizeBy: sum
+		sourceColumn: valor_cobrado
+
+	/// Motivo da falta ou desmarcação, como a recepção registrou (classificado pela regra R16).
+	column motivo
+		dataType: string
+		lineageTag: 607b63fd-ea7c-5046-9927-459a04af66e5
+		summarizeBy: none
+		sourceColumn: motivo
+
+	/// Minutos da chegada até ser chamado (tablet da recepção).
+	column espera_recepcao_min
+		dataType: double
+		formatString: 0
+		lineageTag: 9c72d96d-4e7c-5b75-82bc-b5f4536bb77b
+		summarizeBy: none
+		sourceColumn: espera_recepcao_min
+
 	column origem
 		dataType: string
 		lineageTag: f8e35ef2-51d0-58c7-9473-51badedaf60a
@@ -153,8 +184,8 @@ table atendimentos
 				let
 				    Fonte = Csv.Document(File.Contents(PastaDados & "atendimentos.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
-				    Colunas = Table.SelectColumns(Cabecalho, {"id_atendimento", "data", "hora", "turno", "unidade", "servico", "clinica", "prontuario", "matricula_aluno", "supervisor", "tipo", "procedimento", "situacao", "duracao_min", "horas_pratica", "origem", "arquivo", "conflito_horario", "prontuario_recuperado"}),
-				    Tipos = Table.TransformColumnTypes(Colunas, {{"id_atendimento", type text}, {"data", type date}, {"hora", type text}, {"turno", type text}, {"unidade", type text}, {"servico", type text}, {"clinica", type text}, {"prontuario", type text}, {"matricula_aluno", type text}, {"supervisor", type text}, {"tipo", type text}, {"procedimento", type text}, {"situacao", type text}, {"duracao_min", Int64.Type}, {"horas_pratica", type number}, {"origem", type text}, {"arquivo", type text}, {"conflito_horario", type text}, {"prontuario_recuperado", type text}}, "en-US"),
+				    Colunas = Table.SelectColumns(Cabecalho, {"id_atendimento", "data", "hora", "turno", "unidade", "servico", "clinica", "prontuario", "matricula_aluno", "supervisor", "tipo", "procedimento", "situacao", "duracao_min", "horas_pratica", "valor_tabela", "valor_cobrado", "motivo", "espera_recepcao_min", "origem", "arquivo", "conflito_horario", "prontuario_recuperado"}),
+				    Tipos = Table.TransformColumnTypes(Colunas, {{"id_atendimento", type text}, {"data", type date}, {"hora", type text}, {"turno", type text}, {"unidade", type text}, {"servico", type text}, {"clinica", type text}, {"prontuario", type text}, {"matricula_aluno", type text}, {"supervisor", type text}, {"tipo", type text}, {"procedimento", type text}, {"situacao", type text}, {"duracao_min", Int64.Type}, {"horas_pratica", type number}, {"valor_tabela", type number}, {"valor_cobrado", type number}, {"motivo", type text}, {"espera_recepcao_min", type number}, {"origem", type text}, {"arquivo", type text}, {"conflito_horario", type text}, {"prontuario_recuperado", type text}}, "en-US"),
 				    FilaFonte = Csv.Document(File.Contents(PastaDados & "fila.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Fila = Table.TransformColumnTypes(Table.SelectColumns(Table.PromoteHeaders(FilaFonte), {"prontuario", "dias_espera"}), {{"dias_espera", Int64.Type}}, "en-US"),
 				    ComClinica = Table.AddColumn(Tipos, "id_clinica", each [unidade] & "-" & [servico], type text),

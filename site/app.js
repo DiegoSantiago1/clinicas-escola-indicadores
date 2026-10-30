@@ -37,7 +37,7 @@ function filtrar(u, s) {
 
 function eixos(extra = {}) {
   const texto = cor("--muted"), grade = cor("--linha");
-  const fonte = { family: "Clash Grotesk", size: 13 };
+  const fonte = { family: "General Sans", size: 13 };
   return {
     x: { grid: { display: false }, ticks: { color: texto, font: fonte }, border: { display: false }, ...extra.x },
     y: { grid: { color: grade }, ticks: { color: texto, font: fonte }, border: { display: false }, ...extra.y },
@@ -94,7 +94,7 @@ function desenharPainel() {
     graficos.mes = new Chart(document.getElementById("g-mes"), {
       type: "bar", data: dadosMes,
       options: opcoesBase({
-        plugins: { legend: { display: true, position: "top", align: "start", labels: { color: cor("--muted"), boxWidth: 10, font: { family: "Clash Grotesk", size: 13 } } },
+        plugins: { legend: { display: true, position: "top", align: "start", labels: { color: cor("--muted"), boxWidth: 10, font: { family: "General Sans", size: 13 } } },
           tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${NUM(c.raw)}` } } },
         scales: eixos({ y: { ticks: { color: cor("--muted"), callback: (v) => NUM(v) } } }),
       }),
@@ -216,7 +216,7 @@ function montarCalor() {
     for (const t of ["Manhã", "Tarde"]) {
       const c = calor.find((x) => x.dia === d && x.turno === t);
       const forca = Math.round(12 + 88 * (c.taxa_faltas - min) / (max - min));
-      const texto = forca > 55 ? "#0b1f3a" : "var(--ink)";
+      const texto = forca > 55 ? "#170b05" : "var(--ink)";
       html += `<span class="cel" style="background: color-mix(in srgb, var(--d-barra-falta) ${forca}%, var(--surface)); color: ${texto}">${PCT(c.taxa_faltas)}</span>`;
     }
   }
@@ -244,7 +244,7 @@ function montarGraficosAchados() {
       { label: "Bateriam sem as faltas", data: al.map((x) => x.bateriam_sem_faltas / x.alunos), backgroundColor: cor("--d-mostarda") },
       { label: "Abaixo da meta", data: al.map((x) => (x.alunos - x.bateram_meta - x.bateriam_sem_faltas) / x.alunos), backgroundColor: cor("--d-barra-falta") }] },
     options: opcoesBase({ indexAxis: "y",
-      plugins: { legend: { display: true, position: "top", align: "start", labels: { color: cor("--muted"), boxWidth: 10, font: { family: "Clash Grotesk", size: 13 } } },
+      plugins: { legend: { display: true, position: "top", align: "start", labels: { color: cor("--muted"), boxWidth: 10, font: { family: "General Sans", size: 13 } } },
         tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${Math.round(c.raw * al[c.dataIndex].alunos)} alunos` } } },
       scales: eixos({ x: { stacked: true, max: 1, grid: { color: cor("--linha") }, ticks: { color: cor("--muted"), callback: (v) => PCT(v, 0) } }, y: { stacked: true } }) }),
   });

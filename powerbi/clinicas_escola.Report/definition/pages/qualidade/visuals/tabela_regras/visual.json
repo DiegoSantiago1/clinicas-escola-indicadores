@@ -3,11 +3,11 @@
   "name": "tabela_regras",
   "position": {
     "x": 16,
-    "y": 192,
-    "z": 4000,
+    "y": 196,
+    "z": 6000,
     "width": 620,
-    "height": 516,
-    "tabOrder": 4000
+    "height": 512,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "tableEx",

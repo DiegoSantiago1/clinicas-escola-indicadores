@@ -40,49 +40,58 @@ SCHEMA_PAGINA = (
     "page/2.0.0/schema.json"
 )
 
-# Identidade própria do projeto (a mesma da página de resultados).
-AZUL, CORAL, VERDE, MOSTARDA = "#1F4E79", "#E85A5A", "#2E8B6E", "#C9A227"
-TEXTO, TEXTO_2, FUNDO = "#14213D", "#4A5568", "#F4F5F6"
+# Identidade do projeto: a mesma do painel animado (laranja nos dados, grafite no resto).
+LARANJA, GRAFITE, CINZA, PESSEGO = "#F2652F", "#2B2D33", "#A3A7AF", "#F7A27F"
+TEXTO, TEXTO_2, FUNDO, CARTAO = "#131417", "#5B5F67", "#E7E8EA", "#FFFFFF"
+SOBRE_LARANJA = "#170B05"
 
 TEMA: dict[str, Any] = {
     "name": "Clínicas-Escola",
-    "dataColors": [AZUL, CORAL, VERDE, MOSTARDA, "#7A5C99", "#5DA9C9", "#9C6644", "#8D99AE"],
-    "background": "#FFFFFF",
+    "dataColors": [GRAFITE, LARANJA, CINZA, PESSEGO, "#5B5F67", "#FBD8C8", "#80848C", "#D9DBDF"],
+    "background": CARTAO,
     "foreground": TEXTO,
-    "tableAccent": AZUL,
-    "good": VERDE,
-    "neutral": MOSTARDA,
-    "bad": CORAL,
-    "maximum": CORAL,
-    "center": "#F4B8B8",
-    "minimum": "#FCEDED",
+    "tableAccent": LARANJA,
+    "good": GRAFITE,
+    "neutral": CINZA,
+    "bad": LARANJA,
+    "maximum": LARANJA,
+    "center": PESSEGO,
+    "minimum": "#FDEDE6",
     "null": "#E5E7EB",
     "textClasses": {
         "title": {"fontFace": "Segoe UI Semibold", "color": TEXTO, "fontSize": 12},
         "label": {"fontFace": "Segoe UI", "color": TEXTO_2},
-        "callout": {"fontFace": "Segoe UI Semibold", "color": TEXTO, "fontSize": 26},
+        "callout": {"fontFace": "Segoe UI Semibold", "color": TEXTO, "fontSize": 28},
     },
     "visualStyles": {
         "*": {
             "*": {
                 "title": [{"fontColor": {"solid": {"color": TEXTO}}, "bold": True, "fontSize": 12}],
-                "categoryAxis": [{"labelColor": {"solid": {"color": TEXTO_2}}}],
-                "valueAxis": [{"labelColor": {"solid": {"color": TEXTO_2}}}],
-                "legend": [{"labelColor": {"solid": {"color": TEXTO_2}}}],
-                "background": [{"show": True, "color": {"solid": {"color": "#FFFFFF"}}}],
-                "border": [{"show": True, "color": {"solid": {"color": "#E5E1D8"}}, "radius": 10}],
+                "categoryAxis": [{"labelColor": {"solid": {"color": TEXTO_2}}, "showAxisTitle": False}],
+                "valueAxis": [{"labelColor": {"solid": {"color": TEXTO_2}}, "showAxisTitle": False,
+                               "gridlineColor": {"solid": {"color": "#ECEDEF"}}}],
+                "legend": [{"labelColor": {"solid": {"color": TEXTO_2}}, "position": "TopRight"}],
+                "background": [{"show": True, "color": {"solid": {"color": CARTAO}}, "transparency": 0}],
+                "border": [{"show": True, "color": {"solid": {"color": CARTAO}}, "radius": 16}],
+                "padding": [{"top": 12, "bottom": 12, "left": 14, "right": 14}],
                 "dropShadow": [{"show": False}],
             }
         },
         "page": {"*": {"background": [{"color": {"solid": {"color": FUNDO}}, "transparency": 0}]}},
         "card": {
             "*": {
-                "labels": [{"color": {"solid": {"color": TEXTO}}}],
-                "categoryLabels": [{"color": {"solid": {"color": TEXTO_2}}}],
+                "labels": [{"color": {"solid": {"color": TEXTO}}, "fontSize": 28}],
+                "categoryLabels": [{"color": {"solid": {"color": TEXTO_2}}, "fontSize": 11}],
             }
         },
+        "tableEx": {"*": {"columnHeaders": [{"fontColor": {"solid": {"color": TEXTO_2}},
+                                              "backColor": {"solid": {"color": CARTAO}}}],
+                           "grid": [{"gridHorizontalColor": {"solid": {"color": "#ECEDEF"}}}]}},
+        "pivotTable": {"*": {"columnHeaders": [{"fontColor": {"solid": {"color": TEXTO_2}}, "fontSize": 13,
+                                                 "backColor": {"solid": {"color": CARTAO}}}],
+                             "rowHeaders": [{"fontSize": 13}], "values": [{"fontSize": 13}]}},
         "textbox": {"*": {"background": [{"show": False}], "border": [{"show": False}]}},
-        "slicer": {"*": {"background": [{"show": True, "color": {"solid": {"color": "#FFFFFF"}}}]}},
+        "slicer": {"*": {"background": [{"show": True, "color": {"solid": {"color": CARTAO}}}]}},
     },
 }
 
@@ -137,6 +146,8 @@ PCT = "0.0%"
 INT = "#,0"
 DEC1 = "#,0.0"
 DATA = "dd/mm/yyyy"
+MOEDA = "R$ #,0"
+MOEDA2 = "R$ #,0.00"
 
 TIPO_M = {"int64": "Int64.Type", "double": "type number", "string": "type text", "boolean": "type logical",
           "dateTime": "type date"}
@@ -162,6 +173,13 @@ TABELAS = [
             Coluna("situacao", "string"),
             Coluna("duracao_min", "int64", INT),
             Coluna("horas_pratica", "double", DEC1, "sum"),
+            Coluna("valor_tabela", "double", MOEDA2, descricao="Taxa social do procedimento (tabela)."),
+            Coluna("valor_cobrado", "double", MOEDA2, "sum",
+                   descricao="Taxa cobrada: só no realizado e de quem não é isento. Em branco sem prontuário."),
+            Coluna("motivo", "string", descricao="Motivo da falta ou desmarcação, como a recepção registrou "
+                   "(classificado pela regra R16)."),
+            Coluna("espera_recepcao_min", "double", "0", descricao="Minutos da chegada até ser chamado "
+                   "(tablet da recepção)."),
             Coluna("origem", "string"),
             Coluna("arquivo", "string"),
             Coluna("conflito_horario", "string"),
@@ -265,6 +283,18 @@ TABELAS = [
         "Alunos de cada semestre, com a meta de horas de prática.",
     ),
     Tabela(
+        "pacientes", "pacientes.csv",
+        [
+            Coluna("prontuario", "string", chave=True),
+            Coluna("sexo", "string"),
+            Coluna("faixa_etaria", "string"),
+            Coluna("unidade", "string", oculta=True),
+            Coluna("servico", "string", oculta=True),
+            Coluna("isento_taxa", "string", descricao="Isento da taxa social pelo cadastro socioeconômico."),
+        ],
+        "Pacientes sem nome nem data de nascimento (LGPD): sexo, faixa etária e isenção da taxa.",
+    ),
+    Tabela(
         "supervisores", "supervisores.csv",
         [
             Coluna("codigo", "string", chave=True),
@@ -309,6 +339,7 @@ RELACOES = [
     Relacao("fila.id_clinica", "clinicas.id_clinica"),
     Relacao("atendimentos.matricula_aluno", "alunos.matricula"),
     Relacao("atendimentos.supervisor", "supervisores.codigo"),
+    Relacao("atendimentos.prontuario", "pacientes.prontuario"),
 ]
 
 
@@ -368,6 +399,42 @@ MEDIDAS = [
            "Parte dos alunos que já alcançou a meta proporcional.", "Alunos"),
     Medida("Horas por aluno", "DIVIDE ( [Horas de prática], DISTINCTCOUNT ( atendimentos[matricula_aluno] ) )",
            DEC1, "Média de horas de prática por aluno que atendeu.", "Alunos"),
+    Medida("Faturamento", "SUM ( atendimentos[valor_cobrado] )", MOEDA,
+           "Taxa social cobrada: só no atendimento realizado de paciente não isento.", "Faturamento"),
+    Medida("Atendimentos pagos",
+           "CALCULATE ( COUNTROWS ( atendimentos ), KEEPFILTERS ( atendimentos[valor_cobrado] > 0 ) )", INT,
+           "Atendimentos realizados de quem pagou a taxa.", "Faturamento"),
+    Medida("Ticket médio", "DIVIDE ( [Faturamento], [Atendimentos pagos] )", MOEDA2,
+           "Quanto paga, em média, quem paga.", "Faturamento"),
+    Medida("Deixou de entrar com faltas",
+           'CALCULATE ( SUM ( atendimentos[valor_tabela] ), atendimentos[situacao] = "Falta", '
+           'pacientes[isento_taxa] = "Não" )', MOEDA,
+           "Taxa das consultas com falta de quem pagaria (isentos e sem prontuário ficam de fora).", "Faturamento"),
+    Medida("Espera na recepção (min)", "AVERAGE ( atendimentos[espera_recepcao_min] )", DEC1,
+           "Média de minutos da chegada até ser chamado (só com os dois horários registrados).", "Recepção"),
+    Medida("Chamados em até 30 min",
+           "DIVIDE ( CALCULATE ( COUNTROWS ( atendimentos ), "
+           "KEEPFILTERS ( atendimentos[espera_recepcao_min] < 30 ), "
+           "KEEPFILTERS ( NOT ISBLANK ( atendimentos[espera_recepcao_min] ) ) ), "
+           "COUNT ( atendimentos[espera_recepcao_min] ) )", PCT,
+           "Parte dos atendimentos chamados em menos de 30 minutos. O NOT ISBLANK é necessário: no DAX, "
+           "BLANK < 30 é verdadeiro.", "Recepção"),
+    Medida("Espera segunda de manhã (min)",
+           'CALCULATE ( [Espera na recepção (min)], calendario[dia_semana] = "Segunda", '
+           'atendimentos[turno] = "Manhã" )', DEC1, "A espera no turno mais cheio da semana.", "Recepção"),
+    Medida("Faltas com motivo",
+           'CALCULATE ( [Faltas], KEEPFILTERS ( NOT atendimentos[motivo] IN { "Sem justificativa", '
+           '"Não identificado" } ) )', INT, "Faltas que o paciente justificou depois.", "Motivos"),
+    Medida("Faltas sem justificativa", 'CALCULATE ( [Faltas], atendimentos[motivo] = "Sem justificativa" )', INT,
+           "Faltou sem avisar e não deu motivo depois.", "Motivos"),
+    Medida("% faltas justificadas", "DIVIDE ( [Faltas com motivo], [Faltas] )", PCT,
+           "Quanto a recepção sabe por que o paciente falta.", "Motivos"),
+    Medida("% faltas por chuva",
+           'DIVIDE ( CALCULATE ( [Faltas com motivo], atendimentos[motivo] = "Chuva" ), [Faltas com motivo] )', PCT,
+           "Parte das faltas justificadas em que o motivo foi a chuva.", "Motivos"),
+    Medida("% faltas por transporte",
+           'DIVIDE ( CALCULATE ( [Faltas com motivo], atendimentos[motivo] = "Transporte" ), [Faltas com motivo] )',
+           PCT, "Parte das faltas justificadas em que o motivo foi o transporte.", "Motivos"),
     Medida("Regras aplicadas", "SUM ( resumo_qualidade[ocorrencias] )", INT,
            "Total de correções e sinalizações feitas pela padronização.", "Qualidade"),
     Medida("Linhas para conferir", "COUNTROWS ( inconsistencias )", INT,
@@ -554,13 +621,14 @@ class Visual:
     objetos: dict[str, Any] | None = None
     filtros: list[dict[str, Any]] | None = None
     ordenar: dict[str, Any] | None = None
+    container: dict[str, Any] | None = None
 
 
 GRAFICOS = {"columnChart", "clusteredBarChart", "lineChart", "clusteredColumnChart", "barChart"}
 SEM_TITULO_EIXOS = {
     "valueAxis": [{"properties": {"showAxisTitle": _literal("false")}}],
     "categoryAxis": [{"properties": {"showAxisTitle": _literal("false")}}],
-    "labels": [{"properties": {"show": _literal("true")}}],
+    "labels": [{"properties": {"show": _literal("true"), "labelDisplayUnits": _literal("1D")}}],
 }
 
 
@@ -574,8 +642,8 @@ def _json_visual(v: Visual, z: int) -> dict[str, Any]:
             corpo["query"]["sortDefinition"] = v.ordenar
     if v.objetos:
         corpo["objects"] = v.objetos
-    if v.titulo:
-        corpo["visualContainerObjects"] = titulo(v.titulo)
+    if v.titulo or v.container:
+        corpo["visualContainerObjects"] = {**(titulo(v.titulo) if v.titulo else {}), **(v.container or {})}
     resultado: dict[str, Any] = {
         "$schema": SCHEMA_VISUAL,
         "name": v.nome,
@@ -587,22 +655,65 @@ def _json_visual(v: Visual, z: int) -> dict[str, Any]:
     return resultado
 
 
+def _cor(hex_: str) -> dict[str, Any]:
+    return {"solid": {"color": _literal(f"'{hex_}'")}}
+
+
+def _rotulos(unidade: str) -> dict[str, Any]:
+    """1D = número inteiro; 1000D = em milhares ("R$ 111 Mil"), para colunas estreitas."""
+    return {"labels": [{"properties": {"show": _literal("true"), "labelDisplayUnits": _literal(unidade)}}]}
+
+
+def cores_series(pares: list[tuple[str, str]], unidade: str = "1D") -> dict[str, Any]:
+    """Cor de cada série pelo queryRef da medida (ex.: Medidas.Faltas em laranja). Vale para barra e linha."""
+    return {**SEM_TITULO_EIXOS, **_rotulos(unidade),
+            "dataPoint": [{"properties": {"fill": _cor(cor)}, "selector": {"metadata": ref}} for ref, cor in pares]}
+
+
+def cor_unica(hex_: str, medida: str, unidade: str = "1D") -> dict[str, Any]:
+    """Uma série só, numa cor. A barra só aceita a cor sem seletor e a linha só com seletor
+    (testado no Power BI Desktop), então vão as duas formas."""
+    objetos = cores_series([(medida, hex_)], unidade)
+    objetos["dataPoint"].insert(0, {"properties": {"fill": _cor(hex_)}})
+    return objetos
+
+
+def destaque(v: Visual) -> Visual:
+    """O primeiro número de cada página, num cartão laranja (como no painel animado)."""
+    v.objetos = {**(v.objetos or {}),
+                 "labels": [{"properties": {"color": _cor(SOBRE_LARANJA), "labelDisplayUnits": _literal("1D")}}],
+                 "categoryLabels": [{"properties": {"color": _cor(SOBRE_LARANJA)}}]}
+    v.container = {"background": [{"properties": {"show": _literal("true"), "color": _cor(LARANJA)}}],
+                   "border": [{"properties": {"show": _literal("true"), "color": _cor(LARANJA)}}]}
+    return v
+
+
 def cabecalho(texto: str, subtitulo: str) -> Visual:
     paragrafos = [
-        {"textRuns": [{"value": texto, "textStyle": {"fontWeight": "bold", "fontSize": "20pt", "color": TEXTO}}]},
-        {"textRuns": [{"value": subtitulo, "textStyle": {"fontSize": "11pt", "color": TEXTO_2}}]},
+        {"textRuns": [{"value": texto, "textStyle": {"fontWeight": "bold", "fontSize": "18pt", "color": TEXTO}}]},
+        {"textRuns": [{"value": subtitulo, "textStyle": {"fontSize": "10pt", "color": TEXTO_2}}]},
     ]
-    return Visual("cabecalho", "textbox", 16, 8, 1248, 64,
+    return Visual("cabecalho", "textbox", 8, 4, 892, 76,
                   objetos={"general": [{"properties": {"paragraphs": paragrafos}}]})
 
 
 def nota(nome: str, x: int, y: int, largura: int, altura: int, texto: str) -> Visual:
-    paragrafos = [{"textRuns": [{"value": texto, "textStyle": {"fontSize": "10pt", "color": TEXTO_2}}]}]
-    return Visual(nome, "textbox", x, y, largura, altura,
-                  objetos={"general": [{"properties": {"paragraphs": paragrafos}}]})
+    """Caixa "Como ler": cartão branco com o título em laranja e o texto em tinta."""
+    titulo_, _, resto = texto.partition(": ")
+    paragrafos = [
+        {"textRuns": [{"value": titulo_, "textStyle": {"fontWeight": "bold", "fontSize": "12pt", "color": LARANJA}}]},
+        {"textRuns": [{"value": resto[:1].upper() + resto[1:], "textStyle": {"fontSize": "11pt", "color": TEXTO}}]},
+    ]
+    v = Visual(nome, "textbox", x, y, largura, altura, objetos={"general": [{"properties": {"paragraphs": paragrafos}}]})
+    v.container = {"background": [{"properties": {"show": _literal("true"), "color": _cor(CARTAO)}}],
+                   "border": [{"properties": {"show": _literal("true"), "color": _cor(CARTAO),
+                                              "radius": _literal("16D")}}],
+                   "padding": [{"properties": {"top": _literal("16D"), "left": _literal("18D"),
+                                               "right": _literal("18D"), "bottom": _literal("16D")}}]}
+    return v
 
 
-def cartao(nome: str, x: int, medida: str, rotulo: str, y: int = 80, largura: int = 240) -> Visual:
+def cartao(nome: str, x: int, medida: str, rotulo: str, y: int = 84, largura: int = 240) -> Visual:
     rotulos = {"labels": [{"properties": {"labelDisplayUnits": _literal("1D")}}]}
     return Visual(nome, "card", x, y, largura, 100, {"Values": [campo(medida, rotulo)]}, objetos=rotulos)
 
@@ -645,28 +756,68 @@ SO_PRIMEIRA = filtro_valores("so_faixas", "atendimentos.faixa_espera_1a_consulta
                              ["'Até 7 dias'", "'8 a 30 dias'", "'31 a 60 dias'", "'Mais de 60 dias'"])
 SEMESTRE_2026_1 = filtro_valores("so_2026_1", "alunos.semestre", ["'2026.1'"])
 
+Y0, ALTO, MEIO = 196, 512, 250  # topo dos gráficos, altura cheia e meia altura
+
 PAGINAS: list[tuple[str, str, list[Visual]]] = [
     (
         "visao_geral", "Visão geral",
         [
-            cabecalho("Clínicas-escola: visão geral",
-                      "Rede fictícia, 10 clínicas em 3 unidades, nov/2025 a out/2026. Dados simulados."),
+            cabecalho("Clínicas-escola · visão geral",
+                      "Rede fictícia: 10 clínicas em Recife, Olinda e Jaboatão, nov/2025 a out/2026. Dados simulados."),
             *filtros_padrao(),
-            cartao("c_realizados", 16, "Medidas.Realizados", "Atendimentos realizados"),
-            cartao("c_faltas", 268, "Medidas.Taxa de faltas", "Taxa de faltas"),
-            cartao("c_ocupacao", 520, "Medidas.Ocupação da agenda", "Ocupação da agenda"),
-            cartao("c_espera", 772, "Medidas.Espera mediana (dias)", "Espera mediana na fila (dias)"),
-            cartao("c_horas", 1024, "Medidas.Horas de prática", "Horas de prática dos alunos"),
-            Visual("colunas_mes", "clusteredColumnChart", 16, 192, 760, 516,
+            destaque(cartao("c_faturamento", 16, "Medidas.Faturamento", "Faturamento da taxa social")),
+            cartao("c_realizados", 268, "Medidas.Realizados", "Consultas realizadas"),
+            cartao("c_faltas", 520, "Medidas.Taxa de faltas", "Taxa de faltas"),
+            cartao("c_espera_rec", 772, "Medidas.Espera na recepção (min)", "Espera na recepção (min)"),
+            cartao("c_espera", 1024, "Medidas.Espera mediana (dias)", "Espera mediana na fila (dias)"),
+            Visual("colunas_mes", "columnChart", 16, Y0, 760, ALTO,
                    {"Category": [campo("calendario.mes_nome", "Mês")],
-                    "Y": [campo("Medidas.Realizados", "Realizados"), campo("Medidas.Faltas", "Faltas")]},
-                   titulo="Atendimentos e faltas por mês (dez-jan: recesso; jul: plantão de férias)",
-                   ordenar=ordenar_por("calendario.mes_nome")),
-            Visual("barras_clinica", "clusteredBarChart", 792, 192, 472, 516,
+                    "Y": [campo("Medidas.Realizados", "Realizadas"), campo("Medidas.Faltas", "Faltas"),
+                          campo("Medidas.Cancelados pelo paciente", "Desmarcadas")]},
+                   titulo="Quem veio, quem faltou e quem desmarcou, por mês (janeiro: recesso)",
+                   ordenar=ordenar_por("calendario.mes_nome"),
+                   objetos=cores_series([("Medidas.Realizados", GRAFITE), ("Medidas.Faltas", LARANJA),
+                                         ("Medidas.Cancelados pelo paciente", CINZA)])),
+            Visual("barras_clinica", "clusteredBarChart", 792, Y0, 472, ALTO,
                    {"Category": [campo("clinicas.clinica", "Clínica")],
                     "Y": [campo("Medidas.Taxa de faltas", "Taxa de faltas")]},
                    titulo="Taxa de faltas por clínica",
-                   ordenar=ordenar_por("Medidas.Taxa de faltas", "Descending")),
+                   ordenar=ordenar_por("Medidas.Taxa de faltas", "Descending"),
+                   objetos=cor_unica(LARANJA, "Medidas.Taxa de faltas")),
+        ],
+    ),
+    (
+        "faturamento", "Faturamento",
+        [
+            cabecalho("Faturamento", "Taxa social cobrada só no atendimento realizado; 28% dos pacientes são isentos."),
+            *filtros_padrao(),
+            destaque(cartao("c_fat", 16, "Medidas.Faturamento", "Faturamento")),
+            cartao("c_perdido", 268, "Medidas.Deixou de entrar com faltas", "Deixou de entrar com faltas"),
+            cartao("c_ticket", 520, "Medidas.Ticket médio", "Ticket médio"),
+            cartao("c_pagos", 772, "Medidas.Atendimentos pagos", "Atendimentos pagos"),
+            cartao("c_realizados", 1024, "Medidas.Realizados", "Consultas realizadas"),
+            Visual("colunas_fat_mes", "clusteredColumnChart", 16, Y0, 620, MEIO,
+                   {"Category": [campo("calendario.mes_nome", "Mês")], "Y": [campo("Medidas.Faturamento", "Faturamento")]},
+                   titulo="Faturamento por mês (janeiro: recesso)", ordenar=ordenar_por("calendario.mes_nome"),
+                   objetos=cor_unica(GRAFITE, "Medidas.Faturamento", "1000D")),
+            Visual("barras_fat_unidade", "clusteredBarChart", 16, Y0 + MEIO + 12, 620, MEIO,
+                   {"Category": [campo("clinicas.unidade_nome", "Unidade")],
+                    "Y": [campo("Medidas.Faturamento", "Faturamento"),
+                          campo("Medidas.Deixou de entrar com faltas", "Perdido com faltas")]},
+                   titulo="Faturamento e o que as faltas levaram, por unidade",
+                   ordenar=ordenar_por("Medidas.Faturamento", "Descending"),
+                   objetos=cores_series([("Medidas.Faturamento", GRAFITE),
+                                         ("Medidas.Deixou de entrar com faltas", LARANJA)], "1000D")),
+            Visual("barras_fat_proc", "clusteredBarChart", 652, Y0, 612, 340,
+                   {"Category": [campo("atendimentos.procedimento", "Procedimento")],
+                    "Y": [campo("Medidas.Faturamento", "Faturamento")]},
+                   titulo="De onde vem o dinheiro: faturamento por procedimento",
+                   ordenar=ordenar_por("Medidas.Faturamento", "Descending"),
+                   objetos=cor_unica(LARANJA, "Medidas.Faturamento")),
+            nota("nota_fat", 652, Y0 + 352, 612, ALTO - 352,
+                 "Como ler: a Psicologia fatura mais porque tem mais sessões por paciente. As faltas de quem "
+                 "pagaria custaram cerca de um quarto do faturamento; atendimento sem prontuário fica fora da conta "
+                 "(não dá para saber se o paciente é isento). A confirmação na véspera que reduz faltas protege a receita."),
         ],
     ),
     (
@@ -674,31 +825,95 @@ PAGINAS: list[tuple[str, str, list[Visual]]] = [
         [
             cabecalho("Faltas", "Quando e quem falta? Faltas / (realizados + faltas): cancelamento avisado não conta."),
             *filtros_padrao(),
-            cartao("c_faltas", 16, "Medidas.Faltas", "Faltas no período"),
-            cartao("c_taxa", 268, "Medidas.Taxa de faltas", "Taxa de faltas"),
+            destaque(cartao("c_taxa", 16, "Medidas.Taxa de faltas", "Taxa de faltas")),
+            cartao("c_faltas", 268, "Medidas.Faltas", "Faltas no período"),
             cartao("c_variacao", 520, "Medidas.Variação das faltas (p.p.)", "Variação vs. mês anterior (p.p.)"),
             cartao("c_perdidas", 772, "Medidas.Horas perdidas por faltas", "Horas de prática perdidas"),
             cartao("c_cancel", 1024, "Medidas.Cancelados pela clínica", "Cancelados pela clínica"),
-            Visual("matriz_dia_turno", "pivotTable", 16, 192, 520, 250,
+            Visual("matriz_dia_turno", "pivotTable", 16, Y0, 520, MEIO,
                    {"Rows": [campo("calendario.dia_semana", "Dia")],
                     "Columns": [campo("atendimentos.turno", "Turno")],
                     "Values": [campo("Medidas.Taxa de faltas", "Taxa de faltas")]},
                    titulo="Taxa de faltas por dia e turno",
                    ordenar=ordenar_por("calendario.dia_semana")),
-            Visual("colunas_espera", "clusteredColumnChart", 552, 192, 712, 250,
+            Visual("colunas_espera", "clusteredColumnChart", 552, Y0, 712, MEIO,
                    {"Category": [campo("atendimentos.faixa_espera_1a_consulta", "Espera na fila")],
                     "Y": [campo("Medidas.Taxa de faltas", "Taxa de faltas na 1ª consulta")]},
                    titulo="Falta na 1ª consulta por tempo de espera na fila",
-                   filtros=[SO_PRIMEIRA], ordenar=ordenar_por("atendimentos.faixa_espera_1a_consulta")),
-            Visual("linha_mes", "lineChart", 16, 458, 760, 250,
+                   filtros=[SO_PRIMEIRA], ordenar=ordenar_por("atendimentos.faixa_espera_1a_consulta"),
+                   objetos=cor_unica(LARANJA, "Medidas.Taxa de faltas")),
+            Visual("linha_mes", "lineChart", 16, Y0 + MEIO + 12, 760, MEIO,
                    {"Category": [campo("calendario.mes_nome", "Mês")],
                     "Y": [campo("Medidas.Taxa de faltas", "Taxa de faltas")]},
-                   titulo="Taxa de faltas por mês", ordenar=ordenar_por("calendario.mes_nome")),
-            nota("nota_faltas", 792, 458, 472, 250,
+                   titulo="Taxa de faltas por mês", ordenar=ordenar_por("calendario.mes_nome"),
+                   objetos=cor_unica(LARANJA, "Medidas.Taxa de faltas")),
+            nota("nota_faltas", 792, Y0 + MEIO + 12, 472, MEIO,
                  "Como ler: a segunda de manhã concentra as faltas, e quem esperou mais de 60 dias na fila "
                  "falta duas vezes mais na 1ª consulta do que quem esperou até 7 dias. Ação sugerida: "
                  "confirmação na véspera (WhatsApp) para as primeiras consultas e para a segunda de manhã, "
                  "e lista de espera para preencher o horário de quem desmarca."),
+        ],
+    ),
+    (
+        "motivos", "Motivos",
+        [
+            cabecalho("Por que faltam e por que desmarcam", "O motivo que a recepção registrou no tablet, já "
+                      "classificado (o texto livre vira 8 motivos)."),
+            *filtros_padrao(),
+            destaque(cartao("c_justificadas", 16, "Medidas.% faltas justificadas", "Faltas justificadas")),
+            cartao("c_sem", 268, "Medidas.Faltas sem justificativa", "Faltas sem justificativa"),
+            cartao("c_com", 520, "Medidas.Faltas com motivo", "Faltas com motivo"),
+            cartao("c_desm", 772, "Medidas.Cancelados pelo paciente", "Desmarcações"),
+            cartao("c_chuva", 1024, "Medidas.% faltas por chuva", "Faltas por chuva (justificadas)"),
+            Visual("barras_motivo_falta", "clusteredBarChart", 16, Y0, 620, ALTO,
+                   {"Category": [campo("atendimentos.motivo", "Motivo")], "Y": [campo("Medidas.Faltas", "Faltas")]},
+                   titulo="Por que os pacientes faltam", ordenar=ordenar_por("Medidas.Faltas", "Descending"),
+                   objetos=cor_unica(LARANJA, "Medidas.Faltas")),
+            Visual("barras_motivo_desm", "clusteredBarChart", 652, Y0, 612, 300,
+                   {"Category": [campo("atendimentos.motivo", "Motivo")],
+                    "Y": [campo("Medidas.Cancelados pelo paciente", "Desmarcações")]},
+                   titulo="Por que desmarcam", ordenar=ordenar_por("Medidas.Cancelados pelo paciente", "Descending"),
+                   objetos=cor_unica(GRAFITE, "Medidas.Cancelados pelo paciente")),
+            Visual("linha_chuva", "lineChart", 652, Y0 + 312, 400, ALTO - 312,
+                   {"Category": [campo("calendario.mes_nome", "Mês")],
+                    "Y": [campo("Medidas.% faltas por chuva", "Faltas por chuva")]},
+                   titulo="A chuva no inverno (abr-jul)", ordenar=ordenar_por("calendario.mes_nome"),
+                   objetos=cor_unica(LARANJA, "Medidas.% faltas por chuva")),
+            Visual("barras_transporte", "clusteredBarChart", 1064, Y0 + 312, 200, ALTO - 312,
+                   {"Category": [campo("clinicas.unidade_nome", "Unidade")],
+                    "Y": [campo("Medidas.% faltas por transporte", "Transporte")]},
+                   titulo="Transporte",
+                   ordenar=ordenar_por("Medidas.% faltas por transporte", "Descending"),
+                   objetos=cor_unica(GRAFITE, "Medidas.% faltas por transporte")),
+        ],
+    ),
+    (
+        "recepcao", "Espera na recepção",
+        [
+            cabecalho("Espera na recepção", "Da chegada até o aluno chamar o paciente, pelo registro do tablet "
+                      "(sem os atendimentos em que ninguém registrou a chamada)."),
+            *filtros_padrao(),
+            destaque(cartao("c_espera_media", 16, "Medidas.Espera na recepção (min)", "Espera média (min)")),
+            cartao("c_ate30", 268, "Medidas.Chamados em até 30 min", "Chamados em até 30 min"),
+            cartao("c_segunda", 520, "Medidas.Espera segunda de manhã (min)", "Segunda de manhã (min)"),
+            cartao("c_realizados", 772, "Medidas.Realizados", "Consultas realizadas"),
+            cartao("c_horas", 1024, "Medidas.Horas de prática", "Horas de prática"),
+            Visual("barras_espera_clinica", "clusteredBarChart", 16, Y0, 620, ALTO,
+                   {"Category": [campo("clinicas.clinica", "Clínica")],
+                    "Y": [campo("Medidas.Espera na recepção (min)", "Espera média (min)")]},
+                   titulo="Espera média por clínica (minutos)",
+                   ordenar=ordenar_por("Medidas.Espera na recepção (min)", "Descending"),
+                   objetos=cor_unica(LARANJA, "Medidas.Espera na recepção (min)")),
+            Visual("colunas_espera_hora", "clusteredColumnChart", 652, Y0, 612, MEIO,
+                   {"Category": [campo("atendimentos.hora", "Horário")],
+                    "Y": [campo("Medidas.Espera na recepção (min)", "Espera média (min)")]},
+                   titulo="Espera média por horário marcado", ordenar=ordenar_por("atendimentos.hora"),
+                   objetos=cor_unica(GRAFITE, "Medidas.Espera na recepção (min)")),
+            nota("nota_recepcao", 652, Y0 + MEIO + 12, 612, MEIO,
+                 "Como ler: a Odontologia espera mais porque o equipo precisa ser montado e esterilizado entre um "
+                 "paciente e outro, e o atraso de uma sessão passa para a seguinte. Recife tem uma recepção para "
+                 "quatro clínicas. Cuidado ao comparar horários: a Odontologia só atende às 8h, 10h, 13h30 e 15h30. "
+                 "Ação sugerida: escalonar a chegada da Odontologia e um segundo atendente em Recife às segundas."),
         ],
     ),
     (
@@ -707,24 +922,26 @@ PAGINAS: list[tuple[str, str, list[Visual]]] = [
             cabecalho("Agenda e fila de espera",
                       "A agenda está cheia? Quem está esperando? Ocupação = agendamentos / horários ofertados."),
             *filtros_padrao(),
-            cartao("c_ofertados", 16, "Medidas.Horários ofertados", "Horários ofertados"),
-            cartao("c_ocupacao", 268, "Medidas.Ocupação da agenda", "Ocupação da agenda"),
+            destaque(cartao("c_ocupacao", 16, "Medidas.Ocupação da agenda", "Ocupação da agenda")),
+            cartao("c_ofertados", 268, "Medidas.Horários ofertados", "Horários ofertados"),
             cartao("c_aproveitamento", 520, "Medidas.Aproveitamento", "Aproveitamento (realizados)"),
             cartao("c_entradas", 772, "Medidas.Entradas na fila", "Entradas na fila"),
             cartao("c_aguardando", 1024, "Medidas.Aguardando", "Aguardando em 31/10"),
-            Visual("barras_ocupacao", "clusteredBarChart", 16, 192, 620, 516,
+            Visual("barras_ocupacao", "clusteredBarChart", 16, Y0, 620, ALTO,
                    {"Category": [campo("clinicas.clinica", "Clínica")],
                     "Y": [campo("Medidas.Ocupação da agenda", "Ocupação"),
                           campo("Medidas.Aproveitamento", "Aproveitamento")]},
                    titulo="Ocupação e aproveitamento por clínica",
-                   ordenar=ordenar_por("Medidas.Ocupação da agenda")),
-            Visual("tabela_fila", "tableEx", 652, 192, 612, 300,
+                   ordenar=ordenar_por("Medidas.Ocupação da agenda"),
+                   objetos=cores_series([("Medidas.Ocupação da agenda", GRAFITE),
+                                         ("Medidas.Aproveitamento", LARANJA)])),
+            Visual("tabela_fila", "tableEx", 652, Y0, 612, 300,
                    {"Values": [campo("clinicas.clinica", "Clínica"),
                                campo("Medidas.Ocupação da agenda", "Ocupação"),
                                campo("Medidas.Espera mediana (dias)", "Espera mediana (dias)"),
                                campo("Medidas.Aguardando", "Aguardando")]},
                    titulo="Fila por clínica", ordenar=ordenar_por("Medidas.Espera mediana (dias)", "Descending")),
-            nota("nota_fila", 652, 508, 612, 200,
+            nota("nota_fila", 652, Y0 + 312, 612, ALTO - 312,
                  "Como ler: Fisioterapia de Olinda tem a agenda mais vazia e a fila mais longa ao mesmo tempo. "
                  "Não falta sala: a primeira consulta só é marcada às segundas e quartas, e a recepção não "
                  "consegue contato com parte da fila. Ação sugerida: abrir primeira consulta todos os dias e "
@@ -736,15 +953,17 @@ PAGINAS: list[tuple[str, str, list[Visual]]] = [
         [
             cabecalho("Alunos e horas de prática",
                       "A clínica-escola existe para formar: cada falta é uma hora de prática a menos (2026.1)."),
-            cartao("c_meta", 16, "Medidas.% alunos na meta", "Alunos que bateram a meta"),
+            destaque(cartao("c_meta", 16, "Medidas.% alunos na meta", "Alunos que bateram a meta")),
             cartao("c_horas_aluno", 268, "Medidas.Horas por aluno", "Horas por aluno"),
             cartao("c_perdidas", 520, "Medidas.Horas perdidas por faltas", "Horas perdidas por faltas"),
             cartao("c_alunos", 772, "Medidas.Alunos com meta", "Alunos no semestre"),
-            Visual("colunas_servico", "clusteredColumnChart", 16, 192, 620, 516,
+            cartao("c_horas", 1024, "Medidas.Horas de prática", "Horas de prática"),
+            Visual("colunas_servico", "clusteredColumnChart", 16, Y0, 620, ALTO,
                    {"Category": [campo("alunos.curso", "Curso")],
                     "Y": [campo("Medidas.% alunos na meta", "% na meta")]},
-                   titulo="Alunos que bateram a meta, por curso", filtros=[SEMESTRE_2026_1]),
-            Visual("tabela_alunos", "tableEx", 652, 192, 612, 516,
+                   titulo="Alunos que bateram a meta, por curso", filtros=[SEMESTRE_2026_1],
+                   objetos=cor_unica(LARANJA, "Medidas.% alunos na meta")),
+            Visual("tabela_alunos", "tableEx", 652, Y0, 612, ALTO,
                    {"Values": [campo("alunos.matricula", "Matrícula"), campo("alunos.nome", "Aluno"),
                                campo("alunos.curso", "Curso"), campo("alunos.unidade", "Unidade"),
                                campo("Medidas.Horas de prática", "Horas"),
@@ -758,17 +977,19 @@ PAGINAS: list[tuple[str, str, list[Visual]]] = [
         "qualidade", "Qualidade dos dados",
         [
             cabecalho("Qualidade dos dados",
-                      "O que a padronização encontrou nas planilhas, no sistema e na fila, e o que fez com cada caso."),
-            cartao("c_regras", 16, "Medidas.Regras aplicadas", "Correções e sinalizações"),
+                      "O que a padronização encontrou no sistema, nas planilhas, na fila e no tablet da recepção."),
+            destaque(cartao("c_regras", 16, "Medidas.Regras aplicadas", "Correções e sinalizações")),
             cartao("c_conferir", 268, "Medidas.Linhas para conferir", "Linhas para conferir na origem"),
             cartao("c_recuperados", 520, "Medidas.Prontuários recuperados", "Prontuários recuperados"),
-            Visual("tabela_regras", "tableEx", 16, 192, 620, 516,
+            cartao("c_agend", 772, "Medidas.Agendamentos", "Agendamentos na base"),
+            cartao("c_pac", 1024, "Medidas.Pacientes atendidos", "Pacientes atendidos"),
+            Visual("tabela_regras", "tableEx", 16, Y0, 620, ALTO,
                    {"Values": [campo("resumo_qualidade.regra", "Regra"),
                                campo("resumo_qualidade.descricao", "O que foi encontrado"),
                                campo("resumo_qualidade.acao", "O que foi feito"),
                                campo("resumo_qualidade.ocorrencias", "Ocorrências")]},
                    titulo="Regras de padronização", ordenar=ordenar_por("resumo_qualidade.regra")),
-            Visual("tabela_inconsistencias", "tableEx", 652, 192, 612, 516,
+            Visual("tabela_inconsistencias", "tableEx", 652, Y0, 612, ALTO,
                    {"Values": [campo("inconsistencias.regra", "Regra"),
                                campo("inconsistencias.arquivo", "Arquivo"),
                                campo("inconsistencias.aba", "Aba"),
@@ -779,6 +1000,9 @@ PAGINAS: list[tuple[str, str, list[Visual]]] = [
         ],
     ),
 ]
+
+# Para capturar uma página específica: python powerbi/gerar_pbip.py <nome_da_pagina>
+PAGINA_INICIAL = PAGINAS[0][0]
 
 
 # ============================================================== escrita
@@ -851,7 +1075,7 @@ def gerar(destino: Path = PASTA) -> list[Path]:
         "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/"
         "definition/pagesMetadata/1.0.0/schema.json",
         "pageOrder": [nome for nome, _, _ in PAGINAS],
-        "activePageName": PAGINAS[0][0],
+        "activePageName": PAGINA_INICIAL,
     })
     for nome, exibicao, visuais in PAGINAS:
         _gravar(r / "pages" / nome / "page.json", {"$schema": SCHEMA_PAGINA, "name": nome, "displayName": exibicao,
@@ -871,4 +1095,8 @@ def gerar(destino: Path = PASTA) -> list[Path]:
 
 
 if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) > 1:
+        PAGINA_INICIAL = sys.argv[1]
     print(f"{len(gerar())} arquivos gerados em {PASTA}")

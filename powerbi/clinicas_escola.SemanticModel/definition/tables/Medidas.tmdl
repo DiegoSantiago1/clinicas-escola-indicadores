@@ -127,6 +127,78 @@ table Medidas
 		displayFolder: Alunos
 		lineageTag: c5fc0e37-9a78-554b-b956-225b2b83ae3b
 
+	/// Taxa social cobrada: só no atendimento realizado de paciente não isento.
+	measure Faturamento = SUM ( atendimentos[valor_cobrado] )
+		formatString: R$ #,0
+		displayFolder: Faturamento
+		lineageTag: f6497869-c7f2-5e54-ae0e-57656b1d73e4
+
+	/// Atendimentos realizados de quem pagou a taxa.
+	measure 'Atendimentos pagos' = CALCULATE ( COUNTROWS ( atendimentos ), KEEPFILTERS ( atendimentos[valor_cobrado] > 0 ) )
+		formatString: #,0
+		displayFolder: Faturamento
+		lineageTag: 673b0d4d-f4e0-5bd4-ab31-f7530291c84b
+
+	/// Quanto paga, em média, quem paga.
+	measure 'Ticket médio' = DIVIDE ( [Faturamento], [Atendimentos pagos] )
+		formatString: R$ #,0.00
+		displayFolder: Faturamento
+		lineageTag: fea2e2f2-534b-5ad6-88aa-fcdf3421bcbd
+
+	/// Taxa das consultas com falta de quem pagaria (isentos e sem prontuário ficam de fora).
+	measure 'Deixou de entrar com faltas' = CALCULATE ( SUM ( atendimentos[valor_tabela] ), atendimentos[situacao] = "Falta", pacientes[isento_taxa] = "Não" )
+		formatString: R$ #,0
+		displayFolder: Faturamento
+		lineageTag: 513f7c8e-09ef-5069-9bab-4928b20fae4a
+
+	/// Média de minutos da chegada até ser chamado (só com os dois horários registrados).
+	measure 'Espera na recepção (min)' = AVERAGE ( atendimentos[espera_recepcao_min] )
+		formatString: #,0.0
+		displayFolder: Recepção
+		lineageTag: 0c46419c-78a8-58e8-9123-289de5858014
+
+	/// Parte dos atendimentos chamados em menos de 30 minutos. O NOT ISBLANK é necessário: no DAX, BLANK < 30 é verdadeiro.
+	measure 'Chamados em até 30 min' = DIVIDE ( CALCULATE ( COUNTROWS ( atendimentos ), KEEPFILTERS ( atendimentos[espera_recepcao_min] < 30 ), KEEPFILTERS ( NOT ISBLANK ( atendimentos[espera_recepcao_min] ) ) ), COUNT ( atendimentos[espera_recepcao_min] ) )
+		formatString: 0.0%
+		displayFolder: Recepção
+		lineageTag: 1d7ec416-ec58-581c-aada-7352ba5f078c
+
+	/// A espera no turno mais cheio da semana.
+	measure 'Espera segunda de manhã (min)' = CALCULATE ( [Espera na recepção (min)], calendario[dia_semana] = "Segunda", atendimentos[turno] = "Manhã" )
+		formatString: #,0.0
+		displayFolder: Recepção
+		lineageTag: fee0e191-b95f-5cd1-8b07-c447b4472dad
+
+	/// Faltas que o paciente justificou depois.
+	measure 'Faltas com motivo' = CALCULATE ( [Faltas], KEEPFILTERS ( NOT atendimentos[motivo] IN { "Sem justificativa", "Não identificado" } ) )
+		formatString: #,0
+		displayFolder: Motivos
+		lineageTag: 96e1e814-9700-5db1-94fb-f85eaf1c1df3
+
+	/// Faltou sem avisar e não deu motivo depois.
+	measure 'Faltas sem justificativa' = CALCULATE ( [Faltas], atendimentos[motivo] = "Sem justificativa" )
+		formatString: #,0
+		displayFolder: Motivos
+		lineageTag: 6d7ff496-9b32-5f3d-8bc2-6118a7a894da
+
+	/// Quanto a recepção sabe por que o paciente falta.
+	measure '% faltas justificadas' = DIVIDE ( [Faltas com motivo], [Faltas] )
+		formatString: 0.0%
+		displayFolder: Motivos
+		lineageTag: f66deb96-4bbd-5b2f-b86b-0eec36190e04
+
+	/// Parte das faltas justificadas em que o motivo foi a chuva.
+	measure '% faltas por chuva' = DIVIDE ( CALCULATE ( [Faltas com motivo], atendimentos[motivo] = "Chuva" ), [Faltas com motivo] )
+		formatString: 0.0%
+		displayFolder: Motivos
+		lineageTag: 80a2eee8-4d99-534c-b7c2-9aa87de8665c
+
+	/// Parte das faltas justificadas em que o motivo foi o transporte.
+	measure '% faltas por transporte' = DIVIDE ( CALCULATE ( [Faltas com motivo], atendimentos[motivo] = "Transporte" ), [Faltas com motivo] )
+		formatString: 0.0%
+		displayFolder: Motivos
+		lineageTag: 8b79f9d0-61f2-5955-b81d-61ac0ba1a0d6
+
 	/// Total de correções e sinalizações feitas pela padronização.
 	measure 'Regras aplicadas' = SUM ( resumo_qualidade[ocorrencias] )
 		formatString: #,0

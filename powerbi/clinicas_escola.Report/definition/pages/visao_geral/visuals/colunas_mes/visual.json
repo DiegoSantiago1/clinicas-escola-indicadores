@@ -3,14 +3,14 @@
   "name": "colunas_mes",
   "position": {
     "x": 16,
-    "y": 192,
+    "y": 196,
     "z": 8000,
     "width": 760,
-    "height": 516,
+    "height": 512,
     "tabOrder": 8000
   },
   "visual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "columnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -47,7 +47,7 @@
               },
               "queryRef": "Medidas.Realizados",
               "nativeQueryRef": "Realizados",
-              "displayName": "Realizados"
+              "displayName": "Realizadas"
             },
             {
               "field": {
@@ -63,6 +63,21 @@
               "queryRef": "Medidas.Faltas",
               "nativeQueryRef": "Faltas",
               "displayName": "Faltas"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Cancelados pelo paciente"
+                }
+              },
+              "queryRef": "Medidas.Cancelados pelo paciente",
+              "nativeQueryRef": "Cancelados pelo paciente",
+              "displayName": "Desmarcadas"
             }
           ]
         }
@@ -121,7 +136,70 @@
                   "Value": "true"
                 }
               }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
             }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2B2D33'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Realizados"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F2652F'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Faltas"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#A3A7AF'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Cancelados pelo paciente"
           }
         }
       ]
@@ -140,7 +218,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Atendimentos e faltas por mês (dez-jan: recesso; jul: plantão de férias)'"
+                  "Value": "'Quem veio, quem faltou e quem desmarcou, por mês (janeiro: recesso)'"
                 }
               }
             }

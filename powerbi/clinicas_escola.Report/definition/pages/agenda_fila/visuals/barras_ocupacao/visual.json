@@ -3,10 +3,10 @@
   "name": "barras_ocupacao",
   "position": {
     "x": 16,
-    "y": 192,
+    "y": 196,
     "z": 8000,
     "width": 620,
-    "height": 516,
+    "height": 512,
     "tabOrder": 8000
   },
   "visual": {
@@ -121,7 +121,52 @@
                   "Value": "true"
                 }
               }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
             }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2B2D33'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Ocupação da agenda"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F2652F'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Medidas.Aproveitamento"
           }
         }
       ]

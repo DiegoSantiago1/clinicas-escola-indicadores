@@ -1,39 +1,39 @@
 {
   "name": "Clínicas-Escola",
   "dataColors": [
-    "#1F4E79",
-    "#E85A5A",
-    "#2E8B6E",
-    "#C9A227",
-    "#7A5C99",
-    "#5DA9C9",
-    "#9C6644",
-    "#8D99AE"
+    "#2B2D33",
+    "#F2652F",
+    "#A3A7AF",
+    "#F7A27F",
+    "#5B5F67",
+    "#FBD8C8",
+    "#80848C",
+    "#D9DBDF"
   ],
   "background": "#FFFFFF",
-  "foreground": "#14213D",
-  "tableAccent": "#1F4E79",
-  "good": "#2E8B6E",
-  "neutral": "#C9A227",
-  "bad": "#E85A5A",
-  "maximum": "#E85A5A",
-  "center": "#F4B8B8",
-  "minimum": "#FCEDED",
+  "foreground": "#131417",
+  "tableAccent": "#F2652F",
+  "good": "#2B2D33",
+  "neutral": "#A3A7AF",
+  "bad": "#F2652F",
+  "maximum": "#F2652F",
+  "center": "#F7A27F",
+  "minimum": "#FDEDE6",
   "null": "#E5E7EB",
   "textClasses": {
     "title": {
       "fontFace": "Segoe UI Semibold",
-      "color": "#14213D",
+      "color": "#131417",
       "fontSize": 12
     },
     "label": {
       "fontFace": "Segoe UI",
-      "color": "#4A5568"
+      "color": "#5B5F67"
     },
     "callout": {
       "fontFace": "Segoe UI Semibold",
-      "color": "#14213D",
-      "fontSize": 26
+      "color": "#131417",
+      "fontSize": 28
     }
   },
   "visualStyles": {
@@ -43,7 +43,7 @@
           {
             "fontColor": {
               "solid": {
-                "color": "#14213D"
+                "color": "#131417"
               }
             },
             "bold": true,
@@ -54,16 +54,23 @@
           {
             "labelColor": {
               "solid": {
-                "color": "#4A5568"
+                "color": "#5B5F67"
               }
-            }
+            },
+            "showAxisTitle": false
           }
         ],
         "valueAxis": [
           {
             "labelColor": {
               "solid": {
-                "color": "#4A5568"
+                "color": "#5B5F67"
+              }
+            },
+            "showAxisTitle": false,
+            "gridlineColor": {
+              "solid": {
+                "color": "#ECEDEF"
               }
             }
           }
@@ -72,9 +79,10 @@
           {
             "labelColor": {
               "solid": {
-                "color": "#4A5568"
+                "color": "#5B5F67"
               }
-            }
+            },
+            "position": "TopRight"
           }
         ],
         "background": [
@@ -84,7 +92,8 @@
               "solid": {
                 "color": "#FFFFFF"
               }
-            }
+            },
+            "transparency": 0
           }
         ],
         "border": [
@@ -92,10 +101,18 @@
             "show": true,
             "color": {
               "solid": {
-                "color": "#E5E1D8"
+                "color": "#FFFFFF"
               }
             },
-            "radius": 10
+            "radius": 16
+          }
+        ],
+        "padding": [
+          {
+            "top": 12,
+            "bottom": 12,
+            "left": 14,
+            "right": 14
           }
         ],
         "dropShadow": [
@@ -111,7 +128,7 @@
           {
             "color": {
               "solid": {
-                "color": "#F4F5F6"
+                "color": "#E7E8EA"
               }
             },
             "transparency": 0
@@ -125,18 +142,76 @@
           {
             "color": {
               "solid": {
-                "color": "#14213D"
+                "color": "#131417"
               }
-            }
+            },
+            "fontSize": 28
           }
         ],
         "categoryLabels": [
           {
             "color": {
               "solid": {
-                "color": "#4A5568"
+                "color": "#5B5F67"
+              }
+            },
+            "fontSize": 11
+          }
+        ]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "columnHeaders": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#5B5F67"
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": "#FFFFFF"
               }
             }
+          }
+        ],
+        "grid": [
+          {
+            "gridHorizontalColor": {
+              "solid": {
+                "color": "#ECEDEF"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "pivotTable": {
+      "*": {
+        "columnHeaders": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#5B5F67"
+              }
+            },
+            "fontSize": 13,
+            "backColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "rowHeaders": [
+          {
+            "fontSize": 13
+          }
+        ],
+        "values": [
+          {
+            "fontSize": 13
           }
         ]
       }

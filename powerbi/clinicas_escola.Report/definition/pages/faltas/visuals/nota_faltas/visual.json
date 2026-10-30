@@ -19,15 +19,118 @@
               {
                 "textRuns": [
                   {
-                    "value": "Como ler: a segunda de manhã concentra as faltas, e quem esperou mais de 60 dias na fila falta duas vezes mais na 1ª consulta do que quem esperou até 7 dias. Ação sugerida: confirmação na véspera (WhatsApp) para as primeiras consultas e para a segunda de manhã, e lista de espera para preencher o horário de quem desmarca.",
+                    "value": "Como ler",
                     "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#4A5568"
+                      "fontWeight": "bold",
+                      "fontSize": "12pt",
+                      "color": "#F2652F"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "A segunda de manhã concentra as faltas, e quem esperou mais de 60 dias na fila falta duas vezes mais na 1ª consulta do que quem esperou até 7 dias. Ação sugerida: confirmação na véspera (WhatsApp) para as primeiras consultas e para a segunda de manhã, e lista de espera para preencher o horário de quem desmarca.",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#131417"
                     }
                   }
                 ]
               }
             ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            }
           }
         }
       ]

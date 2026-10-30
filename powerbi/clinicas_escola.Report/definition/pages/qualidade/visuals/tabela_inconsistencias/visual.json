@@ -3,11 +3,11 @@
   "name": "tabela_inconsistencias",
   "position": {
     "x": 652,
-    "y": 192,
-    "z": 5000,
+    "y": 196,
+    "z": 7000,
     "width": 612,
-    "height": 516,
-    "tabOrder": 5000
+    "height": 512,
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "tableEx",

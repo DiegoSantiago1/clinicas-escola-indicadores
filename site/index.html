@@ -1,53 +1,114 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Onde as clínicas-escola perdem consultas · Diego Santiago</title>
-<meta name="description" content="Projeto de análise de dados: um ano de atendimentos de uma rede fictícia de clínicas-escola, com planilhas e sistema padronizados em Python e indicadores no Power BI. Painel interativo com faltas, agenda, fila e horas de prática dos alunos.">
+<title>Clínicas-escola em dados · Diego Santiago</title>
+<meta name="description" content="Projeto de análise de dados: um ano de atendimentos de uma rede fictícia de clínicas-escola. Planilhas e sistema padronizados em Python, relatório no Power BI com 36 medidas conferidas e um painel animado.">
 <meta property="og:title" content="Clínicas-escola em dados">
-<meta property="og:description" content="Uma em cada cinco consultas fica vazia. Padronização em Python, indicadores no Power BI, cada número conferido.">
-<meta property="og:image" content="img/powerbi_visao_geral.png">
+<meta property="og:description" content="1 em cada 5 consultas fica vazia. Padronização em Python, Power BI e painel animado, cada número conferido.">
+<meta property="og:image" content="powerbi/img/01_visao_geral.png">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css?v=4">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css?v=7">
 <script>
   document.documentElement.classList.add("js");
-  try { const t = localStorage.getItem("tema"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  try {
+    var t = localStorage.getItem("tema");
+    if (!t && matchMedia("(prefers-color-scheme: dark)").matches) t = "dark";
+    if (t) document.documentElement.dataset.theme = t;
+  } catch (e) {}
 </script>
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-<header class="barra" id="topo">
-  <a class="marca" href="#topo">Clínicas-escola</a>
-  <nav class="links" aria-label="Seções">
-    <a href="#painel">Painel</a>
-    <a href="#dados">Os dados</a>
-    <a href="#padronizacao">Padronização</a>
-    <a href="#achados">Achados</a>
-    <a href="#carta">Sobre</a>
-    <a href="dashboard/">Painel animado</a>
-    <a href="painel/">Painel de trabalho</a>
-  </nav>
-  <div class="barra-fim">
-    <button class="tema" type="button" aria-label="Alternar tema claro ou escuro"><span data-escuro>Escuro</span><span data-claro>Claro</span></button>
-    <a class="botao botao-pequeno" href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">Código</a>
-  </div>
-</header>
-
 <main id="conteudo">
-  <section class="hero" id="painel">
-    <div class="hero-texto">
-      <h1 class="revela">Onde as clínicas-escola perdem consultas</h1>
-      <div>
-        <p class="hero-frase revela">Um ano de atendimentos de 10 clínicas-escola de saúde em Recife, Olinda e Jaboatão: uma em cada cinco consultas fica vazia. Mude a unidade e o serviço no painel.</p>
-        <a class="botao hero-botao revela" href="dashboard/">Abrir o painel animado</a>
-      </div>
+  <!-- ============ Abertura dividida: leitura à esquerda, palco fixo à direita ============ -->
+  <div class="dividido">
+    <div class="leitura">
+      <header class="topo" id="topo">
+        <nav class="topo-links" aria-label="Projeto">
+          <a href="dashboard/">Painel animado</a>
+          <a href="powerbi/">Power BI</a>
+        </nav>
+        <a class="marca" href="#topo">Clínicas-escola<span>em dados</span></a>
+        <div class="topo-fim">
+          <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">Código</a>
+          <button class="tema" type="button" aria-label="Alternar tema claro ou escuro"><span data-escuro>Escuro</span><span data-claro>Claro</span></button>
+        </div>
+      </header>
+
+      <section class="hero capitulo" data-capitulo="1" aria-labelledby="titulo">
+        <h1 id="titulo" class="revela">1 em 5 consultas fica vazia</h1>
+        <p class="hero-frase revela">Um ano de atendimentos de 10 clínicas-escola de saúde em Recife, Olinda e Jaboatão: planilhas e sistema padronizados em Python, relatório no Power BI e um painel para a gestão.</p>
+        <div class="hero-acoes revela">
+          <a class="botao" href="dashboard/">Abrir o painel animado</a>
+          <a class="botao botao-contorno" href="powerbi/">Ver o relatório no Power BI</a>
+        </div>
+        <p class="hero-mais revela"><a href="painel/">Painel de trabalho: a jornada de cada paciente</a></p>
+      </section>
+
+      <section class="capitulo" id="dados" data-capitulo="2" aria-labelledby="t-dados">
+        <h2 id="t-dados" class="revela">Os dados analisados</h2>
+        <p class="lead revela">Uma clínica-escola é onde estudantes de saúde atendem a comunidade por uma taxa social, supervisionados por professores. Este projeto analisa um ano dessa operação numa rede fictícia.</p>
+        <dl class="ficha">
+          <div class="revela"><dt>12 meses</dt><dd>De 1º/11/2025 a 31/10/2026. Recesso em janeiro, plantão com metade das salas em julho.</dd></div>
+          <div class="revela"><dt>10 clínicas</dt><dd>Odontologia, Fisioterapia, Psicologia e Nutrição em três unidades.</dd></div>
+          <div class="revela"><dt>70.679</dt><dd>agendamentos, com aluno, professor, procedimento, situação e taxa cobrada.</dd></div>
+          <div class="revela"><dt>15.153</dt><dd>pacientes na fila da recepção, com inscrição, 1ª consulta e situação.</dd></div>
+          <div class="revela"><dt>29 arquivos</dt><dd>exportações do sistema, planilhas Excel feitas à mão, a fila e o tablet da recepção.</dd></div>
+        </dl>
+      </section>
+
+      <section class="capitulo" id="problema" data-capitulo="3" aria-labelledby="t-problema">
+        <h2 id="t-problema" class="revela">O trabalho que ninguém vê</h2>
+        <p class="revela"><strong>Duas fontes que não conversam.</strong> Odontologia e Fisioterapia exportam do sistema; Psicologia e Nutrição anotam numa planilha, uma aba por mês. O filtro da exportação repete o último dia do mês anterior: 830 agendamentos vinham em dobro.</p>
+        <p class="revela"><strong>Cinco jeitos de escrever falta.</strong> “Faltou”, “F”, “Não compareceu”, “faltou ” com espaço no fim. Data como texto, horário como “8h”, linha copiada, prontuário em branco. No tablet da recepção, o motivo vem em texto livre: “choveu muito”, “sem passagem”.</p>
+        <p class="revela"><strong>Vinte regras, provadas.</strong> Simulei a rede, baguncei os dados como na vida real e padronizei tudo em Python. Como guardei a verdade, os testes provam linha a linha que a limpeza está certa.</p>
+      </section>
+
+      <section class="capitulo" id="numeros" data-capitulo="4" aria-labelledby="t-numeros">
+        <h2 id="t-numeros" class="revela">O que os números dizem</h2>
+        <ol class="numeros">
+          <li class="revela"><span class="n">27,6%</span><span>de faltas na segunda de manhã, contra cerca de 19% nos outros turnos.</span></li>
+          <li class="revela"><span class="n">114 dias</span><span>de espera mediana na Fisioterapia de Olinda, com 58% da agenda livre.</span></li>
+          <li class="revela"><span class="n">R$ 240 mil</span><span>de taxa social que as faltas de quem pagaria deixaram de trazer.</span></li>
+          <li class="revela"><span class="n">26 min</span><span>de espera na recepção; 33 min na Odontologia de Recife.</span></li>
+          <li class="revela"><span class="n">5% → 21%</span><span>das faltas justificadas são por chuva: de abril a julho, o inverno de Pernambuco.</span></li>
+        </ol>
+      </section>
     </div>
 
-    <div class="painel revela" data-ui aria-label="Painel de indicadores interativo">
+    <div class="palco" aria-hidden="true">
+      <div class="palco-moldura">
+        <img class="palco-foto ativa" data-capitulo="1" src="img/consultorio-vazio.jpg" alt="" width="1600" height="1067">
+        <img class="palco-foto" data-capitulo="2" src="img/odontologia.jpg" alt="" width="1600" height="1067" loading="lazy">
+        <img class="palco-foto" data-capitulo="3" src="img/psicologia.jpg" alt="" width="1600" height="1067" loading="lazy">
+        <img class="palco-foto" data-capitulo="4" src="img/fisioterapia.jpg" alt="" width="1600" height="1067" loading="lazy">
+        <div class="palco-barra"><span id="palco-legenda">O horário que ninguém usou</span><span>nov/2025 a out/2026</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Mosaico: foto e dois números ============ -->
+  <section class="mosaico" aria-labelledby="t-mosaico">
+    <h2 id="t-mosaico" class="sr">Os dois números do ano</h2>
+    <figure class="mosaico-foto">
+      <img src="img/equipe-tablet.jpg" alt="Profissionais de saúde mostrando um tablet a uma paciente no consultório" width="1600" height="1067" loading="lazy">
+    </figure>
+    <div class="ladrilho ladrilho-quente revela"><p class="ladrilho-n">20,3%</p><p>das consultas marcadas viraram falta: 13.683 horários vazios no ano.</p></div>
+    <div class="ladrilho ladrilho-escuro revela"><p class="ladrilho-n">R$ 962.535</p><p>de taxa social faturada em 53.582 consultas realizadas.</p></div>
+  </section>
+
+  <!-- ============ O painel interativo ============ -->
+  <section class="secao painel-secao" id="painel" aria-labelledby="t-painel">
+    <div class="secao-cab">
+      <h2 id="t-painel" class="revela">Mude a unidade e veja</h2>
+      <p class="revela">Os mesmos números do Power BI, calculados em Python. Clique numa clínica para filtrar.</p>
+    </div>
+    <div class="painel revela" aria-label="Painel de indicadores interativo">
       <div class="painel-topo">
         <p class="painel-titulo">Visão geral · nov/2025 a out/2026</p>
         <div class="filtros">
@@ -71,7 +132,7 @@
           <button class="limpar" type="button" id="limpar">Limpar</button>
         </div>
       </div>
-      <div class="kpis">
+      <div class="kpis" data-ui>
         <div class="kpi"><p class="kpi-rotulo">Realizados</p><p class="kpi-valor" id="k-realizados">53.582</p></div>
         <div class="kpi kpi-destaque"><p class="kpi-rotulo">Taxa de faltas</p><p class="kpi-valor" id="k-faltas">20,3%</p></div>
         <div class="kpi"><p class="kpi-rotulo">Agenda ocupada</p><p class="kpi-valor" id="k-ocupacao">84,4%</p></div>
@@ -92,102 +153,72 @@
     </div>
   </section>
 
-  <section class="dados" id="dados">
-    <div>
-      <h2 class="revela">Os dados analisados</h2>
-      <p class="dados-lead revela">Uma clínica-escola é onde estudantes de saúde atendem a comunidade, de graça ou a preço baixo, supervisionados por professores. Este projeto analisa um ano dessa operação numa rede fictícia.</p>
+  <!-- ============ Uma linha, quatro etapas (cartão fixo que muda de estado) ============ -->
+  <section class="secao etapas" id="padronizacao" aria-labelledby="t-etapas">
+    <div class="etapas-texto">
+      <h2 id="t-etapas" class="revela">Uma linha, quatro etapas</h2>
+      <div class="etapa ativa" data-etapa="1"><p class="etapa-frase">Primeiro, ela chega assim, digitada à mão.</p><p>Planilha da Psicologia de Recife, aba de março, linha 13: horário como “9h”, situação em minúscula, prontuário em branco.</p></div>
+      <div class="etapa" data-etapa="2"><p class="etapa-frase">Depois, entra no padrão.</p><p>As regras R03 e R05 traduzem “atendido” para Realizado e “9h” para 09:00, e o turno sai da hora.</p></div>
+      <div class="etapa" data-etapa="3"><p class="etapa-frase">Então, é ligada ao paciente certo.</p><p>A regra R07 recupera o prontuário pelo nome, só quando o nome é único no cadastro. Homônimo fica sinalizado, não adivinhado.</p></div>
+      <div class="etapa" data-etapa="4"><p class="etapa-frase">Por fim, vira indicador.</p><p>A consulta soma uma hora de prática ao aluno e entra na taxa de faltas da clínica, no Python e no Power BI.</p></div>
     </div>
-    <dl class="dados-ficha">
-      <div class="revela"><dt><span class="numero">12 meses</span>de atendimentos</dt><dd>De 1º de novembro de 2025 a 31 de outubro de 2026. Recesso em dezembro e janeiro, plantão com metade das salas em julho.</dd></div>
-      <div class="revela"><dt><span class="numero">10 clínicas</span>em 3 unidades</dt><dd>Recife (Odontologia, Fisioterapia, Psicologia e Nutrição), Olinda (Odontologia, Fisioterapia e Psicologia) e Jaboatão (Odontologia, Psicologia e Nutrição).</dd></div>
-      <div class="revela"><dt><span class="numero">70.679</span>agendamentos</dt><dd>Cada um com data, horário, clínica, prontuário do paciente, aluno, professor supervisor, tipo (1ª consulta ou retorno) e situação: realizado, falta ou cancelado.</dd></div>
-      <div class="revela"><dt><span class="numero">15.153</span>pacientes na fila</dt><dd>Data de inscrição na recepção, data da 1ª consulta e situação: chamado, aguardando ou desistiu.</dd></div>
-      <div class="revela"><dt><span class="numero">549</span>alunos em 3 semestres</dt><dd>Com a meta de horas de prática de cada curso, e a capacidade de cada clínica: salas e horários dos turnos (8h às 12h e 13h30 às 17h30).</dd></div>
-      <div class="revela"><dt><span class="numero">17</span>arquivos de origem</dt><dd>11 exportações mensais do sistema (Odontologia e Fisioterapia), 5 planilhas Excel preenchidas à mão (Psicologia e Nutrição) e a planilha da fila da recepção.</dd></div>
-    </dl>
-  </section>
-
-  <section class="intro" id="problema">
-    <h2 class="sr">O problema</h2>
-    <p class="intro-lead revela">Odontologia e Fisioterapia exportam do sistema; Psicologia e Nutrição anotam numa planilha, uma aba por mês. Juntar as duas coisas é o trabalho que ninguém vê e de que todo indicador depende.</p>
-    <div class="intro-colunas">
-      <p class="revela"><strong>Duas fontes.</strong> O sistema exporta um CSV por mês, e o filtro da exportação repete o último dia do mês anterior: 830 agendamentos apareciam duas vezes. Em maio, uma atualização acrescentou uma coluna nova.</p>
-      <p class="revela"><strong>Cinco jeitos de escrever falta.</strong> “Faltou”, “falta”, “F”, “Não compareceu” e “faltou ” com espaço no fim. Datas digitadas como texto, horário como “8h”, linha copiada, linha de total, prontuário em branco.</p>
-      <p class="revela"><strong>Sem número confiável.</strong> Sem padronizar, não dá para responder quantos pacientes faltam, quanto da agenda fica vazia, quanto tempo a fila espera nem se o aluno cumpre as horas de estágio.</p>
-      <p class="revela"><strong>O que eu fiz.</strong> Simulei um ano de uma rede de 10 clínicas, baguncei os dados como na vida real e padronizei tudo com 16 regras em Python, provando linha a linha que a limpeza está certa. Depois, o Power BI.</p>
-    </div>
-  </section>
-
-  <div class="fotos" aria-label="As clínicas-escola">
-    <figure><img src="img/odontologia.jpg" alt="Atendimento odontológico com o paciente sorrindo na cadeira" width="1600" height="1067"><figcaption>Odontologia</figcaption></figure>
-    <figure><img src="img/fisioterapia.jpg" alt="Fisioterapeuta acompanhando um paciente deitado na maca" width="1600" height="1067" loading="lazy"><figcaption>Fisioterapia</figcaption></figure>
-    <figure><img src="img/psicologia.jpg" alt="Sessão de psicologia: terapeuta e paciente conversando em poltronas" width="1600" height="1067" loading="lazy"><figcaption>Psicologia</figcaption></figure>
-    <figure><img src="img/consultorio-vazio.jpg" alt="Consultório vazio com a maca arrumada" width="1600" height="1067" loading="lazy"><figcaption>O horário que ninguém usou</figcaption></figure>
-  </div>
-
-  <section class="etapas" id="padronizacao">
-    <div class="etapa e1">
-      <h2 class="etapas-titulo revela">Uma linha, quatro etapas</h2>
-      <div class="ficha revela" data-ui>
+    <div class="etapas-palco">
+      <div class="ficha-sis" data-ui data-etapa="1">
         <p class="ficha-fonte">Psicologia - Recife.xlsx · MAR 2026 · linha 13</p>
-        <dl>
-          <dt>Data</dt><dd>02/03/2026</dd>
-          <dt>Horário</dt><dd class="sujo">9h</dd>
-          <dt>Paciente</dt><dd>Mariana Silva</dd>
-          <dt>Prontuário</dt><dd class="vazio">vazio</dd>
-          <dt>Situação</dt><dd class="sujo">atendido</dd>
-        </dl>
+        <dl><dt>Data</dt><dd>02/03/2026</dd><dt>Horário</dt><dd class="sujo">9h</dd><dt>Paciente</dt><dd>Mariana Silva</dd><dt>Prontuário</dt><dd class="vazio">vazio</dd><dt>Situação</dt><dd class="sujo">atendido</dd></dl>
       </div>
-      <p class="etapa-frase revela">Primeiro, chega assim, digitada à mão.</p>
-    </div>
-    <div class="etapa e2">
-      <div class="ficha revela" data-ui>
+      <div class="ficha-sis" data-ui data-etapa="2">
         <p class="ficha-fonte">Depois das regras R03 e R05</p>
-        <dl>
-          <dt>Data</dt><dd>02/03/2026</dd>
-          <dt>Horário</dt><dd class="limpo">09:00 · Manhã</dd>
-          <dt>Paciente</dt><dd>Mariana Silva</dd>
-          <dt>Prontuário</dt><dd class="vazio">vazio</dd>
-          <dt>Situação</dt><dd class="limpo">Realizado</dd>
-        </dl>
+        <dl><dt>Data</dt><dd>02/03/2026</dd><dt>Horário</dt><dd class="limpo">09:00 · Manhã</dd><dt>Paciente</dt><dd>Mariana Silva</dd><dt>Prontuário</dt><dd class="vazio">vazio</dd><dt>Situação</dt><dd class="limpo">Realizado</dd></dl>
       </div>
-      <p class="etapa-frase revela">Depois, no padrão: hora e situação.</p>
-    </div>
-    <div class="etapa e3">
-      <div class="ficha revela" data-ui>
+      <div class="ficha-sis" data-ui data-etapa="3">
         <p class="ficha-fonte">Regra R07 · nome único no cadastro</p>
-        <dl>
-          <dt>Data</dt><dd>02/03/2026</dd>
-          <dt>Horário</dt><dd>09:00 · Manhã</dd>
-          <dt>Prontuário</dt><dd class="limpo">REC005106</dd>
-          <dt>Aluno</dt><dd>2026110250</dd>
-          <dt>Situação</dt><dd>Realizado</dd>
-        </dl>
+        <dl><dt>Data</dt><dd>02/03/2026</dd><dt>Horário</dt><dd>09:00 · Manhã</dd><dt>Prontuário</dt><dd class="limpo">REC005106</dd><dt>Aluno</dt><dd>2026110250</dd><dt>Situação</dt><dd>Realizado</dd></dl>
       </div>
-      <p class="etapa-frase revela">Então, ligada ao paciente certo.</p>
-    </div>
-    <div class="etapa e4">
-      <div class="ficha revela" data-ui>
-        <p class="ficha-fonte">Psicologia · Recife · março</p>
-        <dl>
-          <dt>Realizados</dt><dd class="limpo">+1</dd>
-          <dt>Prática</dt><dd class="limpo">+1,0 h</dd>
-          <dt>Aluno</dt><dd>2026110250</dd>
-          <dt>Origem</dt><dd>Planilha</dd>
-          <dt>Conferido</dt><dd>bate com a verdade</dd>
-        </dl>
+      <div class="ficha-sis" data-ui data-etapa="4">
+        <p class="ficha-fonte">Psicologia · Recife · março de 2026</p>
+        <dl><dt>Realizados</dt><dd class="limpo">+1</dd><dt>Prática</dt><dd class="limpo">+1,0 h</dd><dt>Aluno</dt><dd>2026110250</dd><dt>Origem</dt><dd>Planilha</dd><dt>Conferido</dt><dd>bate com a verdade</dd></dl>
       </div>
-      <p class="etapa-frase revela">Por fim, vira indicador no painel.</p>
     </div>
   </section>
 
-  <section class="espera" id="espera">
-    <h2 class="revela">Quantos dias o paciente esperou?</h2>
-    <div class="controle revela" data-ui>
-      <label for="dias">Dias na fila até a 1ª consulta</label>
-      <div class="controle-linha">
-        <input id="dias" type="range" min="0" max="120" step="1" value="45">
-        <output id="dias-valor" for="dias">45 dias</output>
+  <!-- ============ O editor ao vivo ============ -->
+  <section class="secao editor" id="editor" aria-labelledby="t-editor">
+    <div class="secao-cab">
+      <h2 id="t-editor" class="revela">Escreva como a recepção</h2>
+      <p class="revela">Edite as linhas: a mesma lógica da padronização em Python roda aqui, na hora. Uma linha por atendimento, campos separados por “·”.</p>
+    </div>
+    <div class="editor-grade">
+      <div class="editor-entrada">
+        <label class="editor-rotulo" for="bruto">Do jeito que chega</label>
+        <textarea id="bruto" spellcheck="false" rows="6">5/3/26 · 8h · FALTOU
+02/03/2026 · 13h30 · Não compareceu
+2/3/26 · 10h · ok
+04/03/2026 · 9h · Paciente desmarcou</textarea>
+      </div>
+      <div class="editor-saida">
+        <p class="editor-rotulo">No padrão</p>
+        <div class="tabela-limpa" data-ui aria-live="polite">
+          <table>
+            <thead><tr><th>Data</th><th>Horário</th><th>Situação</th><th>Regras</th></tr></thead>
+            <tbody id="limpo"></tbody>
+          </table>
+          <p class="tabela-nota" id="limpo-nota">Forma desconhecida não é adivinhada: a linha vai para a lista de conferência.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ A espera na fila e a falta ============ -->
+  <section class="secao espera" id="espera" aria-labelledby="t-espera">
+    <div>
+      <h2 id="t-espera" class="revela">Quanto mais espera, mais falta</h2>
+      <div class="controle revela" data-ui>
+        <label for="dias">Dias na fila até a 1ª consulta</label>
+        <div class="controle-linha">
+          <input id="dias" type="range" min="0" max="120" step="1" value="45">
+          <output id="dias-valor" for="dias">45 dias</output>
+        </div>
       </div>
     </div>
     <div class="espera-fim">
@@ -196,29 +227,9 @@
     </div>
   </section>
 
-  <section class="editor" id="editor">
-    <div class="editor-entrada">
-      <label class="editor-rotulo" for="bruto">Edite como a recepção anotaria: uma linha por atendimento, campos separados por “·”.</label>
-      <textarea id="bruto" spellcheck="false" rows="6">5/3/26 · 8h · FALTOU
-02/03/2026 · 13h30 · Não compareceu
-2/3/26 · 10h · ok
-04/03/2026 · 9h · Paciente desmarcou</textarea>
-      <h2 class="editor-titulo-a">Do jeito que chega</h2>
-    </div>
-    <div class="editor-saida">
-      <div class="tabela-limpa" data-ui aria-live="polite">
-        <table>
-          <thead><tr><th>Data</th><th>Horário</th><th>Situação</th><th>Regras</th></tr></thead>
-          <tbody id="limpo"></tbody>
-        </table>
-        <p class="tabela-nota" id="limpo-nota">Forma desconhecida não é adivinhada: a linha vai para a lista de conferência.</p>
-      </div>
-      <p class="editor-titulo-b" aria-hidden="true">ao padrão</p>
-    </div>
-  </section>
-
-  <section class="achados" id="achados">
-    <h2 class="achados-titulo revela">O que os dados mostram</h2>
+  <!-- ============ Os achados contados ao rolar ============ -->
+  <section class="secao achados" id="achados" aria-labelledby="t-achados">
+    <h2 id="t-achados" class="revela">O que os dados mostram</h2>
     <div class="historia">
       <div class="historia-palco" data-ui>
         <div class="palco-cena ativa" data-cena="1">
@@ -237,7 +248,7 @@
       <div class="historia-passos">
         <article class="passo" data-cena="1">
           <h3>A segunda de manhã falta mais</h3>
-          <p>Na segunda de manhã, <strong id="seg-manha">27,6%</strong> dos pacientes não aparecem. Nos outros turnos, perto de 19%. A sexta à tarde vem logo depois.</p>
+          <p>Na segunda de manhã, <strong id="seg-manha">27,6%</strong> dos pacientes não aparecem. Nos outros turnos, perto de 19%. Quem justifica cita trabalho e transporte.</p>
         </article>
         <article class="passo" data-cena="2">
           <h3>Olinda tem sala e não tem paciente</h3>
@@ -252,59 +263,79 @@
     </div>
   </section>
 
-  <section class="acoes" id="acoes">
-    <h2 class="acoes-titulo revela">O que fazer primeiro</h2>
-    <div class="faixas" id="faixas">
-      <div class="faixa ligada f1"><p class="faixa-frase">Confirmar a consulta na véspera</p><button class="chave" type="button" role="switch" aria-checked="true" aria-label="Confirmar a consulta na véspera" data-ui><span></span></button><p class="faixa-efeito" id="efeito-1">Se a segunda de manhã caísse para a média dos outros turnos, seriam 613 faltas a menos no ano.</p></div>
-      <div class="faixa ligada f2"><p class="faixa-frase">Chamar a fila de Olinda todo dia</p><button class="chave" type="button" role="switch" aria-checked="true" aria-label="Chamar a fila de Olinda todo dia" data-ui><span></span></button><p class="faixa-efeito">387 pessoas esperam por Fisioterapia em Olinda, com 58% da agenda livre.</p></div>
-      <div class="faixa f3"><p class="faixa-frase">Encaixe para quem falta muito</p><button class="chave" type="button" role="switch" aria-checked="false" aria-label="Encaixe para quem falta muito" data-ui><span></span></button><p class="faixa-efeito">Metade das faltas vem de 19% dos pacientes: 2.769 pessoas.</p></div>
-      <div class="faixa f4"><p class="faixa-frase">Ver as horas do aluno toda semana</p><button class="chave" type="button" role="switch" aria-checked="false" aria-label="Ver as horas do aluno toda semana" data-ui><span></span></button><p class="faixa-efeito">43 alunos teriam batido a meta de 2026.1 sem as faltas dos pacientes.</p></div>
-      <div class="faixa f5"><p class="faixa-frase">Lista suspensa na planilha</p><button class="chave" type="button" role="switch" aria-checked="false" aria-label="Lista suspensa na planilha" data-ui><span></span></button><p class="faixa-efeito" id="efeito-5">29.943 situações escritas fora do padrão deixariam de existir.</p></div>
+  <!-- ============ O relatório no Power BI: índice de páginas ============ -->
+  <section class="secao vitrine" id="powerbi" aria-labelledby="t-powerbi">
+    <div class="vitrine-indice">
+      <h2 id="t-powerbi" class="revela">O relatório no Power BI</h2>
+      <p class="revela">Oito páginas, 36 medidas DAX e um modelo estrela. Cada número foi conferido contra o Python dentro do motor do Power BI.</p>
+      <div class="vitrine-nomes" role="tablist" aria-label="Páginas do relatório">
+        <button type="button" role="tab" aria-selected="true" data-img="powerbi/img/01_visao_geral.png">Visão geral</button>
+        <button type="button" role="tab" aria-selected="false" data-img="powerbi/img/02_faturamento.png">Faturamento</button>
+        <button type="button" role="tab" aria-selected="false" data-img="powerbi/img/03_faltas.png">Faltas</button>
+        <button type="button" role="tab" aria-selected="false" data-img="powerbi/img/04_motivos.png">Motivos</button>
+        <button type="button" role="tab" aria-selected="false" data-img="powerbi/img/05_recepcao.png">Espera na recepção</button>
+        <button type="button" role="tab" aria-selected="false" data-img="powerbi/img/06_agenda_fila.png">Agenda e fila</button>
+        <button type="button" role="tab" aria-selected="false" data-img="powerbi/img/07_alunos.png">Alunos e estágio</button>
+        <button type="button" role="tab" aria-selected="false" data-img="powerbi/img/08_qualidade.png">Qualidade dos dados</button>
+      </div>
+      <a class="botao" href="powerbi/">Abrir o relatório completo</a>
+    </div>
+    <div class="vitrine-palco">
+      <img id="vitrine-img" src="powerbi/img/01_visao_geral.png" alt="Página Visão geral do relatório no Power BI" width="1316" height="740" loading="lazy">
     </div>
   </section>
 
-  <section class="carta" id="carta">
-    <h2 class="sr">Por que fiz este projeto</h2>
-    <figure class="carta-foto revela">
-      <img src="img/equipe-tablet.jpg" alt="Profissionais de saúde mostrando um tablet à paciente no consultório" width="1600" height="1067" loading="lazy">
-    </figure>
-    <div class="carta-texto">
-      <p class="carta-avatar revela" aria-hidden="true">DS</p>
-      <p class="revela">Antes de dados, trabalhei seis anos na Aeronáutica. Na odontoclínica, eu fazia o faturamento das guias dos planos de saúde; no hospital, coordenava os estágios com as universidades. Clínica e aluno são o mundo deste projeto.</p>
-      <p class="revela">Os dados são fictícios porque dado de saúde não vai para um repositório público. Simular trouxe uma vantagem: guardei a verdade e consegui <span class="marca-texto">provar que a limpeza está certa</span>, linha a linha, em vez de só achar que está.</p>
-      <p class="revela">O Python padroniza e calcula. O Power BI tem o Power Query, o modelo estrela e 24 medidas DAX, cada uma conferida contra o Python direto no motor do Power BI. A mesma base está pronta para o Looker Studio.</p>
-      <p class="revela">Se você trabalha com clínicas, escolas ou qualquer operação que vive de planilha, eu gostaria de conversar.</p>
-      <p class="assinatura revela">Diego Santiago</p>
-      <p class="cargo revela">Analista de dados · Recife</p>
+  <!-- ============ O que fazer primeiro ============ -->
+  <section class="secao acoes" id="acoes" aria-labelledby="t-acoes">
+    <h2 id="t-acoes" class="revela">O que fazer primeiro</h2>
+    <div class="faixas" id="faixas">
+      <div class="faixa ligada"><p class="faixa-frase">Confirmar a consulta na véspera</p><button class="chave" type="button" role="switch" aria-checked="true" aria-label="Confirmar a consulta na véspera" data-ui><span></span></button><p class="faixa-efeito" id="efeito-1">Se a segunda de manhã caísse para a média dos outros turnos, seriam 613 faltas a menos no ano.</p></div>
+      <div class="faixa ligada"><p class="faixa-frase">Chamar a fila de Olinda todo dia</p><button class="chave" type="button" role="switch" aria-checked="true" aria-label="Chamar a fila de Olinda todo dia" data-ui><span></span></button><p class="faixa-efeito">387 pessoas esperam por Fisioterapia em Olinda, com 58% da agenda livre.</p></div>
+      <div class="faixa"><p class="faixa-frase">Escalonar a chegada na Odontologia</p><button class="chave" type="button" role="switch" aria-checked="false" aria-label="Escalonar a chegada na Odontologia" data-ui><span></span></button><p class="faixa-efeito">Quem tem o 2º horário do turno espera 7 minutos a mais: o atraso de uma sessão passa para a seguinte.</p></div>
+      <div class="faixa"><p class="faixa-frase">Encaixe para quem falta muito</p><button class="chave" type="button" role="switch" aria-checked="false" aria-label="Encaixe para quem falta muito" data-ui><span></span></button><p class="faixa-efeito">Metade das faltas vem de 19% dos pacientes: 2.769 pessoas.</p></div>
+      <div class="faixa"><p class="faixa-frase">Lista suspensa na planilha e no tablet</p><button class="chave" type="button" role="switch" aria-checked="false" aria-label="Lista suspensa na planilha e no tablet" data-ui><span></span></button><p class="faixa-efeito" id="efeito-5">29.943 situações escritas fora do padrão deixariam de existir.</p></div>
     </div>
-    <figure class="carta-pbi revela">
-      <img src="img/powerbi_visao_geral.png" alt="Relatório no Power BI: cartões, gráfico por mês e faltas por clínica" width="1304" height="734" loading="lazy">
-      <figcaption>O mesmo painel no Power BI Desktop.</figcaption>
-    </figure>
+  </section>
+
+  <!-- ============ Fecho: foto e convite ============ -->
+  <section class="fecho" aria-labelledby="t-fecho">
+    <img src="img/fisioterapia-detalhe.jpg" alt="" width="1600" height="1067" loading="lazy">
+    <div class="fecho-texto">
+      <h2 id="t-fecho">Veja tudo funcionando</h2>
+      <p>Faturamento, faltas, motivos, fila e espera na recepção, com filtro por unidade, números que contam e um assistente que responde as perguntas da gestão.</p>
+      <a class="botao botao-papel" href="dashboard/">Abrir o painel animado</a>
+    </div>
+  </section>
+
+  <!-- ============ Carta ============ -->
+  <section class="carta" id="carta" aria-labelledby="t-carta">
+    <h2 id="t-carta" class="sr">Por que fiz este projeto</h2>
+    <p class="carta-avatar" aria-hidden="true">DS</p>
+    <p>Antes de dados, trabalhei seis anos na Aeronáutica. Na odontoclínica, eu fazia o faturamento das guias dos planos de saúde; no hospital, coordenava os estágios com as universidades. Clínica e aluno são o mundo deste projeto.</p>
+    <p>Os dados são fictícios porque dado de saúde não vai para um repositório público. Simular trouxe uma vantagem: guardei a verdade e consegui <span class="marca-texto">provar que a limpeza está certa</span>, linha a linha, em vez de só achar que está.</p>
+    <p>O Python padroniza e calcula. O Power BI tem o Power Query, o modelo estrela e 36 medidas DAX, cada uma conferida contra o Python. O painel animado e o painel de trabalho mostram o mesmo resultado para quem decide e para quem atende.</p>
+    <p>Se você trabalha com clínicas, escolas ou qualquer operação que vive de planilha, eu gostaria de conversar.</p>
+    <p class="assinatura">Diego Santiago</p>
+    <p class="cargo">Analista de dados · Recife</p>
+    <ul class="pilha" aria-label="Tecnologias">
+      <li>Python · pandas</li><li>Power BI · DAX · Power Query</li><li>Looker Studio</li><li>pytest · GitHub Actions</li><li>HTML · CSS · JavaScript</li>
+    </ul>
   </section>
 </main>
 
 <footer class="rodape">
-  <div class="rodape-topo">
-    <p class="rodape-marca">Clínicas-escola em dados</p>
-    <nav class="rodape-links" aria-label="Contato">
-      <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">GitHub</a>
-      <a href="https://diegosantiago1.github.io/Portifolio/#projetos">Portfólio</a>
-      <a href="https://www.linkedin.com/in/diego-freitas-santiago">LinkedIn</a>
-      <a href="mailto:freitasdiego140@gmail.com">E-mail</a>
-    </nav>
-  </div>
-  <nav class="rodape-docs" aria-label="Documentos">
-    <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores/blob/main/docs/INDICADORES.md">Dicionário de indicadores</a>
-    <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores/blob/main/docs/DECISOES.md">Decisões técnicas</a>
-    <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores/tree/main/powerbi">Relatório Power BI</a>
-    <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores/tree/main/data">Os dados</a>
-    <a href="#topo">Voltar ao topo</a>
+  <p>Clínicas-escola em dados · projeto de portfólio</p>
+  <nav aria-label="Links">
+    <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">GitHub</a>
+    <a href="https://diegosantiago1.github.io/Portifolio/#projetos">Portfólio</a>
+    <a href="https://www.linkedin.com/in/diego-freitas-santiago">LinkedIn</a>
+    <a href="mailto:freitasdiego140@gmail.com">E-mail</a>
   </nav>
-  <p class="rodape-legal">Dados 100% fictícios, gerados por simulação: nenhum número é de uma instituição real. Fotos: <a href="https://www.pexels.com/license/">Pexels</a> (<a href="https://www.pexels.com/photo/3845810/">1</a>, <a href="https://www.pexels.com/photo/20860610/">2</a>, <a href="https://www.pexels.com/photo/4101143/">3</a>, <a href="https://www.pexels.com/photo/263201/">4</a>, <a href="https://www.pexels.com/photo/20860607/">5</a>, <a href="https://www.pexels.com/photo/3952125/">6</a>). Diego Santiago, Recife, 2026.</p>
+  <p class="rodape-fim">Dados 100% fictícios. Fotos: <a href="https://www.pexels.com/license/">Pexels</a>. 2026</p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
+<script src="pagina.js?v=1"></script>
 </body>
 </html>

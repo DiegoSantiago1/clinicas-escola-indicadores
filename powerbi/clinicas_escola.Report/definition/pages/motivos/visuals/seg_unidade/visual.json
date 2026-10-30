@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "seg_unidade",
+  "position": {
+    "x": 912,
+    "y": 8,
+    "z": 1000,
+    "width": 172,
+    "height": 64,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "clinicas"
+                    }
+                  },
+                  "Property": "unidade_nome"
+                }
+              },
+              "queryRef": "clinicas.unidade_nome",
+              "nativeQueryRef": "unidade_nome",
+              "displayName": "Unidade"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

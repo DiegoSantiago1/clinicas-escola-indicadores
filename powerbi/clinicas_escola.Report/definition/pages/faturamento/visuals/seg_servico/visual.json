@@ -1,47 +1,47 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
-  "name": "c_ocupacao",
+  "name": "seg_servico",
   "position": {
-    "x": 520,
-    "y": 80,
-    "z": 5000,
-    "width": 240,
-    "height": 100,
-    "tabOrder": 5000
+    "x": 1092,
+    "y": 8,
+    "z": 2000,
+    "width": 172,
+    "height": 64,
+    "tabOrder": 2000
   },
   "visual": {
-    "visualType": "card",
+    "visualType": "slicer",
     "query": {
       "queryState": {
         "Values": {
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "clinicas"
                     }
                   },
-                  "Property": "Ocupação da agenda"
+                  "Property": "servico_nome"
                 }
               },
-              "queryRef": "Medidas.Ocupação da agenda",
-              "nativeQueryRef": "Ocupação da agenda",
-              "displayName": "Ocupação da agenda"
+              "queryRef": "clinicas.servico_nome",
+              "nativeQueryRef": "servico_nome",
+              "displayName": "Serviço"
             }
           ]
         }
       }
     },
     "objects": {
-      "labels": [
+      "data": [
         {
           "properties": {
-            "labelDisplayUnits": {
+            "mode": {
               "expr": {
                 "Literal": {
-                  "Value": "1D"
+                  "Value": "'Dropdown'"
                 }
               }
             }

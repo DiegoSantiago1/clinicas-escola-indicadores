@@ -29,3 +29,7 @@ relationship 17f2c695-c647-547b-9649-d3bd73d61366
 relationship 2a23743a-eaa7-5b14-9b85-7428fe824c1f
 	fromColumn: atendimentos.supervisor
 	toColumn: supervisores.codigo
+
+relationship d8a529e4-f7ed-5655-95fd-eeab5bf2111d
+	fromColumn: atendimentos.prontuario
+	toColumn: pacientes.prontuario

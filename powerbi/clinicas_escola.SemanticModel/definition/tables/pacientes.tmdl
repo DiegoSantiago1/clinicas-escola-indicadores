@@ -1,0 +1,54 @@
+/// Pacientes sem nome nem data de nascimento (LGPD): sexo, faixa etária e isenção da taxa.
+table pacientes
+	lineageTag: df27443a-0b07-58f2-89f7-8dec8677c68a
+
+	column prontuario
+		dataType: string
+		isKey
+		lineageTag: 188a069b-3aee-5f34-a639-d4582600d408
+		summarizeBy: none
+		sourceColumn: prontuario
+
+	column sexo
+		dataType: string
+		lineageTag: c64fa20c-c8ce-5a49-8f0b-01834e40e248
+		summarizeBy: none
+		sourceColumn: sexo
+
+	column faixa_etaria
+		dataType: string
+		lineageTag: 252c21be-2347-5795-b0c1-7537941f5e77
+		summarizeBy: none
+		sourceColumn: faixa_etaria
+
+	column unidade
+		dataType: string
+		isHidden
+		lineageTag: a1bc1098-39ae-5e57-b04b-0c39a5bc7d5e
+		summarizeBy: none
+		sourceColumn: unidade
+
+	column servico
+		dataType: string
+		isHidden
+		lineageTag: a7b39683-9d08-5f2a-b0a4-0e2a34385a20
+		summarizeBy: none
+		sourceColumn: servico
+
+	/// Isento da taxa social pelo cadastro socioeconômico.
+	column isento_taxa
+		dataType: string
+		lineageTag: b50ecfcc-183e-5c2a-9d0d-d36bf442c3a0
+		summarizeBy: none
+		sourceColumn: isento_taxa
+
+	partition pacientes = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "pacientes.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Colunas = Table.SelectColumns(Cabecalho, {"prontuario", "sexo", "faixa_etaria", "unidade", "servico", "isento_taxa"}),
+				    Tipos = Table.TransformColumnTypes(Colunas, {{"prontuario", type text}, {"sexo", type text}, {"faixa_etaria", type text}, {"unidade", type text}, {"servico", type text}, {"isento_taxa", type text}}, "en-US")
+				in
+				    Tipos

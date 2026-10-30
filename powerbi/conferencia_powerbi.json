@@ -1,4 +1,56 @@
 {
+ "motivos": [
+  {
+   "motivo": "Trabalho",
+   "faltas": 1944,
+   "desmarcacoes": 813
+  },
+  {
+   "motivo": "Esqueceu",
+   "faltas": 2005,
+   "desmarcacoes": null
+  },
+  {
+   "motivo": "Doença",
+   "faltas": 1069,
+   "desmarcacoes": 569
+  },
+  {
+   "motivo": "Chuva",
+   "faltas": 892,
+   "desmarcacoes": 263
+  },
+  {
+   "motivo": "Sem justificativa",
+   "faltas": 5167,
+   "desmarcacoes": null
+  },
+  {
+   "motivo": "Transporte",
+   "faltas": 1337,
+   "desmarcacoes": 265
+  },
+  {
+   "motivo": "Família",
+   "faltas": 685,
+   "desmarcacoes": 297
+  },
+  {
+   "motivo": "Compromisso pessoal",
+   "faltas": 549,
+   "desmarcacoes": 496
+  },
+  {
+   "motivo": "Não identificado",
+   "faltas": 35,
+   "desmarcacoes": 11
+  },
+  {
+   "motivo": "Sentiu melhora",
+   "faltas": null,
+   "desmarcacoes": 151
+  }
+ ],
  "variacao": [
   {
    "mes": "/Date(1761966000000)/",
@@ -225,7 +277,33 @@
    "horas_perdidas_faltas": 16515,
    "espera_mediana_dias": 7,
    "fila_aguardando_fim": 469,
-   "linhas_para_conferir": 4104
+   "linhas_para_conferir": 6383
+  }
+ ],
+ "fat_unidade": [
+  {
+   "unidade_nome": "Jaboatão dos Guararapes",
+   "faturamento": 214280
+  },
+  {
+   "unidade_nome": "Olinda",
+   "faturamento": 231340
+  },
+  {
+   "unidade_nome": "Recife",
+   "faturamento": 516915
+  }
+ ],
+ "novas": [
+  {
+   "faturamento": 962535,
+   "perdido_faltas": 240320,
+   "ticket_medio": 25.3185417050267,
+   "espera_media": 26.396135917093655,
+   "ate_30": 0.5874523249990369,
+   "segunda_manha": 30.5251482118952,
+   "justificadas": 0.6198202148651611,
+   "chuva": 0.10517627638250206
   }
  ],
  "alunos": [

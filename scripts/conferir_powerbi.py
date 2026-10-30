@@ -40,6 +40,14 @@ CONSULTAS = {
         "bateram_meta", [Alunos na meta], "alunos", [Alunos com meta]), alunos[semestre] = "2026.1")""",
     "variacao": """EVALUATE SUMMARIZECOLUMNS(calendario[mes], "taxa", [Taxa de faltas],
         "variacao_pp", [Variação das faltas (p.p.)])""",
+    "novas": """EVALUATE ROW(
+        "faturamento", [Faturamento], "perdido_faltas", [Deixou de entrar com faltas],
+        "ticket_medio", [Ticket médio], "espera_media", [Espera na recepção (min)],
+        "ate_30", [Chamados em até 30 min], "segunda_manha", [Espera segunda de manhã (min)],
+        "justificadas", [% faltas justificadas], "chuva", [% faltas por chuva])""",
+    "fat_unidade": """EVALUATE SUMMARIZECOLUMNS(clinicas[unidade_nome], "faturamento", [Faturamento])""",
+    "motivos": """EVALUATE SUMMARIZECOLUMNS(atendimentos[motivo], "faltas", [Faltas],
+        "desmarcacoes", [Cancelados pelo paciente])""",
 }
 
 POWERSHELL = r"""
@@ -140,6 +148,43 @@ def comparar(pbi: dict, painel: dict) -> list[str]:
         x = py_alunos[linha["servico"]]
         confere(f"{linha['servico']} · bateram a meta", linha["bateram_meta"], x["bateram_meta"])
         confere(f"{linha['servico']} · alunos", linha["alunos"], x["alunos"])
+
+    # Medidas do faturamento, da recepção e dos motivos, contra o painel animado (dashboard.json).
+    # Os valores do painel são arredondados (1 casa nos minutos, 2 nos reais, 4 nas frações).
+    dash = json.loads((RAIZ / "site" / "dashboard" / "dados" / "dashboard.json").read_text(encoding="utf-8"))
+    b = dash["blocos"]["*"]
+    novas = pbi["novas"][0] if isinstance(pbi["novas"], list) else pbi["novas"]
+    e = b["espera"]
+    ate_30 = sum(f["qtd"] for f in e["faixas"][:3]) / e["medidos"]
+    chuva = next(m["qtd"] for m in b["motivos"]["faltas"] if m["motivo"] == "Chuva")
+    com_motivo = sum(m["qtd"] for m in b["motivos"]["faltas"] if m["motivo"] not in ("Sem justificativa",
+                                                                                   "Não identificado"))
+
+    def confere_aprox(rotulo: str, valor_pbi: float, valor_py: float, tolerancia: float) -> None:
+        ok = valor_pbi is not None and abs(float(valor_pbi) - float(valor_py)) <= tolerancia
+        print(f"  {'ok ' if ok else 'ERRO'} {rotulo:<52} Power BI={valor_pbi!s:<14} Python={valor_py}")
+        if not ok:
+            erros.append(rotulo)
+
+    print("Faturamento, recepção e motivos")
+    confere("faturamento", novas["faturamento"], b["faturamento"]["total"])
+    confere("deixou de entrar com faltas", novas["perdido_faltas"], b["faturamento"]["perdido_faltas"])
+    confere_aprox("ticket médio", novas["ticket_medio"], b["faturamento"]["ticket_medio"], 0.005)
+    confere_aprox("espera na recepção (min)", novas["espera_media"], e["media_min"], 0.05)
+    confere("chamados em até 30 min", novas["ate_30"], ate_30)
+    confere_aprox("espera segunda de manhã (min)", novas["segunda_manha"], e["segunda_manha_min"], 0.05)
+    confere_aprox("% faltas justificadas", novas["justificadas"], b["motivos"]["justificadas_pct"], 0.00005)
+    confere("% faltas por chuva", novas["chuva"], chuva / com_motivo)
+    py_un = {u["unidade"]: u["faturamento"] for u in b["unidades"]}
+    for linha in pbi["fat_unidade"]:
+        confere(f"faturamento · {linha['unidade_nome']}", linha["faturamento"],
+                py_un[linha["unidade_nome"].split()[0]])
+    py_f = {m["motivo"]: m["qtd"] for m in b["motivos"]["faltas"]}
+    py_d = {m["motivo"]: m["qtd"] for m in b["motivos"]["desmarcacoes"]}
+    for linha in pbi["motivos"]:
+        if linha["motivo"]:
+            confere(f"faltas · {linha['motivo']}", linha["faltas"] or 0, py_f.get(linha["motivo"], 0))
+            confere(f"desmarcações · {linha['motivo']}", linha["desmarcacoes"] or 0, py_d.get(linha["motivo"], 0))
     return erros
 
 

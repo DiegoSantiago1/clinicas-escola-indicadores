@@ -3,11 +3,11 @@
   "name": "tabela_alunos",
   "position": {
     "x": 652,
-    "y": 192,
-    "z": 6000,
+    "y": 196,
+    "z": 7000,
     "width": 612,
-    "height": 516,
-    "tabOrder": 6000
+    "height": 512,
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "tableEx",

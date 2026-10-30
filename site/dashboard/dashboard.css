@@ -131,6 +131,7 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
   transition: transform 200ms var(--ease);
 }
 .botao:hover { transform: translateY(-2px); }
+.botao-claro { background: var(--cartao); color: var(--tinta); }
 
 .filtro { display: flex; align-items: center; gap: 12px; margin: 18px 0 16px; flex-wrap: wrap; }
 .filtro-rotulo { font-size: 13px; color: var(--tinta-2); }

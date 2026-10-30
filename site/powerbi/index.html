@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relatório no Power BI · Clínicas-escola em dados</title>
+<meta name="description" content="As oito páginas do relatório Power BI do projeto Clínicas-escola em dados: modelo estrela, Power Query e 36 medidas DAX conferidas contra o Python.">
+<meta property="og:image" content="img/01_visao_geral.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<script>
+  document.documentElement.classList.add("js");
+  try {
+    var t = localStorage.getItem("tema");
+    if (!t && matchMedia("(prefers-color-scheme: dark)").matches) t = "dark";
+    if (t) document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+<style>
+  :root { --bg: #e7e8ea; --surface: #fff; --painel: #f1f2f4; --linha: #e2e3e6; --ink: #131417; --muted: #5b5f67;
+    --accent: #f2652f; --accent-ink: #170b05; --accent-texto: #b2400f; --grafite: #2b2d33; --raio: 20px;
+    --fonte: "General Sans", "Segoe UI", system-ui, sans-serif; --ease: cubic-bezier(0.22, 1, 0.36, 1); color-scheme: light; }
+  :root[data-theme="dark"] { --bg: #0d0e10; --surface: #17181b; --painel: #202125; --linha: #2a2c31; --ink: #f1f1f3;
+    --muted: #a6a9b0; --accent: #f26a35; --accent-texto: #ff9a6e; --grafite: #26282d; color-scheme: dark; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.55 var(--fonte); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, p, figure, ol, ul { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .envolve { max-width: 1320px; margin: 0 auto; padding: 0 clamp(16px, 2vw, 28px); }
+  .barra { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-size: 0.9375rem; }
+  .barra nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  .barra a { text-decoration: none; }
+  .barra a:hover { color: var(--accent-texto); }
+  .marca { font-weight: 600; }
+  .cab { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px 64px; align-items: end; padding: 7vh 0 40px; }
+  h1 { font-size: clamp(2.5rem, 1.6rem + 3vw, 4.25rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; }
+  .cab p { max-width: 48ch; }
+  .numeros { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+  .numeros li { background: var(--surface); border-radius: 999px; padding: 8px 16px; font-size: 0.9375rem; }
+  .numeros strong { font-weight: 600; }
+  .visor { background: var(--grafite); border-radius: var(--raio); padding: clamp(14px, 2.2vw, 36px); }
+  .visor-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: #f1f1f3; margin-bottom: 16px; }
+  .visor-topo h2 { font-size: clamp(1.25rem, 1rem + 0.8vw, 1.75rem); font-weight: 600; letter-spacing: -0.015em; }
+  .visor-topo p { font-size: 0.9375rem; color: #b9bcc4; }
+  .setas { display: flex; gap: 8px; }
+  .setas button { width: 46px; height: 46px; border-radius: 50%; border: 0; background: #3a3d44; color: #fff; cursor: pointer; font-size: 1.25rem;
+    transition: transform 200ms var(--ease), background 200ms; }
+  .setas button:hover { background: var(--accent); color: var(--accent-ink); transform: scale(1.06); }
+  .tela { position: relative; border-radius: 12px; overflow: hidden; cursor: zoom-in; background: #e7e8ea; aspect-ratio: 1316 / 740; }
+  .tela img { width: 100%; height: 100%; object-fit: contain; transition: opacity 220ms ease, transform 400ms var(--ease); }
+  .tela img.trocando { opacity: 0; transform: scale(0.99); }
+  .miniaturas { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+  .miniaturas button { border: 0; padding: 0; background: none; cursor: pointer; text-align: left; color: #b9bcc4; font-size: 0.875rem; }
+  .miniaturas img { border-radius: 8px; opacity: 0.55; transition: opacity 200ms, transform 250ms var(--ease); outline: 2px solid transparent; outline-offset: 2px; }
+  .miniaturas span { display: block; margin-top: 6px; line-height: 1.3; }
+  .miniaturas button:hover img { opacity: 0.9; transform: translateY(-2px); }
+  .miniaturas button[aria-current="true"] img { opacity: 1; outline-color: var(--accent); }
+  .miniaturas button[aria-current="true"] span { color: #fff; }
+  .secao { margin-top: clamp(100px, 12vw, 160px); }
+  .secao > h2 { font-size: clamp(2rem, 1.4rem + 2vw, 3rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; margin-bottom: 14px; }
+  .secao > p { max-width: 60ch; margin-bottom: 32px; }
+  .todas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .todas button { border: 0; padding: 14px; background: var(--surface); border-radius: var(--raio); cursor: zoom-in; text-align: left;
+    transition: transform 300ms var(--ease); }
+  .todas button:hover { transform: translateY(-3px); }
+  .todas img { border-radius: 10px; }
+  .todas strong { display: block; margin: 12px 4px 2px; font-weight: 600; }
+  .todas span { display: block; margin: 0 4px 4px; font-size: 0.9375rem; }
+  .modelo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .modelo div { background: var(--surface); border-radius: var(--raio); padding: 22px 24px; }
+  .modelo h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; }
+  .modelo p { font-size: 1rem; }
+  .medidas { display: grid; gap: 12px; }
+  .medida { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 0; background: var(--surface); border-radius: var(--raio); overflow: hidden; }
+  .medida-texto { padding: 24px 26px; }
+  .medida-texto h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .medida-texto p { font-size: 1rem; }
+  .medida pre { margin: 0; background: var(--grafite); color: #f1f1f3; padding: 24px 26px; overflow-x: auto; font-size: 0.875rem; line-height: 1.6;
+    font-family: monospace; }
+  .medida pre b { color: #ff9a6e; font-weight: 400; }
+  .abrir { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .abrir div { background: var(--surface); border-radius: var(--raio); padding: 24px 26px; }
+  .abrir h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 10px; }
+  .abrir ol { list-style: decimal; padding-left: 20px; display: grid; gap: 6px; font-size: 1rem; }
+  .abrir code { font-family: monospace; font-size: 0.875rem; background: var(--painel); border-radius: 6px; padding: 1px 6px; color: var(--ink); }
+  .botao { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 999px; background: var(--accent); color: var(--accent-ink);
+    font-weight: 500; text-decoration: none; margin-top: 18px; transition: transform 250ms var(--ease); }
+  .botao:hover { transform: translateY(-2px); }
+  .rodape { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 22vh 0 30px; color: var(--muted); font-size: 0.9375rem; }
+  .rodape a { color: var(--ink); text-decoration: none; margin-left: 20px; }
+  .tema { border: 0; background: var(--surface); border-radius: 999px; padding: 8px 14px; cursor: pointer; font-size: 0.875rem; }
+  :root:not([data-theme="dark"]) [data-claro], :root[data-theme="dark"] [data-escuro] { display: none; }
+  dialog { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; }
+  dialog::backdrop { background: rgba(10, 10, 12, 0.88); }
+  dialog img { max-width: 96vw; max-height: 92vh; border-radius: 10px; }
+  dialog button { position: fixed; top: 16px; right: 16px; width: 46px; height: 46px; border-radius: 50%; border: 0; background: #fff; color: #131417; font-size: 1.25rem; cursor: pointer; }
+  @media (max-width: 900px) {
+    .cab, .abrir, .medida { grid-template-columns: minmax(0, 1fr); }
+    .modelo, .todas { grid-template-columns: minmax(0, 1fr); }
+    .miniaturas { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .visor-topo p { display: none; }
+  }
+  @media (max-width: 560px) { .barra nav a:not(.manter) { display: none; } .miniaturas span { font-size: 0.8125rem; } }
+  @media (max-width: 560px) { .medida pre { white-space: pre-wrap; padding: 20px 18px; font-size: 0.8125rem; } }
+  .js .revela { opacity: 0; transform: translateY(22px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
+  .js .revela.visivel { opacity: 1; transform: none; }
+  .modelo div, .medida, .abrir div { transition: transform 300ms var(--ease); }
+  .modelo div:hover, .medida:hover, .abrir div:hover { transform: translateY(-3px); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } .js .revela { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<div class="envolve">
+  <header class="barra">
+    <a class="marca" href="../">Clínicas-escola em dados</a>
+    <nav aria-label="Projeto">
+      <a class="manter" href="../">Página do projeto</a>
+      <a href="../dashboard/">Painel animado</a>
+      <a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores/tree/main/powerbi">Arquivos do Power BI</a>
+      <button class="tema" type="button" aria-label="Alternar tema claro ou escuro"><span data-escuro>Escuro</span><span data-claro>Claro</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cab" aria-labelledby="titulo">
+      <div>
+        <h1 id="titulo" class="revela">O relatório no Power BI</h1>
+        <ul class="revela numeros" aria-label="O relatório em números">
+          <li><strong>8</strong> páginas</li><li><strong>36</strong> medidas DAX</li><li><strong>10</strong> tabelas</li><li><strong>9</strong> relacionamentos</li>
+        </ul>
+      </div>
+      <p>Uma rede fictícia de 10 clínicas-escola, de nov/2025 a out/2026. O Power Query lê a base que o Python padronizou; cada medida foi conferida contra o Python dentro do motor do Power BI. As telas abaixo são do Power BI Desktop.</p>
+    </section>
+
+    <section class="visor revela" aria-labelledby="pagina-nome">
+      <div class="visor-topo">
+        <div>
+          <h2 id="pagina-nome">Visão geral</h2>
+          <p id="pagina-desc">Faturamento, consultas, faltas e espera; quem veio, quem faltou e quem desmarcou, mês a mês.</p>
+        </div>
+        <div class="setas">
+          <button type="button" id="anterior" aria-label="Página anterior">‹</button>
+          <button type="button" id="proxima" aria-label="Próxima página">›</button>
+        </div>
+      </div>
+      <button class="tela" type="button" id="tela" aria-label="Ver a página em tela cheia" style="border:0;padding:0;width:100%;display:block">
+        <img id="pagina-img" src="img/01_visao_geral.png" alt="Página Visão geral do relatório no Power BI" width="1316" height="740">
+      </button>
+      <div class="miniaturas" id="miniaturas"></div>
+    </section>
+
+    <section class="secao" aria-labelledby="t-todas">
+      <h2 id="t-todas" class="revela">Todas as páginas</h2>
+      <p class="revela">Clique numa página para ver em tela cheia.</p>
+      <div class="todas" id="todas"></div>
+    </section>
+
+    <section class="secao" aria-labelledby="t-modelo">
+      <h2 id="t-modelo" class="revela">O modelo por trás</h2>
+      <p>Um modelo estrela: três tabelas de fatos ligadas às mesmas dimensões, com a chave da clínica criada no Power Query.</p>
+      <div class="revela modelo">
+        <div><h3>Fatos</h3><p>Atendimentos (70.679 linhas, com taxa, motivo e espera na recepção), oferta de horários por dia e turno, e a fila de espera.</p></div>
+        <div><h3>Dimensões</h3><p>Calendário (com recesso e feriados), clínicas, pacientes (sem nome nem nascimento: LGPD), alunos com meta de horas e professores.</p></div>
+        <div><h3>Power Query</h3><p>Tipos lidos com a cultura en-US, só as colunas que o modelo declara, a chave da clínica e a mesclagem da fila com os atendimentos.</p></div>
+      </div>
+    </section>
+
+    <section class="secao" aria-labelledby="t-medidas">
+      <h2 id="t-medidas" class="revela">Quatro medidas que contam a história</h2>
+      <p>As 36 medidas estão no arquivo, com descrição. Estas quatro mostram as decisões que mais aparecem numa entrevista.</p>
+      <div class="medidas">
+        <article class="medida revela">
+          <div class="medida-texto"><h3>Taxa de faltas</h3><p>Cancelamento avisado fica de fora do denominador: o horário pôde ser remarcado. A falta é o horário perdido.</p></div>
+<pre><code><b>Taxa de faltas</b> =
+DIVIDE ( [Faltas], [Realizados] + [Faltas] )</code></pre>
+        </article>
+        <article class="medida revela">
+          <div class="medida-texto"><h3>Chamados em até 30 min</h3><p>No DAX, BLANK &lt; 30 é verdadeiro. Sem o NOT ISBLANK, quem não teve a chamada registrada entraria como “atendido rápido”.</p></div>
+<pre><code><b>Chamados em até 30 min</b> =
+DIVIDE (
+    CALCULATE (
+        COUNTROWS ( atendimentos ),
+        KEEPFILTERS ( atendimentos[espera_recepcao_min] &lt; 30 ),
+        KEEPFILTERS ( NOT ISBLANK ( atendimentos[espera_recepcao_min] ) )
+    ),
+    COUNT ( atendimentos[espera_recepcao_min] )
+)</code></pre>
+        </article>
+        <article class="medida revela">
+          <div class="medida-texto"><h3>Deixou de entrar com faltas</h3><p>Cruza o fato com a dimensão de pacientes: só conta a taxa de quem pagaria. Isento e atendimento sem prontuário ficam de fora.</p></div>
+<pre><code><b>Deixou de entrar com faltas</b> =
+CALCULATE (
+    SUM ( atendimentos[valor_tabela] ),
+    atendimentos[situacao] = "Falta",
+    pacientes[isento_taxa] = "Não"
+)</code></pre>
+        </article>
+        <article class="medida revela">
+          <div class="medida-texto"><h3>Alunos na meta</h3><p>O CALCULATE dentro do FILTER faz a transição de contexto: soma as horas de cada aluno da linha e compara com a meta proporcional dele.</p></div>
+<pre><code><b>Alunos na meta</b> =
+COUNTROWS (
+    FILTER (
+        alunos,
+        NOT ISBLANK ( alunos[meta_ate_fim_dados] )
+            &amp;&amp; CALCULATE ( SUM ( atendimentos[horas_pratica] ) )
+                &gt;= alunos[meta_ate_fim_dados]
+    )
+)</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <section class="secao" aria-labelledby="t-abrir">
+      <h2 id="t-abrir" class="revela">Abrir no seu Power BI</h2>
+      <p>O relatório está no formato de projeto (PBIP), em texto, versionado no GitHub e gerado por código.</p>
+      <div class="revela abrir">
+        <div>
+          <h3>No Power BI Desktop</h3>
+          <ol>
+            <li>Baixe o repositório no GitHub (Code › Download ZIP).</li>
+            <li>Abra <code>powerbi/clinicas_escola.pbip</code>.</li>
+            <li>Em Transformar dados › Editar parâmetros, aponte <code>PastaDados</code> para a pasta <code>data/tratado</code>.</li>
+            <li>Clique em Atualizar.</li>
+          </ol>
+          <a class="botao" href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">Ver no GitHub</a>
+        </div>
+        <div>
+          <h3>Como os números foram conferidos</h3>
+          <ol>
+            <li>Com o relatório aberto, o motor do Power BI roda numa porta local.</li>
+            <li>O script <code>scripts/conferir_powerbi.py</code> se conecta a ela, atualiza os dados e roda consultas DAX.</li>
+            <li>Cada resultado é comparado com o número calculado em Python. Se algum diverge, o script falha.</li>
+          </ol>
+          <a class="botao" href="../dashboard/">Ver o painel animado</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>Dados 100% fictícios, gerados por simulação. Diego Santiago, Recife, 2026.</p>
+    <p><a href="../">Página do projeto</a><a href="https://diegosantiago1.github.io/Portifolio/#projetos">Portfólio</a></p>
+  </footer>
+</div>
+
+<dialog id="ampliada" aria-label="Página do relatório em tela cheia">
+  <img id="ampliada-img" src="img/01_visao_geral.png" alt="">
+  <button type="button" id="fechar" aria-label="Fechar">×</button>
+</dialog>
+
+<script>
+(() => {
+  "use strict";
+  const PAGINAS = [
+    ["01_visao_geral", "Visão geral", "Faturamento, consultas, faltas e espera; quem veio, quem faltou e quem desmarcou, mês a mês."],
+    ["02_faturamento", "Faturamento", "A taxa social por mês, unidade e procedimento, e o que as faltas de quem pagaria levaram."],
+    ["03_faltas", "Faltas", "Dia e turno, tempo de espera na fila e o mês a mês da taxa de faltas."],
+    ["04_motivos", "Motivos", "Por que faltam e por que desmarcam, a chuva no inverno e o transporte por unidade."],
+    ["05_recepcao", "Espera na recepção", "Minutos da chegada até a chamada, por clínica e por horário marcado."],
+    ["06_agenda_fila", "Agenda e fila", "Ocupação e aproveitamento da agenda e a fila de espera de cada clínica."],
+    ["07_alunos", "Alunos e estágio", "Horas de prática de cada aluno contra a meta proporcional do semestre."],
+    ["08_qualidade", "Qualidade dos dados", "As 20 regras de padronização e as linhas para conferir na origem."],
+  ];
+  const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mini = document.getElementById("miniaturas");
+  const img = document.getElementById("pagina-img");
+  let atual = 0;
+  mini.innerHTML = PAGINAS.map(([arq, nome], i) =>
+    `<button type="button" data-i="${i}" aria-label="Página ${nome}"><img src="img/${arq}.png" alt="" width="1316" height="740"><span>${nome}</span></button>`).join("");
+  const botoes = [...mini.querySelectorAll("button")];
+  function ir(i) {
+    atual = (i + PAGINAS.length) % PAGINAS.length;
+    const [arq, nome, desc] = PAGINAS[atual];
+    botoes.forEach((b, k) => b.setAttribute("aria-current", String(k === atual)));
+    document.getElementById("pagina-nome").textContent = nome;
+    document.getElementById("pagina-desc").textContent = desc;
+    const trocar = () => { img.src = `img/${arq}.png`; img.alt = `Página ${nome} do relatório no Power BI`; img.classList.remove("trocando"); };
+    if (reduz) trocar(); else { img.classList.add("trocando"); setTimeout(trocar, 200); }
+  }
+  botoes.forEach((b) => b.addEventListener("click", () => ir(Number(b.dataset.i))));
+  document.getElementById("anterior").addEventListener("click", () => ir(atual - 1));
+  document.getElementById("proxima").addEventListener("click", () => ir(atual + 1));
+  addEventListener("keydown", (ev) => {
+    if (ev.target.closest("input, textarea")) return;
+    if (ev.key === "ArrowRight") ir(atual + 1);
+    if (ev.key === "ArrowLeft") ir(atual - 1);
+  });
+  const dlg = document.getElementById("ampliada");
+  function ampliar(src, alt) {
+    document.getElementById("ampliada-img").src = src;
+    document.getElementById("ampliada-img").alt = alt;
+    if (dlg.showModal) dlg.showModal();
+  }
+  document.getElementById("tela").addEventListener("click", () => ampliar(img.src, img.alt));
+  const todas = document.getElementById("todas");
+  todas.innerHTML = PAGINAS.map(([arq, nome, desc]) => `<button type="button" class="revela" data-arq="${arq}" data-nome="${nome}">
+    <img src="img/${arq}.png" alt="Página ${nome} do relatório no Power BI" width="1316" height="740" loading="lazy">
+    <strong>${nome}</strong><span>${desc}</span></button>`).join("");
+  todas.querySelectorAll("button").forEach((b) => b.addEventListener("click",
+    () => ampliar(`img/${b.dataset.arq}.png`, `Página ${b.dataset.nome} do relatório no Power BI`)));
+  document.getElementById("fechar").addEventListener("click", () => dlg.close());
+  dlg.addEventListener("click", (ev) => { if (ev.target === dlg) dlg.close(); });
+  document.querySelector(".tema").addEventListener("click", () => {
+    const r = document.documentElement;
+    r.dataset.theme = r.dataset.theme === "dark" ? "light" : "dark";
+    try { localStorage.setItem("tema", r.dataset.theme); } catch (e) { /* sem armazenamento */ }
+  });
+  ir(0);
+  const obs = "IntersectionObserver" in window ? new IntersectionObserver((itens) => {
+    for (const it of itens) if (it.isIntersecting) { it.target.classList.add("visivel"); obs.unobserve(it.target); }
+  }, { threshold: 0 }) : null;
+  document.querySelectorAll(".revela").forEach((el, i) => {
+    el.style.transitionDelay = `${Math.min(i % 4, 3) * 80}ms`;
+    if (obs) obs.observe(el); else el.classList.add("visivel");
+  });
+})();
+</script>
+</body>
+</html>
