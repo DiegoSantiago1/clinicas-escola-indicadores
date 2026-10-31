@@ -197,7 +197,9 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
 .spark { width: 100%; height: 44px; overflow: visible; }
 .spark path.linha { fill: none; stroke: var(--neutro); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .spark path.area { fill: var(--cartao-2); stroke: none; }
-.spark-quente path.linha { stroke: var(--quente); }
+.spark path.lacuna { fill: none; stroke: var(--neutro); stroke-width: 1.5; stroke-dasharray: 2 4; stroke-linecap: round; opacity: 0.45; }
+.spark-quente path.linha, .spark-quente path.lacuna { stroke: var(--quente); }
+.spark-claro path.lacuna { stroke: var(--sobre-quente); opacity: 0.6; }
 .spark-quente path.area { fill: var(--quente-suave); }
 .spark-claro { height: auto; min-height: 80px; flex: 1; }
 .spark-claro path.linha { stroke: var(--sobre-quente); stroke-width: 2.2; }

@@ -314,20 +314,32 @@
     const traco = (t) => t.map(([i, v], k) => `${k ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
     const d = trechos.map(traco).join(" ");
     const fundo = trechos.map((t) => `${traco(t)} L${x(t[t.length - 1][0]).toFixed(1)},${H} L${x(t[0][0]).toFixed(1)},${H} Z`).join(" ");
+    // Recesso: tracejado claro ligando os meses abertos, para o intervalo não parecer gráfico quebrado.
+    const lacunas = trechos.slice(1).map((t, k) => {
+      const [ai, av] = trechos[k][trechos[k].length - 1], [bi, bv] = t[0];
+      return `M${x(ai).toFixed(1)},${y(av).toFixed(1)} L${x(bi).toFixed(1)},${y(bv).toFixed(1)}`;
+    }).join(" ");
     const [ui, uv] = pontos[pontos.length - 1];
-    svg.innerHTML = `<path class="area" d="${fundo}"/>` +
+    svg.innerHTML = `<path class="area" d="${fundo}"/>` + (lacunas ? `<path class="lacuna" d="${lacunas}"/>` : "") +
       `<path class="linha" d="${d}"/><circle cx="${x(ui)}" cy="${y(uv)}" r="3.5"/>`;
     const linha = $(".linha", svg);
     const area = $(".area", svg);
+    const lacuna = $(".lacuna", svg);
     if (reduz) return;
     const L = linha.getTotalLength();
     linha.style.strokeDasharray = L;
     linha.style.strokeDashoffset = L;
     area.style.opacity = 0;
+    if (lacuna) lacuna.style.opacity = 0;
     linha.getBoundingClientRect();
     linha.style.transition = "stroke-dashoffset 1300ms cubic-bezier(.22,1,.36,1)";
     area.style.transition = "opacity 900ms ease 400ms";
-    requestAnimationFrame(() => { linha.style.strokeDashoffset = 0; area.style.opacity = 1; });
+    if (lacuna) lacuna.style.transition = "opacity 600ms ease 700ms";
+    requestAnimationFrame(() => {
+      linha.style.strokeDashoffset = 0;
+      area.style.opacity = 1;
+      if (lacuna) lacuna.style.opacity = "";
+    });
   }
 
   // ---------- barras horizontais ----------
