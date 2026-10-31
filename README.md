@@ -1,21 +1,16 @@
-# Clínicas-escola em dados
+# Painel Saúde: clínicas-escola em dados
 
-Um ano de atendimentos de uma rede fictícia de clínicas-escola (Odontologia, Fisioterapia, Psicologia e Nutrição) em Recife, Olinda e Jaboatão: dados espalhados em planilhas, sistema e tablet da recepção, padronizados em Python e transformados em indicadores num relatório Power BI de 8 páginas, num painel animado e num painel de trabalho, com a mesma base pronta para o Looker Studio.
+Um ano de atendimentos de uma rede fictícia de clínicas-escola (Odontologia, Fisioterapia, Psicologia e Nutrição) em Recife, Olinda e Jaboatão: dados espalhados em planilhas, sistema e tablet da recepção, padronizados em Python e transformados em indicadores num painel animado e num relatório Power BI de 8 páginas, com a mesma base pronta para o Looker Studio.
 
 ## 🔗 Acessar o projeto
 
-[![Abrir o projeto](https://img.shields.io/badge/%E2%96%B6%20Abrir%20o%20projeto-EA580C?style=for-the-badge)](https://diegosantiago1.github.io/clinicas-escola-indicadores/)
+[![Abrir o painel](https://img.shields.io/badge/%E2%96%B6%20Abrir%20o%20painel-EA580C?style=for-the-badge)](https://diegosantiago1.github.io/clinicas-escola-indicadores/dashboard/)
 [![Ver o Power BI](https://img.shields.io/badge/Ver%20o%20Power%20BI-2B2D33?style=for-the-badge&logo=powerbi&logoColor=F2C811)](https://diegosantiago1.github.io/clinicas-escola-indicadores/powerbi/)
-[![Painel animado](https://img.shields.io/badge/Painel%20animado-F2652F?style=for-the-badge)](https://diegosantiago1.github.io/clinicas-escola-indicadores/dashboard/)
 [![Ver no portfólio](https://img.shields.io/badge/Ver%20no%20portf%C3%B3lio-1F2937?style=for-the-badge&logo=googlechrome&logoColor=white)](https://diegosantiago1.github.io/Portifolio/#projetos)
-
-**Link direto:** https://diegosantiago1.github.io/clinicas-escola-indicadores/ abre a página do projeto: os dados, o problema, os achados, o painel interativo, a padronização ao vivo (digite como a recepção anotaria uma falta) e o índice do relatório no Power BI.
-
-**Relatório no Power BI:** https://diegosantiago1.github.io/clinicas-escola-indicadores/powerbi/ mostra as 8 páginas do relatório (capturadas do Power BI Desktop), o modelo e quatro medidas DAX explicadas. O arquivo está em [`powerbi/`](powerbi/).
 
 **Painel animado:** https://diegosantiago1.github.io/clinicas-escola-indicadores/dashboard/ responde as perguntas da gestão em quatro telas (visão geral, agenda e fila, motivos, espera): faturamento, quem veio e quem faltou, professores, horários, motivos de falta e espera na recepção, com filtro por unidade, sons e um assistente de perguntas (sem IA: as respostas saem dos dados).
 
-**Painel de trabalho:** https://diegosantiago1.github.io/clinicas-escola-indicadores/painel/ mostra a jornada de cada paciente em funil (na fila, chamado, em tratamento, sem retorno, encerrado), com o detalhe de cada um.
+**Relatório no Power BI:** https://diegosantiago1.github.io/clinicas-escola-indicadores/powerbi/ mostra as 8 páginas do relatório (capturadas do Power BI Desktop), o modelo e quatro medidas DAX explicadas. O arquivo está em [`powerbi/`](powerbi/).
 
 ![Relatório no Power BI: visão geral](site/powerbi/img/01_visao_geral.png)
 
@@ -97,10 +92,9 @@ simulacao.py ──► fontes.py ──► data/fontes/ (CSV do sistema, planilh
    Power Query: tipos, chave,         painel.json + base do Looker    (via Google Sheets)
    mesclagem; 36 medidas DAX                        │
                      │                              ▼
-                     └── conferir_powerbi.py ◄── página de resultados (site/)
-                                                     │
+                     └── conferir_powerbi.py ◄── painel.json + dashboard.json
+                                                     ▲
                                   dashboard.py ──► painel animado (site/dashboard/)
-                                  jornada.py   ──► painel de trabalho (site/painel/)
 ```
 
 ## Tecnologias e por quê
@@ -109,7 +103,7 @@ simulacao.py ──► fontes.py ──► data/fontes/ (CSV do sistema, planilh
 - **Power BI:** modelo estrela (atendimentos, oferta e fila ligados a calendário, clínicas, pacientes, alunos e supervisores), Power Query e 36 medidas DAX, incluindo inteligência de tempo (mês anterior), transição de contexto (alunos na meta), filtro cruzando fato e dimensão (faturamento perdido de quem pagaria) e o cuidado com BLANK (chamados em até 30 minutos). Cada medida conferida contra o Python no motor do Power BI.
 - **Looker Studio:** a mesma base, já agregada (`data/looker/base_looker_studio.xlsx`), e os campos calculados prontos. Passo a passo em [docs/LOOKER_STUDIO.md](docs/LOOKER_STUDIO.md).
 - **Excel:** as fontes são planilhas como as de uma recepção de verdade.
-- **pytest + ruff + GitHub Actions:** 89 testes a cada push.
+- **pytest + ruff + GitHub Actions:** 80 testes a cada push.
 - **HTML, CSS e JavaScript + Chart.js:** as páginas, sem framework. O painel animado usa a Web Audio API para os sons (sintetizados, sem arquivos) e a View Transitions API para a troca de tema.
 
 ## Como rodar
@@ -120,26 +114,21 @@ pip install -r requirements-dev.txt
 set PYTHONPATH=src
 python -m clinicas.fontes         # gera as fontes bagunçadas (e a verdade)
 python -m clinicas.padronizar     # padroniza e gera data/tratado
-python -m clinicas.indicadores    # indicadores, base do Looker e site/dados/painel.json
-python -m clinicas.jornada        # a jornada de cada paciente para o painel de trabalho (site/painel)
+python -m clinicas.indicadores    # indicadores, base do Looker e painel.json (referência do Power BI)
 python -m clinicas.dashboard      # números e respostas do painel animado (site/dashboard)
-pytest                            # 89 testes
+pytest                            # 80 testes
 python powerbi/gerar_pbip.py      # gera o relatório Power BI
 ```
 
 **Power BI:** abra `powerbi/clinicas_escola.pbip` no Power BI Desktop. Se a pasta do projeto for outra, ajuste o parâmetro `PastaDados` em Transformar dados → Editar parâmetros e clique em Atualizar. Ao fechar, **não salve** (o Power BI regravaria os arquivos gerados). Para conferir os números: `python scripts/conferir_powerbi.py` com o relatório aberto.
 
-**Páginas:** `python -m http.server 8000 -d site` e abra http://localhost:8000 (dar duplo clique no `index.html` não carrega os dados). A página do projeto, o painel animado (`/dashboard/`), o painel de trabalho (`/painel/`) e o relatório (`/powerbi/`) ficam em `site/`.
+**Páginas:** `python -m http.server 8000 -d site` e abra http://localhost:8000 (dar duplo clique no `index.html` não carrega os dados). O endereço principal abre o painel animado (`/dashboard/`); o relatório fica em `/powerbi/`.
 
 ## Documentos
 
 - [docs/INDICADORES.md](docs/INDICADORES.md): dicionário de indicadores (nome, fórmula, fonte, frequência).
 - [docs/DECISOES.md](docs/DECISOES.md): decisões técnicas e o que deu errado no caminho.
 - [docs/LOOKER_STUDIO.md](docs/LOOKER_STUDIO.md): montar o painel no Looker Studio.
-
-## Créditos
-
-Fotos da página via Pexels (licença e links de cada foto em `site/img/creditos.json`).
 
 ---
 

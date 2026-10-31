@@ -57,3 +57,10 @@ def test_arredondamento_igual_ao_da_pagina():
     assert dashboard.inteiro(30.5) == 31
     assert dashboard.inteiro(28.5) == 29
     assert dashboard.inteiro(26.4) == 26
+
+
+def test_porcentagem_igual_a_da_pagina():
+    """O toFixed(1) da página escreve 0,0525 como 5,3%; o formato do Python arredondava para o par (5,2%)."""
+    assert dashboard.pct(0.0525) == "5,3%"
+    assert dashboard.pct(0.2059) == "20,6%"
+    assert dashboard.pct(0.2034) == "20,3%"

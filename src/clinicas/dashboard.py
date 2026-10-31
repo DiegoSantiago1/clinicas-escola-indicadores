@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 import math
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 import pandas as pd
@@ -192,7 +193,9 @@ def moeda(v: float) -> str:
 
 
 def pct(v: float) -> str:
-    return f"{v * 100:.1f}%".replace(".", ",")
+    """Uma casa, com 0,5 para cima sobre o valor exato do float, como o toFixed(1) da página."""
+    casa = Decimal(v * 100).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
+    return f"{casa}%".replace(".", ",")
 
 
 def num(v: int) -> str:

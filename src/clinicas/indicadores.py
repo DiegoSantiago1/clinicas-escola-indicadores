@@ -3,7 +3,7 @@
 Serve a três coisas:
 1. os números de referência para conferir o Power BI (cada medida DAX tem de bater com estes);
 2. a tabela mensal e a planilha que o Looker Studio lê;
-3. o arquivo painel.json que a página de resultados mostra.
+3. o arquivo painel.json, onde esses números ficam gravados para o scripts/conferir_powerbi.py.
 
 As definições estão em docs/INDICADORES.md (o dicionário de indicadores).
 

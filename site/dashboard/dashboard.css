@@ -367,7 +367,7 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
   .trilho-item span { position: static; width: auto; height: auto; clip: auto; font-size: 12px; }
   .trilho-item[aria-current="true"] { background: var(--pilula); }
   .principal { padding: 16px 16px 150px; }
-  .abas, .botao { display: none; }
+  .abas, .botao:not(.botao-claro) { display: none; }
   h1 { font-size: 22px; }
   .filtro { margin: 14px 0 12px; }
   .filtro-rotulo, .filtro-nota { display: none; }
