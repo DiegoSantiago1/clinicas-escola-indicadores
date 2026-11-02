@@ -8,7 +8,7 @@ Um ano de atendimentos de uma rede fictícia de clínicas-escola (Odontologia, F
 [![Ver o Power BI](https://img.shields.io/badge/Ver%20o%20Power%20BI-2B2D33?style=for-the-badge&logo=powerbi&logoColor=F2C811)](https://diegosantiago1.github.io/clinicas-escola-indicadores/powerbi/)
 [![Ver no portfólio](https://img.shields.io/badge/Ver%20no%20portf%C3%B3lio-1F2937?style=for-the-badge&logo=googlechrome&logoColor=white)](https://diegosantiago1.github.io/Portifolio/#projetos)
 
-**Painel animado:** https://diegosantiago1.github.io/clinicas-escola-indicadores/dashboard/ responde as perguntas da gestão em quatro telas (visão geral, agenda e fila, motivos, espera): faturamento, quem veio e quem faltou, professores, horários, motivos de falta e espera na recepção, com filtro por unidade, sons e um assistente de perguntas (sem IA: as respostas saem dos dados).
+**Painel animado:** https://diegosantiago1.github.io/clinicas-escola-indicadores/dashboard/ responde as perguntas da gestão em quatro telas (visão geral, agenda e fila, motivos, espera): faturamento, quem veio e quem faltou, horários, motivos de falta e espera na recepção, com filtro por unidade, sons e um assistente de perguntas (sem IA: as respostas saem dos dados).
 
 **Relatório no Power BI:** https://diegosantiago1.github.io/clinicas-escola-indicadores/powerbi/ mostra as 8 páginas do relatório (capturadas do Power BI Desktop), o modelo e quatro medidas DAX explicadas. O arquivo está em [`powerbi/`](powerbi/).
 

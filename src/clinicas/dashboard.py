@@ -1,4 +1,4 @@
-"""Números do painel animado (site/dashboard): faturamento, presença, profissionais, fila,
+"""Números do painel animado (site/dashboard): faturamento, presença, fila,
 horários, motivos, espera na recepção, unidades e áreas.
 
 Tudo sai da base tratada (data/tratado), com as mesmas definições de docs/INDICADORES.md.
@@ -44,7 +44,7 @@ def arred(x: float, casas: int = 1) -> float:
     return round(float(x), casas)
 
 
-def bloco(a: pd.DataFrame, f: pd.DataFrame, sup: pd.DataFrame) -> dict:
+def bloco(a: pd.DataFrame, f: pd.DataFrame) -> dict:
     """Todos os números de um filtro (a rede ou uma unidade)."""
     meses = meses_do_periodo()
     a = a.assign(mes=a["data"].dt.strftime("%Y-%m"))
@@ -76,17 +76,6 @@ def bloco(a: pd.DataFrame, f: pd.DataFrame, sup: pd.DataFrame) -> dict:
              "pagos": int((g["valor_cobrado"] > 0).sum()), "taxa": float(g["valor_tabela"].iloc[0])}
             for k, g in sorted(a[realizado].groupby("procedimento"), key=lambda kg: -kg[1]["valor_cobrado"].sum())[:6]],
     }
-
-    # Profissionais: o supervisor (professor) responsável por cada atendimento.
-    nomes_sup = dict(zip(sup["codigo"], sup["nome"], strict=True))
-    prof = []
-    for codigo, g in a.groupby("supervisor"):
-        base = g[g["situacao"].isin(["Realizado", "Falta"])]
-        dia_turno = (base["data"].dt.day_of_week.map(lambda d: DIAS[d]) + " de " + base["turno"].str.lower()).mode()
-        prof.append({"codigo": codigo, "nome": nomes_sup[codigo], "clinica": g["clinica"].iloc[0],
-                     "atendimentos": int((g["situacao"] == "Realizado").sum()), "agendamentos": len(g),
-                     "taxa_faltas": arred(taxa_faltas(g), 4), "turno_principal": dia_turno.iloc[0]})
-    prof.sort(key=lambda p: (-p["atendimentos"], p["codigo"]))
 
     # Fila de espera por clínica: mediana de dias até a 1ª consulta (chamados no período)
     # e quantos ainda aguardam no último dia dos dados.
@@ -137,7 +126,7 @@ def bloco(a: pd.DataFrame, f: pd.DataFrame, sup: pd.DataFrame) -> dict:
             for u in UNIDADES if (justificadas & (a["unidade"] == u)).any()],
     }
 
-    # Espera na recepção: da chegada até o aluno chamar (só atendimentos com os dois horários).
+    # Espera na recepção: da chegada até o paciente ser chamado (só atendimentos com os dois horários).
     e = a[a["espera_recepcao_min"].notna()].copy()
     e["posicao"] = e.groupby(["unidade", "servico", "turno"])["hora"].rank(method="dense").astype(int)
     segunda_manha = (e["data"].dt.day_of_week == 0) & (e["turno"] == "Manhã")
@@ -181,7 +170,7 @@ def bloco(a: pd.DataFrame, f: pd.DataFrame, sup: pd.DataFrame) -> dict:
                  "aguardando": int((f["situacao"] == "Aguardando").sum()),
                  "espera_fila_mediana_dias": float(f.loc[f["data_primeira"] >= pd.Timestamp(INICIO),
                                                          "dias_espera"].median())},
-        "serie": serie, "faturamento": faturamento, "profissionais": prof, "fila": fila,
+        "serie": serie, "faturamento": faturamento, "fila": fila,
         "horarios": horarios, "dia_turno": dia_turno, "motivos": motivos, "espera": espera,
         "unidades": unidades, "areas": areas,
     }
@@ -221,7 +210,6 @@ def perguntas(b: dict, onde: str) -> list[dict]:
     mais_hora = max(hor, key=lambda h: h["agendamentos"])
     pior = max(hor, key=lambda h: h["taxa_faltas"])
     melhor = min(hor, key=lambda h: h["taxa_faltas"])
-    prof = b["profissionais"]
     mot = b["motivos"]
     falta_motivo = [m for m in mot["faltas"] if m["motivo"] not in ("Sem justificativa", "Não identificado")]
     desm = mot["desmarcacoes"]
@@ -237,11 +225,6 @@ def perguntas(b: dict, onde: str) -> list[dict]:
          f"{num(k['realizados'])} consultas realizadas e {num(k['faltas'])} faltas ({pct(k['taxa_faltas'])}). "
          f"Outras {num(k['cancelados_paciente'])} foram desmarcadas pelo paciente e "
          f"{num(k['cancelados_clinica'])} canceladas pela clínica."),
-        ("profissionais", "Qual professor atende mais e qual atende menos?",
-         f"{prof[0]['nome']} ({prof[0]['clinica']}) supervisionou {num(prof[0]['atendimentos'])} atendimentos; "
-         f"{prof[-1]['nome']} ({prof[-1]['clinica']}), {num(prof[-1]['atendimentos'])}. A diferença vem do "
-         "tamanho da clínica, da duração da sessão e dos turnos de cada professor: o paciente escolhe o "
-         "horário, não o professor."),
         ("fila", "Qual fila é a mais longa e qual é a mais curta?",
          f"Todas as filas {onde} andam no mesmo ritmo: mediana de {dias(fila[0]['espera_mediana_dias'])} até a "
          "1ª consulta." if fila[0]["espera_mediana_dias"] == fila[-1]["espera_mediana_dias"] else
@@ -285,14 +268,13 @@ def montar(pasta: Path = PASTA_TRATADO) -> dict:
     a = t["atendimentos"]
     pac = pd.read_csv(pasta / "pacientes.csv", dtype=str)
     a["isento"] = a["prontuario"].map(dict(zip(pac["prontuario"], pac["isento_taxa"], strict=True)))
-    sup = pd.read_csv(pasta / "supervisores.csv", dtype=str)
     f = t["fila"]
     filtros = {"*": "na rede"} | {u: f"em {UNIDADES[u].split()[0]}" for u in UNIDADES}
     blocos = {}
     for u, onde in filtros.items():
         au = a if u == "*" else a[a["unidade"] == u]
         fu = f if u == "*" else f[f["unidade"] == u]
-        b = bloco(au, fu, sup)
+        b = bloco(au, fu)
         b["perguntas"] = perguntas(b, onde)
         blocos[u] = b
     return {

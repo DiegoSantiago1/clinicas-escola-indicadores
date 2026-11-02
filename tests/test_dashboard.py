@@ -47,7 +47,7 @@ def test_faixas_de_espera_cobrem_todos_os_medidos(dados):
 
 def test_uma_resposta_para_cada_pergunta(dados):
     for u, b in dados["blocos"].items():
-        esperado = 10 if u == "*" else 9
+        esperado = 9 if u == "*" else 8
         assert len(b["perguntas"]) == esperado
         assert all(q["resposta"] and "nan" not in q["resposta"] for q in b["perguntas"])
 

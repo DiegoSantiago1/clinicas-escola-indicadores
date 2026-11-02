@@ -616,30 +616,6 @@
         ? "Todas as filas desta unidade andam no mesmo ritmo."
         : `Mais longa: ${fila[0].clinica}. Mais curta: ${ultima.clinica} (${FMT.dias(ultima.espera_mediana_dias)}).`;
 
-      const prof = b.profissionais;
-      const linha = (p, i, topo1) => {
-        const partes = p.nome.replace(/^Profa?\. /, "").split(" ");
-        const ini = partes[0][0] + partes[partes.length - 1][0];
-        return `<div class="prof${topo1 && i === 0 ? " topo1" : ""}"><span class="avatar">${ini}</span>
-          <span class="prof-nome">${p.nome}<small>${p.clinica} · ${p.turno_principal.toLowerCase()}</small></span>
-          <span class="prof-num"><span data-v="0" class="n-prof">0</span><small>${FMT.pct(p.taxa_faltas)} faltas</small></span></div>`;
-      };
-      const n = Math.min(7, Math.floor(prof.length / 2));
-      const mais = prof.slice(0, n), menos = prof.slice(-n).reverse();
-      $("#r-prof").innerHTML = `<div><h3>Mais atendimentos</h3>${mais.map((p, i) => linha(p, i, true)).join("")}</div>
-        <div><h3>Menos atendimentos</h3>${menos.map((p, i) => linha(p, i, false)).join("")}</div>`;
-      const nums = $$("#r-prof .n-prof");
-      const linhasProf = $$("#r-prof .prof");
-      [...mais, ...menos].forEach((p, i) => {
-        contar(nums[i], p.atendimentos);
-        dica(linhasProf[i], { titulo: p.nome, linhas: [
-          ["Clínica", p.clinica],
-          ["Atendimentos supervisionados", FMT.int(p.atendimentos), null, true],
-          ["Agendamentos", FMT.int(p.agendamentos)],
-          ["Taxa de faltas", FMT.pct(p.taxa_faltas)],
-          ["Turno mais frequente", p.turno_principal],
-        ], nota: "O professor supervisiona o aluno; o paciente escolhe o horário, não o professor." });
-      });
     },
 
     motivos() {
@@ -703,7 +679,7 @@
       contarChave("e-media", e.media_min);
       contarChave("e-segunda", e.segunda_manha_min);
       contarChave("e-demais", e.demais_min);
-      $("#n-espera-medidos").textContent = `Medido em ${FMT.int(e.medidos)} atendimentos. ${FMT.int(e.sem_chamada)} ficaram de fora: o aluno chamou sem registrar no tablet.`;
+      $("#n-espera-medidos").textContent = `Medido em ${FMT.int(e.medidos)} atendimentos. ${FMT.int(e.sem_chamada)} ficaram de fora: a chamada não foi registrada no tablet.`;
       const ate30 = e.faixas.slice(0, 3).reduce((t, x) => t + x.qtd, 0) / e.medidos;
       medidor($("#m-ate30"), ate30, "dos pacientes atendidos");
       dica($("#m-ate30"), { titulo: "Espera na recepção", linhas: e.faixas.map((x, i) =>
@@ -865,7 +841,7 @@
   // ---------- perguntas ----------
   const ALVO = { faturamento: ["geral", "c-faturamento"], presenca: ["geral", "c-presenca"], unidades: ["geral", "c-unidades"],
     areas: ["geral", "c-areas"], horarios: ["agenda", "c-horarios-faltas"], fila: ["agenda", "c-fila"],
-    profissionais: ["agenda", "c-profissionais"], motivos: ["motivos", "c-motivos"], espera: ["espera", "c-espera"] };
+    motivos: ["motivos", "c-motivos"], espera: ["espera", "c-espera"] };
   const chat = $("#chat"), bolha = $("#bolha"), msgs = $("#chat-msgs");
   function abrirChat(abrir) {
     chat.hidden = !abrir;

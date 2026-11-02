@@ -157,9 +157,10 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
 #c-unidades { grid-area: uni; } #c-areas { grid-area: are; } #c-procedimentos { grid-area: pro; }
 .bento-agenda { grid-template-areas:
   "hor hor hor hor fal fal fal fal cal cal cal cal"
-  "fil fil fil fil fil fil prf prf prf prf prf prf"; }
+  "fil fil fil fil fil fil fil fil fil fil fil fil"; }
 #c-horarios { grid-area: hor; } #c-horarios-faltas { grid-area: fal; } #c-calor { grid-area: cal; }
-#c-fila { grid-area: fil; } #c-profissionais { grid-area: prf; }
+#c-fila { grid-area: fil; }
+#c-fila .barra { grid-template-columns: minmax(0, 260px) minmax(0, 1fr) auto; column-gap: 24px; }
 .bento-motivos { grid-template-areas:
   "mot mot mot mot jus jus jus jus des des des des"
   "mot mot mot mot chu chu chu chu chu tra tra tra"; }
@@ -235,20 +236,6 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
 .barra.grande .barra-trilha { grid-column: 1 / -1; height: 14px; }
 .barra.grande .barra-sub { grid-column: 1 / -1; font-size: 13px; color: var(--tinta-2); }
 .barra.quente .barra-valor { color: var(--quente-texto); }
-
-/* ranking de professores */
-.ranking { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.ranking h3 { font-size: 13px; font-weight: 500; color: var(--tinta-2); margin: 0 0 8px; }
-.prof { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; align-items: center;
-  padding: 9px 0; }
-.prof + .prof { border-top: 1px solid var(--cartao-2); }
-.avatar { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 12px;
-  font-weight: 600; background: var(--cartao-2); color: var(--tinta); }
-.prof.topo1 .avatar { background: var(--quente); color: var(--sobre-quente); }
-.prof-nome { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.prof-nome small { display: block; font-size: 12px; color: var(--tinta-2); }
-.prof-num { font-size: 14px; font-weight: 500; text-align: right; }
-.prof-num small { display: block; font-size: 12px; color: var(--tinta-2); font-weight: 400; }
 
 /* rosca com legenda em barras */
 .rosca { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 18px; align-items: center; }
@@ -351,7 +338,7 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
 /* ---------- tablet ---------- */
 @media (max-width: 1100px) {
   .bento { grid-template-columns: 1fr 1fr; }
-  #c-faturamento, #c-presenca, #c-chuva, #c-cascata, #c-fila, #c-profissionais, #c-motivos { grid-column: 1 / -1; }
+  #c-faturamento, #c-presenca, #c-chuva, #c-cascata, #c-fila, #c-motivos { grid-column: 1 / -1; }
   .topo { gap: 14px; }
   .abas { order: 3; width: 100%; overflow-x: auto; }
 }
@@ -384,7 +371,6 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
   .kpi .spark { height: 34px; }
   .rosca { grid-template-columns: 1fr; }
   .rosca-graf { height: 180px; }
-  .ranking { grid-template-columns: 1fr; }
   .grafico, .grafico.alto { height: 190px; }
   .barra { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto; gap: 8px; }
   .bolha { display: none; }
@@ -416,7 +402,7 @@ h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.
 .df-nota { margin-top: 9px; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--dica-texto-2) 30%, transparent);
   color: var(--dica-texto-2); font-size: 12px; }
 [data-dica] { cursor: default; }
-.barra[data-dica]:hover .barra-cheia, .prof[data-dica]:hover .avatar { filter: brightness(1.12); }
+.barra[data-dica]:hover .barra-cheia { filter: brightness(1.12); }
 .barra[data-dica] { border-radius: 10px; transition: background 150ms; margin: -3px -6px; padding: 3px 6px; }
 .barra[data-dica]:hover { background: var(--cartao-2); }
 .celula[data-dica]:hover { outline: 2px solid var(--tinta); outline-offset: 1px; }

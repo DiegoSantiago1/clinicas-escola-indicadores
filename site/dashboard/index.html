@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Painel Saúde · clínicas-escola</title>
-<meta name="description" content="Painel Saúde: painel animado da rede fictícia de clínicas-escola: faturamento, presença, profissionais, fila, horários, motivos de falta e espera na recepção.">
+<meta name="description" content="Painel Saúde: painel animado da rede fictícia de clínicas-escola: faturamento, presença, fila, horários, motivos de falta e espera na recepção.">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="dashboard.css?v=11">
+<link rel="stylesheet" href="dashboard.css?v=13">
 <script>
   (function () {
     var r = document.documentElement, t = null;
@@ -183,11 +183,6 @@
             <div class="barras" id="b-fila"></div>
             <p class="nota" id="n-fila"></p>
           </article>
-          <article class="cartao alto2" id="c-profissionais" data-alvo="profissionais">
-            <div class="cartao-cab"><h2>Professores mais e menos procurados</h2><span class="dica">atendimentos supervisionados</span></div>
-            <div class="ranking" id="r-prof"></div>
-            <p class="nota">O paciente escolhe o horário, não o professor: quem supervisiona mais é quem cobre mais turnos numa clínica grande.</p>
-          </article>
         </div>
       </section>
 
@@ -258,7 +253,7 @@
     </main>
 
     <footer class="rodape">
-      <p>Painel Saúde. A Rede Acolher é fictícia: pacientes, alunos, professores e valores foram gerados por simulação. Nenhum dado é de instituição real.</p>
+      <p>Painel Saúde. A Rede Acolher é fictícia: pacientes, atendimentos e valores foram gerados por simulação. Nenhum dado é de instituição real.</p>
       <p><a href="https://github.com/DiegoSantiago1/clinicas-escola-indicadores">Código no GitHub</a></p>
     </footer>
   </div>
@@ -286,6 +281,6 @@
 </aside>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="dashboard.js?v=7"></script>
+<script src="dashboard.js?v=8"></script>
 </body>
 </html>
